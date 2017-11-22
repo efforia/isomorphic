@@ -5,7 +5,6 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      apiUrl: 'http://127.0.0.1:8000',
       passw: '',
       login: ''
     }
@@ -15,7 +14,7 @@ class Login extends Component {
   }
 
   handleSubmit(event) {
-    axios.get(this.state.apiUrl + '/tokens/', {
+    axios.get(this.props.api + '/tokens/', {
       crossdomain: true,
       auth: {
         username: this.state.login,

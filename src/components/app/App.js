@@ -12,10 +12,11 @@ class App extends Component {
   activate = token => this.setState({ token });
 
   render() {
+    const url = process.env.API || 'http://127.0.0.1:8000';
     if (this.state.token.length > 0) {
       return <Board/>;
     } else {
-      return <Login authenticate={this.activate}/>;
+      return <Login api={url} authenticate={this.activate}/>;
     }
   }
 }
