@@ -12,7 +12,7 @@ class App extends Component {
   activate = token => this.setState({ token });
 
   render() {
-    const url = process.env.API || 'http://127.0.0.1:8000';
+    const url = 'http://fretefacil.efforia.io';
     if (this.state.token.length > 0) {
       return <Board/>;
     } else {

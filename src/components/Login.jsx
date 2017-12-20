@@ -14,14 +14,11 @@ class Login extends Component {
   }
 
   handleSubmit(event) {
-    axios.get(this.props.api + '/tokens/', {
-      crossdomain: true,
-      auth: {
-        username: this.state.login,
-        password: this.state.passw
-      }
+    axios.post(this.props.api + '/api/auth/token/', {
+      username: this.state.login,
+      password: this.state.passw
     })
-    .then(result => this.props.authenticate(result.data.token))
+    .then((result) => this.props.authenticate(result.data.token))
     .catch((error) => {
       if (error.response.status === 401) alert('Unauthorized');
     });
