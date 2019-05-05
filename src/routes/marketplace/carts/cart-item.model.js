@@ -13,7 +13,7 @@ import mongooseDelete from 'mongoose-delete'
 // --------------- Module Schema
 const CartItemSchema = new mongoose.Schema({
   ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Cart', required: true },
-  information: { type: mongoose.Schema.Types.ObjectId, ref: 'MarketItem' },
+  information: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
   inventoryRef: { type: mongoose.Schema.Types.ObjectId, ref: 'InventoryItem', required: true },
   promotionRef: { type: mongoose.Schema.Types.ObjectId, ref: 'PromotionItem' },
   parentType: { type: String, default: 'Cart' },

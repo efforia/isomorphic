@@ -7,14 +7,14 @@
 
 // --------------- Module Imports
 import User from '../users/user.model'
-import EmailsCtrl from '../emails/emails.controller'
+import EmailsCtrl from '../../services/emails/emails.controller'
 
 // --------------- Module Controller
 const AdminCtrl = {
   ERRORS: {
     ROLE_IS_REQUIRED: 'ERROR_ROLE_IS_REQUIRED'
   },
-  async listUsers(admin, role, keyword, page, pageSize) {
+  listUsers: async (admin, role, keyword, page, pageSize) => {
     const byCriteria = { _id: { $ne: admin }, roles: role } // Sets query criteria
     if (keyword.length > 0) {
       // In case there is an keyword
@@ -34,19 +34,19 @@ const AdminCtrl = {
     return { users, count } // Returns the users list
   },
 
-  async deactivateUser(id) {
+  deactivateUser: async id => {
     const user = await User.findOneWithDeleted({ _id: id }) // Finds the user
     await user.delete() // Deactivates the user
     return user // Returns the user
   },
 
-  async activateUser(id) {
+  activateUser: async id => {
     const user = await User.findOneWithDeleted({ _id: id }) // Finds the user
     await user.restore() // Activates the user
     return user // Returns the user
   },
 
-  async changeUserRole(id, role) {
+  changeUserRole: async (id, role) => {
     if (!role) throw new Error(AdminCtrl.ERRORS.ROLE_IS_REQUIRED) // In case there is no role, 400!
     const user = await User.findOneAndUpdate(
       { _id: id },

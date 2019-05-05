@@ -12,13 +12,13 @@ import request from 'request'
 
 // --------------- Module Controller
 const NotificationsCtrl = {
-  sendNotification: async function(notification) {
-    return await this.send(notification) // Sends and return the notification
+  sendNotification: async (notification) => {
+    return this.send(notification) // Sends and return the notification
   },
-  getById: async function(id) {
-    return await Notification.findOne({ _id: id }, '', { sort: { createdAt: -1 } }) // Retrieves notification
+  getById: async (id) => {
+    return Notification.findOne({ _id: id }, '', { sort: { createdAt: -1 } }) // Retrieves notification
   },
-  getByUser: async function(user) {
+  getByUser: async (user) => {
     user = user._id // Gets session user
     let notifications = await Notification.find({ to: { $elemMatch: { $eq: user } } }, '', {
       sort: { createdAt: -1 }
@@ -29,8 +29,8 @@ const NotificationsCtrl = {
     })
     return notifications // Returns the notifications list
   },
-  send: async function(options) {
-    return new Promise(function(resolve, reject) {
+  send: async (options) => {
+    return new Promise((resolve, reject) => {
       if (!options) return reject({ message: 'You have sent empty options object' }) // In case the options object is empty
       let tags // Onesignal tags initialization
       if (options.to && options.to.length) {

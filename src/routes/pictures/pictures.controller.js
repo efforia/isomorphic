@@ -16,7 +16,7 @@ const storage = new Storage({ projectId: process.env.FIREBASE_CONFIG_PROJECT_ID 
 
 // --------------- Module Controller
 const PicturesCtrl = {
-  save: async function(filename, filepath, ownerId, mimeType, sent) {
+  save: async (filename, filepath, ownerId, mimeType, sent) => {
     try {
       await storage.bucket(bucket).upload(filepath, { destination: filename, resumable: false }) // Opens the storage bucket
       const bucketFile = await storage.bucket(bucket).file(filename) // Creates a bucket file
@@ -34,15 +34,15 @@ const PicturesCtrl = {
     } catch (e) {}
   },
 
-  get: async function(id) {
-    return await Picture.findOne({ _id: id }) // Gets the picture information
+  get: async (id) => {
+    return Picture.findOne({ _id: id }) // Gets the picture information
   },
 
-  getLatest: async function(ownerId) {
-    return await Picture.findOne({ ownerId: ownerId }) // Get the latest picture for the given item
+  getLatest: async (ownerId) => {
+    return Picture.findOne({ ownerId: ownerId }) // Get the latest picture for the given item
   },
 
-  remove: async function(id) {
+  remove: async (id) => {
     let picture = await Picture.findOne({ _id: id }).lean() // Gets picture information
     let file = await storage.bucket(bucket).file(picture.file) // Gets picture file
     await file.delete() // Deletes picture file

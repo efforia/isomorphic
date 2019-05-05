@@ -13,7 +13,7 @@ import mongooseDelete from 'mongoose-delete'
 import lifecycle from 'mongoose-lifecycle'
 import User from '../../users/user.model'
 
-require('mongoose-schemua-jsonschema')(mongoose)
+require('mongoose-schema-jsonschema')(mongoose)
 
 // --------------- Module Schema
 const CustomerSchema = new mongoose.Schema({

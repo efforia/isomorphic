@@ -23,7 +23,7 @@ const DEFAULT_BIRTHDATE = '1991-10-10'
 
 // --------------- Module Controller
 const CustomerRefsCtrl = {
-  create: async function(user) {
+  create: async (user) => {
     user = CustomerRefsCtrl.format(user) // Formats the user information
     let url = `${process.env.MOIP_BASE_URL}/v2/customers` // Sets payment gateway customer url
     let customer = (await axios.post(
@@ -44,12 +44,12 @@ const CustomerRefsCtrl = {
     await User.findOneAndUpdate({ _id: user._id }, { 'payment.customer': customer }) // Adds the account to the user on our database
     return customer // Returns the created account
   },
-  get: async function(id) {
+  get: async (id) => {
     let url = `${process.env.MOIP_BASE_URL}/v2/customers/${id}` // Sets payment gateway customer url
     let customer = (await axios.get(url, { headers: MOIP_HEADERS })).data // Calls gateway
     return customer // Returns the updated user
   },
-  remove: async function(user) {
+  remove: async (user) => {
     let id = user.payment.customer.id // Get account id
     let url = `${process.env.MOIP_BASE_URL}/v2/accounts/${id}` // Sets payment gateway delete url
     let deleted = (await axios.delete(url, { headers: MOIP_HEADERS })).body // Calls gateway

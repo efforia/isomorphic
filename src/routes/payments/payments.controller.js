@@ -33,7 +33,7 @@ const PaymentsCtrl = {
     let payment = (await axios.get(url, config)).data // Requests payment information
     return payment // Returns the payment information
   },
-  savePaymentMethod: async function(method) {
+  savePaymentMethod: async (method) => {
     delete method.createdAt // Removes timestamps in order to prevent conflicts
     delete method.updatedAt // Removes timestamps in order to prevent conflicts
     delete method.__v // Removes versioning in order to prevent conflicts
@@ -45,22 +45,22 @@ const PaymentsCtrl = {
       : await PaymentMethod.create(method) // Creates or updates method
     return saved // Returns subscription method
   },
-  togglePaymentMethod: async function(methodId) {
+  togglePaymentMethod: async (methodId) => {
     let method = await PaymentMethod.findOneWithDeleted({ _id: methodId })
     let toggled = method.deleted ? await method.restore() : await method.delete() // Deactivates method
     return toggled // Returns methods
   },
-  getPaymentMethods: async function(user) {
+  getPaymentMethods: async (user) => {
     return user.roles.indexOf('ADMIN') > -1
       ? await PaymentMethod.findWithDeleted({}).sort('label')
       : await PaymentMethod.find({}).sort('label') // Gets payment modes list
   },
-  getPaymentAuthKeys: async function() {
+  getPaymentAuthKeys: async () => {
     let url = `${process.env.MOIP_BASE_URL}/v2/keys` // Sets the request url
     let keys = (await axios.get(url, { headers: MOIP_HEADERS })).data // Retrieves the payent gateway keys
     return keys // Returns the keys
   },
-  getPublicKey: async function() {
+  getPublicKey: async () => {
     let url = `${process.env.MOIP_BASE_URL}/v2/keys` // Sets the request url
     let response = (await axios.get(url, { headers: MOIP_HEADERS })).data // Retrieves the payent gateway keys
     return response.keys.encryption // Returns the public key

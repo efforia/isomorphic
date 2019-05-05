@@ -9,26 +9,26 @@ import express from 'express'
 import path from 'path'
 import klawSync from 'klaw-sync'
 
-const routesPath = path.resolve(__dirname, '..', 'routes')
 const isWin = process.platform === 'win32'
-const routes = klawSync(routesPath)
+const routersPath = path.resolve(__dirname, '..', 'routes')
+const routers = klawSync(routersPath)
   .map(route => {
     if (route) return route.path
     return undefined
   })
-  .filter(route => route && route.indexOf('router.js') > -1)
+  .filter(route => route && route.indexOf('index.js') > -1)
 
-const getRouteName = routePath => routePath.replace(/-/g, ' ').toTitleCase()
 const init = app => {
   let routePath = ''
-  const router = express.Router()
-  routes.forEach(route => {
-    routePath = isWin ? route.split('\\') : route.split('/')
-    routePath = routePath[routePath.length - 2]
-    router.use(`/${routePath}`, require(`${route}`))
-    console.log(`☮ Initializing ${getRouteName(routePath)} routes...`.yellow)
+  let endpoint = ''
+  const appRouter = express.Router()
+  routers.forEach(router => {
+    routePath = isWin ? router.split('\\') : router.split('/')
+    endpoint = routePath[routePath.length - 2]
+    appRouter.use(`/${endpoint}`, require(`${router}`).default)
+    console.log(`☮ Initializing /${endpoint} routes...`.yellow)
   })
-  app.use(router) // Add to app routes
+  app.use(appRouter) // Add to app routers
 }
 
 export default { init }

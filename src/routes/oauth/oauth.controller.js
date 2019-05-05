@@ -2,7 +2,7 @@
 import User from '../users/user.model'
 
 const OauthCtrl = {
-  async accessWithFacebook(profile) {
+  accessWithFacebook: async profile => {
     const oauthUser = await User.findOne({ 'oauth.facebook.id': profile.id }).lean() // In case the user exists
     if (oauthUser) return Object.assign(oauthUser, { token: User.getTokenFor(oauthUser) }) // Creates a session and returns it
 

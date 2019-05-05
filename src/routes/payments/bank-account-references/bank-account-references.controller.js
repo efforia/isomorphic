@@ -23,7 +23,7 @@ const MOIP_HEADERS = {
 
 // --------------- Module Controller
 const BankAccountRefsCtrl = {
-  add: async function(user, accountInfo) {
+  add: async (user, accountInfo) => {
     if (!user.payment || !user.payment.merchant) {
       // In case the user does not have a merchant account
       let merchantAccount = await MerchantRefCtrl.create(user) // Creates the merchant account
@@ -41,7 +41,7 @@ const BankAccountRefsCtrl = {
     ).lean() // Adds account on DB
     return user.payment.bankAccounts // Returns updated bank accounts list
   },
-  remove: async function(user, id) {
+  remove: async (user, id) => {
     try {
       await moip.bankAccount.remove(id)
     } catch (e) {
@@ -55,7 +55,7 @@ const BankAccountRefsCtrl = {
     let bankAccounts = user.payment ? user.payment.bankAccounts : [] // Gets updates bank accounts list
     return bankAccounts // Returns bank accounts list
   },
-  list: async function(user) {
+  list: async user => {
     user = await User.findOne({ _id: user._id }).lean() // Gets logged in user
     let bankAccounts = user.payment && user.payment.bankAccounts ? user.payment.bankAccounts : [] // Gets bank accounts
     return bankAccounts // Returns bank accounts

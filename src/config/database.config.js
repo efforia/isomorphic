@@ -15,8 +15,8 @@ const connect = async () => {
     mongoose.set('useCreateIndex', true)
     await mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true })
     return mongoose.connection.db
-  } catch (error) {
-    console.log(`☮ MongoDB connection failure: ${error}!`.red)
+  } catch (e) {
+    console.log(`☮ MongoDB connection failure: ${e}!`.red)
   }
 }
 

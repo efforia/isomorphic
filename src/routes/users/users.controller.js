@@ -8,7 +8,7 @@
 // --------------- Module Imports
 import auth from '../../services/auth.service'
 
-import EmailsCtrl from '../emails/emails.controller'
+import EmailsCtrl from '../../services/emails/emails.controller'
 import DataService from '../../services/data.service'
 import User from './user.model'
 import Admin from '../admin/admin.model'
@@ -24,7 +24,7 @@ const UsersCtrl = {
   ERRORS: {
     DUPLICATED_USER: 'DUPLICATED_USER'
   },
-  create: async function(information) {
+  create: async (information) => {
     let result = await User.findOne({ email: information.email }) // Tries to locate user
     if (result) throw new Error(UsersCtrl.ERRORS.DUPLICATED_USER) // In case it already exists, return error
     if (information.role == 'ADMIN' || information.role == 'admin')
@@ -38,10 +38,10 @@ const UsersCtrl = {
     let user = created.toObject() // Turns user object into editable object
     return Object.assign(user, { token: User.getTokenFor(user) }) // Returns the created user
   },
-  getModel(roles) {
+  getModel: (roles) => {
     return UserModels[UserModelKeys.filter(model => roles.indexOf(model) > -1)] || User
   },
-  sendWelcomeEmail: async function(user) {
+  sendWelcomeEmail: async (user) => {
     auth.generateEmailConfirmation(async confirmation => {
       confirmation = confirmation + user._id // Generates e-mail confirmation hash
       user = await User.findOneAndUpdate(
@@ -64,15 +64,15 @@ const UsersCtrl = {
       return sent // Returns confirmation
     })
   },
-  get: async function(user) {
+  get: async (user) => {
     user = await User.findOne({ _id: user._id }, '-password') // Retrieves the user
     return Object.assign(user.toObject(), { token: User.getTokenFor(user) }) // Sends it with an updated token
   },
-  isUniqueUsername: async function(username) {
+  isUniqueUsername: async (username) => {
     let exists = await User.findOne({ username: username }).lean() // Checks if the username already exists on the database
     return !exists // Returns confirmation
   },
-  update: async function(user, updates) {
+  update: async (user, updates) => {
     let UserModel = UsersCtrl.getModel(user.roles) // Gets proper user model (Hell, yeah, polimorphism!)
     if (!user.__t) UserModel = User // In case there is no role, use the User-father-of-all
     delete updates.role // Deletes role (prevents Mr. Robots to get in)
@@ -87,15 +87,15 @@ const UsersCtrl = {
     ).lean() // Updates the user
     return Object.assign(user, { token: User.getTokenFor(user) }) // Returns the updated user
   },
-  authenticate: async function(email) {
+  authenticate: async (email) => {
     const user = await User.findOne({ email: email }, '-password') // Gets the user information (without password, of course)
     user.update({ $set: { active: true } }) // Sets it as active on the application database
     return Object.assign(user.toObject(), { token: User.getTokenFor(user) }) // Returns the user information
   },
-  updatePassword: async function(user, newPassword) {
-    return await User.findOneAndUpdate({ _id: user._id }, { $set: { password: newPassword } }) // Returns updated user
+  updatePassword: async (user, newPassword) => {
+    return User.findOneAndUpdate({ _id: user._id }, { $set: { password: newPassword } }) // Returns updated user
   },
-  recoverPassword: async function(email) {
+  recoverPassword: async (email) => {
     let user = await User.findOne({ email: email }) // Gets user information
     if (!user) throw new Error('Whoops! Check your credentials and try again!') // In case there is no user with this e-mail, return error
     auth.generatePassword(async randomPassword => {

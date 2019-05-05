@@ -12,7 +12,7 @@ import Coupon from './coupon.model'
 
 // --------------- Module Controller
 const CouponsCtrl = {
-  save: async function(coupon) {
+  save: async (coupon) => {
     let couponInfo = CouponPkg(coupon.name)
       .give(coupon.discount)
       .limit(coupon.maxRedemptions)
@@ -21,17 +21,17 @@ const CouponsCtrl = {
       ? await Coupon.findOneAndUpdate({ _id: coupon._id }, couponInfo, { new: true })
       : await Coupon.create(couponInfo)
   },
-  list: async function() {
+  list: async () => {
     let coupons = await Coupon.findWithDeleted({}) // Retrieves all the coupons
     return coupons // Returns coupons
   },
-  get: async function(name) {
-    return await Coupon.findOne({ name: name }) // Returns the coupon info
+  get: async (name) => {
+    return Coupon.findOne({ name: name }) // Returns the coupon info
   },
-  use: async function(name) {
-    return await Coupon.findOneAndUpdate({ name: name }, { $inc: { countMax: -1 } }) // Reduces the couopon quantity
+  use: async (name) => {
+    return Coupon.findOneAndUpdate({ name: name }, { $inc: { countMax: -1 } }) // Reduces the couopon quantity
   },
-  toggle: async function(couponId) {
+  toggle: async (couponId) => {
     let coupon = await Coupon.findOneWithDeleted({ _id: couponId })
     let toggled = coupon.deleted ? await coupon.restore() : await coupon.delete() // Deactivates coupon
     return toggled // Returns coupon

@@ -20,7 +20,7 @@ import { MoipCreditCard } from 'moip-sdk-js'
 
 // --------------- Module Controller
 const CardRefsCtrl = {
-  add: async function(user, cardInfo) {
+  add: async (user, cardInfo) => {
     if (!user.payment || !user.payment.customer) {
       // In case the user does not have an customer account
       let customerAccount = await CustomerRefCtrl.create(user) // Creates the customer account
@@ -78,7 +78,7 @@ const CardRefsCtrl = {
     let instruments = user.payment ? user.payment.instruments : [] // Retrieves the updated payment instruments list
     return instruments // Returns the list
   },
-  remove: async function(user, id) {
+  remove: async (user, id) => {
     user = await User.findOneAndUpdate(
       { _id: user._id },
       { $pull: { 'payment.instruments': { _id: new mongoose.Types.ObjectId(id) } } },
@@ -87,12 +87,12 @@ const CardRefsCtrl = {
     let instruments = user.payment ? user.payment.instruments : [] // Retrieves the updated payment instruments list
     return instruments // Returns the list
   },
-  list: async function(user) {
+  list: async user => {
     user = await User.findOne({ _id: user._id }).lean() // Retrieves logged in user
     let instruments = user.payment && user.payment.instruments ? user.payment.instruments : [] // Retrieves payment instruments list
     return instruments // Returns the list
   },
-  hash: async function(card) {
+  hash: async card => {
     let pub_key = await PaymentCtrl.getPublicKey() // Gets the cateway master account public key
     let hash = await MoipCreditCard.setEncrypter(JSEncrypt, 'node')
       .setPubKey(pub_key)

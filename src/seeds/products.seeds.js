@@ -2,8 +2,8 @@ import 'colors'
 import path from 'path'
 import fs from 'fs-extra'
 import { Storage } from '@google-cloud/storage'
-import MarketItem from '../routes/marketplace/market-items/market-item.model'
-import MarketItemCategory from '../routes/marketplace/market-item-categories/market-item-category.model'
+import Product from '../routes/marketplace/products/product.model'
+import ProductCategory from '../routes/marketplace/product-categories/product-category.model'
 import Picture from '../routes/pictures/picture.model'
 import SEOUtils from '../services/seo.service'
 
@@ -27,19 +27,19 @@ const storage = new Storage({
 const { log } = console
 
 const saveCategories = () => {
-  log(`☮ DB: Planting seeds for the MarketItemCategory model...`.yellow)
-  MarketItemCategory.remove({}, async () => {
+  log(`☮ DB: Planting seeds for the ProductCategory model...`.yellow)
+  ProductCategory.remove({}, async () => {
     await Promise.all(
       categories.map(async category => {
         const rawChildren = [].concat(category.children)
         return new Promise(async resolve => {
           log(`Creating ${category.description}...`)
           const children = []
-          let parent = await MarketItemCategory.findOne({
+          let parent = await ProductCategory.findOne({
             description: category.description
           })
           if (!parent)
-            parent = await MarketItemCategory.create(
+            parent = await ProductCategory.create(
               Object.assign(category, {
                 isRoot: true,
                 children: [],
@@ -50,11 +50,11 @@ const saveCategories = () => {
             rawChildren.map(child => {
               log(`Creating ${child.description}...`)
               return new Promise(async resolve => {
-                let createdChild = await MarketItemCategory.findOne({
+                let createdChild = await ProductCategory.findOne({
                   description: child.description
                 })
-                if (!createdChild) {
-                  createdChild = await MarketItemCategory.create(
+                if (!createdChild) => {
+                  createdChild = await ProductCategory.create(
                     Object.assign(child, {
                       parent: parent._id,
                       slug: SEOUtils.getSlugFrom(`${parent.description} ${child.description}`)
@@ -66,7 +66,7 @@ const saveCategories = () => {
               })
             })
           )
-          const updated = await MarketItemCategory.findOneAndUpdate(
+          const updated = await ProductCategory.findOneAndUpdate(
             { _id: parent._id },
             { children }
           )
@@ -104,9 +104,9 @@ const savePictures = async () => {
 }
 
 const saveItems = () => {
-  log(`☮ DB: Planting seeds for the MarketItem model...`.yellow)
+  log(`☮ DB: Planting seeds for the Product model...`.yellow)
   let failureCount = 0
-  MarketItem.find({}, async () => {
+  Product.find({}, async () => {
     const pictureFiles = (await storage.bucket(bucket).getFiles())[0]
     await Promise.all(
       products.map(
@@ -118,10 +118,10 @@ const saveItems = () => {
               const subcategorySlug = SEOUtils.getSlugFrom(
                 `${product.category ? product.category : ''} ${product.subcategory}`
               )
-              const category = await MarketItemCategory.findOne({
+              const category = await ProductCategory.findOne({
                 slug: categorySlug
               })
-              const subcategory = await MarketItemCategory.findOne({
+              const subcategory = await ProductCategory.findOne({
                 slug: subcategorySlug
               })
               const picture = pictureFiles.filter(
@@ -141,9 +141,9 @@ const saveItems = () => {
               delete product.category
               delete product.subcategory
               delete product.brand
-              let item = await MarketItem.findOne({ slug: product.slug })
-              if (!item) item = await MarketItem.create(product)
-              if (picture && picture.metadata && item) {
+              let item = await Product.findOne({ slug: product.slug })
+              if (!item) item = await Product.create(product)
+              if (picture && picture.metadata && item) => {
                 const { metadata } = picture
                 /* await picture.makePublic() */
                 const pictureExists = await Picture.findOne({
@@ -159,7 +159,7 @@ const saveItems = () => {
                     externalRef: metadata.mediaLink
                   })
                 if (!pictureExists) await createdPicture.save()
-                await MarketItem.findOneAndUpdate(
+                await Product.findOneAndUpdate(
                   { _id: item._id },
                   {
                     pictures: [createdPicture._id],
@@ -178,7 +178,7 @@ const saveItems = () => {
           })
       )
     )
-    log(`☮ DB: MarketItem seeds planted!`.green)
+    log(`☮ DB: Product seeds planted!`.green)
     log(`Failure count: ${failureCount}`)
   })
 }

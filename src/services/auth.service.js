@@ -23,32 +23,30 @@ const auth = {
       if (token) {
         User.findOneWithDeleted(
           { _id: jwt.verify(token, process.env.MASTER_KEY)._id },
-          async function(error, user) {
+          async (error, user) => {
             if (error) {
               res.status(500).json(error)
-            } else {
-              if (user) {
-                req.user = user.toObject()
-                if (user.payment && user.payment && user.payment.subscription) {
-                  req.user = await User.findOneAndUpdate(
-                    { _id: user._id },
-                    {
-                      'payment.hasDelayedPayments': await SubscriptionCtrl.isOutOfDate(
-                        user.payment.subscription.code
-                      )
-                    }
-                  ).lean()
-                  next()
-                } else {
-                  next()
-                }
+            } else if (user) {
+              req.user = user.toObject()
+              if (user.payment && user.payment && user.payment.subscription) {
+                req.user = await User.findOneAndUpdate(
+                  { _id: user._id },
+                  {
+                    'payment.hasDelayedPayments': await SubscriptionCtrl.isOutOfDate(
+                      user.payment.subscription.code
+                    )
+                  }
+                ).lean()
+                next()
               } else {
-                res
-                  .status(401)
-                  .json(
-                    'Whoops! It looks like this is not an valid token for this domain. Have you been switching between environments lately? :('
-                  )
+                next()
               }
+            } else {
+              res
+                .status(401)
+                .json(
+                  'Whoops! It looks like this is not an valid token for this domain. Have you been switching between environments lately? :('
+                )
             }
           }
         )

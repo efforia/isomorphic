@@ -6,29 +6,27 @@
  */
 
 // --------------- Module Imports
-import Order from './order.model'
+import currencyFormatter from 'currency-formatter'
 
+import Order from './order.model'
 import User from '../../users/user.model'
 import ReceivingMode from './receiving-mode.model'
 import Notification from '../../notifications/notification.model'
-import EmailsCtrl from '../../emails/emails.controller'
-import currencyFormatter from 'currency-formatter'
-import MerchantCtrl from '../merchants/merchants.controller.js'
+import EmailsCtrl from '../../../services/emails/emails.controller'
+import MerchantCtrl from '../merchants/merchants.controller'
 import OrderRefsCtrl from '../../payments/order-references/order-references.controller'
-import InventoryItem from '../inventories/inventory-item.model'
-import locales from '../../../services/locales.service'
 import socket from '../../../services/socket.service'
 
-// --------------- Module functions
+// --------------- Module s
 const pad = num => {
-  num = parseInt(num)
-  return num < 10 ? '0' + num.toString() : num.toString()
+  const parsed = parseInt(num, 10)
+  return parsed < 10 ? `0${parsed.toString()}` : parsed.toString()
 }
 
 // --------------- Module controller
 const OrdersCtrl = {
-  create: async function(user, order) {
-    let gatewayInfo = {} // Declares function variables
+  create: async (user, order) => {
+    let gatewayInfo = {} // Declares  variables
     let isGatewayPayment = order && order.paymentInstrument && order.paymentInstrument.first4 // Checks if order is payed by the app
     let amount = await OrdersCtrl.calculateAmount(order) // Gets order total amount
     let merchant = await User.findOne({ _id: order.merchant }) // Gets order merchant
@@ -42,8 +40,7 @@ const OrdersCtrl = {
     await OrdersCtrl.notifyUsersAbout(order) // Sends notification to the related users about the order
     return order // Returns the created order to the front end
   },
-
-  notifyUsersAbout: async function(order) {
+  notifyUsersAbout: async order => {
     order = await OrdersCtrl.format(order.toObject()) // Formats order properly
     let merchant = await User.findOne({ _id: order.merchant }) // Gets order merchant
     let customer = await User.findOne({ _id: order.customer }) // Gets order customer
@@ -92,8 +89,8 @@ const OrdersCtrl = {
     socket.emit(options.orderEvent, Object.assign({ room: options.to._id }, notification)) // Sends the notification
     return OrdersCtrl.sendOrderMail(order, options) // And the order e-mail
   },
-  sendOrderMail: async function(order, options) {
-    let mail = {
+  sendOrderMail: async (order, options) => {
+    const mail = {
       // Intializes the e-mail
       from: `${process.env.PROJECT_DISPLAY_NAME} <${process.env.PROJECT_CONTACT_EMAIL}>`, // From the project mailer account
       subject: `${options.title}`, // With the order update proper title
@@ -110,7 +107,7 @@ const OrdersCtrl = {
     }
     return EmailsCtrl.send(mail) // Sends the e-mail and returns it
   },
-  cancel: async function(id) {
+  cancel: async id => {
     let order = await Order.findOneAndUpdate(
       { _id: id },
       { $set: { status: 'canceled' } }
@@ -118,12 +115,12 @@ const OrdersCtrl = {
     await OrdersCtrl.notifyUsersAbout(order) // Notifties the users about it
     return order // Returns the cancelled order
   },
-  accept: async function(user, id) {
+  accept: async (user, id) => {
     let merchant = user // Gets the session user
     let order = await Order.findOne({ _id: id }).populate('customer merchant items.information') // Gets the order information
     if (order.isGatewayPayment) {
       // In case the order payment is going through the payments gateway
-      let response = await OrderRefsCtrl.authorizePayment(id)
+      await OrderRefsCtrl.authorizePayment(id)
     }
     await Promise.all(
       order.items.map(async item => {
@@ -143,7 +140,7 @@ const OrdersCtrl = {
     return order // Returns order
   },
 
-  rate: async function(user, id, rate) {
+  rate: async (user, id, rate) => {
     let ratings = {} // Initializes ratings object
     let role = user.__t // Checks user role
     if (role == 'Merchant') ratings.merchantRate = rate
@@ -153,7 +150,7 @@ const OrdersCtrl = {
     if (role == 'Customer') MerchantCtrl.updateRating(order.merchant) // Merchant rating update
     return order // Returns confirmation
   },
-  getOrdersByUserId: async function(user, status) {
+  getOrdersByUserId: async (user, status) => {
     let criteria = { $or: [{ customer: user }, { merchant: user }] } // Gets orders for customers and merchants conditionally
     if (status) Object.assign(criteria, { status: status }) // Filter for order status if required
     let orders = await Order.find(criteria)
@@ -162,7 +159,7 @@ const OrdersCtrl = {
       .lean() // Gets orders list
     return orders // Returns orders list
   },
-  getOrdersByDatesAndUserId: async function(user, startDate, endDate, status) {
+  getOrdersByDatesAndUserId: async (user, startDate, endDate, status) => {
     user = user._id // Gets session user
     let criteria = { $or: [{ customer: user }, { merchant: user }] } // Initializes query criteria
     if (status) Object.assign(criteria, { status: status }) //  Filter for order status if required
@@ -201,7 +198,7 @@ const OrdersCtrl = {
     })
     return dates // Returns the formatted dates
   },
-  getById: async function(user, id) {
+  getById: async (user, id) => {
     let requesterIsCustomer = user.roles.indexOf('CUSTOMER') > -1 // Checks which is the user role
     let order = await Order.findOne({ _id: id })
       .populate('customer merchant items.information')
@@ -212,7 +209,7 @@ const OrdersCtrl = {
     delete order.ratings // Deletes original ratings property
     return order // Returns order
   },
-  getOrdersByDates: async function(merchant, startDate, endDate) {
+  getOrdersByDates: async (merchant, startDate, endDate) => {
     let orders = await Order.find({
       merchant: merchant._id,
       $and: [{ createdAt: { $gte: startDate } }, { createdAt: { $lte: endDate } }]
@@ -222,10 +219,10 @@ const OrdersCtrl = {
       .lean() // And sorted by date
     return orders // Returns the orders
   },
-  listReceivingModes: async function() {
-    return await ReceivingMode.find({}) // Returns order receiving modes
+  listReceivingModes: async () => {
+    return ReceivingMode.find({}) // Returns order receiving modes
   },
-  calculateAmount: async function(data) {
+  calculateAmount: async data => {
     let subtotal = 0.0 // Declares subtotal variable
     let items = data.items || []
     items.forEach(item => {
@@ -242,7 +239,7 @@ const OrdersCtrl = {
     amount.total = subtotal + (amount.deliveryTax || 0.0) // Sums up the subtotals
     return amount // Return amount
   },
-  format: async function(order) {
+  format: async order => {
     order.items.map(item => {
       // For every item
       item.discountPrice = currencyFormatter.format(item.discountPrice, { locale: 'pt-BR' }) // Formats as locale currency

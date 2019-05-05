@@ -23,7 +23,7 @@ const DEFAULT_BIRTHDATE = '1990-10-10'
 
 // --------------- Module Controller
 const MerchantRefCtrl = {
-  create: async function(user) {
+  create: async (user) => {
     user = MerchantRefCtrl.formatAccountForGateway(user) // Fomats the database user as the payment gateway requires
     let url = `${process.env.MOIP_BASE_URL}/v2/accounts` // Sets the URL for the request
     let data = {

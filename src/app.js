@@ -26,8 +26,7 @@ import storage from './config/storage.config'
 
 const { log } = console
 
-const dotenvPath = path.resolve(__dirname, './.env')
-const env = dotenv.config({ path: dotenvPath })
+const env = dotenv.config()
 dotenvExpand(env)
 
 const app = express()
@@ -43,7 +42,7 @@ app.use(passport.initialize())
 app.use(logger('dev'))
 app.set('port', port)
 const server = app.listen(port, () => {
-  // router.init(app)
+  router.init(app)
   database.connect()
   // storage.init(app)
   if (process.env.NODE_ENV === 'dev') seeds.init(app)

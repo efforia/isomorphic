@@ -7,7 +7,7 @@ passport.use(
       clientID: process.env.FACEBOOK_CLIENT_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET
     },
-    function(accessToken, refreshToken, profile, next) {
+    (accessToken, refreshToken, profile, next) => {
       let user = profile._json
       return next(null, user)
     }

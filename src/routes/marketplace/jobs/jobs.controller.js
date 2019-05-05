@@ -14,7 +14,7 @@ import NotificationsCtrl from '../../notifications/notifications.controller'
 
 // --------------- Module Controller
 const JobsCtrl = {
-  requestNearby: async function(user, service, latitude, longitude, radius, keyword) {
+  requestNearby: async (user, service, latitude, longitude, radius, keyword) => {
     let merchants = await MerchantCtrl.nearbyByService(
       service,
       latitude,
@@ -41,8 +41,8 @@ const JobsCtrl = {
     })
     return { order: order, merchants: merchant } // Returns the created order
   },
-  getByMerchant: async function(merchant) {
-    return await Job.find({ merchant: merchant._id }) // Returns the jobd events
+  getByMerchant: async (merchant) => {
+    return Job.find({ merchant: merchant._id }) // Returns the jobd events
   }
 }
 export default JobsCtrl

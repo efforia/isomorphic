@@ -23,7 +23,7 @@ const OrderSchema = mongoose.Schema({
   availableMerchants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   items: [
     {
-      information: { type: mongoose.Schema.Types.ObjectId, ref: 'MarketItem' },
+      information: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
       price: { type: Number },
       discountPrice: { type: Number },
       quantity: { type: Number },

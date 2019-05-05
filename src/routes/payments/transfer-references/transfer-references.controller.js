@@ -15,7 +15,7 @@ import axios from 'axios'
 
 // --------------- Module Controller
 const TransferRefsCtrl = {
-  getAvailabeWithdrawal: async function(user) {
+  getAvailabeWithdrawal: async user => {
     try {
       if (!user.payment || !user.payment.merchant) {
         // In case the user does not have a payment account as merchant
@@ -40,7 +40,7 @@ const TransferRefsCtrl = {
       console.log(e)
     }
   },
-  transferWithdrawal: async function(user, bankAccount, amount) {
+  transferWithdrawal: async (user, bankAccount, amount) => {
     if (!user.payment || !user.payment.merchant) {
       // In case the user does not have a payment account as merchant
       let merchant = await MerchantRefCtrl.create(user) // Creates the payment gateway account

@@ -27,7 +27,7 @@ const MOIP_HEADERS = {
 // --------------- Module Controller
 const SubscriptionRefsCtrl = {
   DEFAULT_SUBSCRIBER_BIRTHDATE: DEFAULT_SUBSCRIBER_BIRTHDATE,
-  savePlan: async function(plan) {
+  savePlan: async plan => {
     let url = `${process.env.MOIP_BASE_URL}/assinaturas/v1/plans` // Sets request URL
     let formattedPlan = Object.assign({}, plan) // Sets subscription plan formatted object
     if (plan.monthsTrial > 0) {
@@ -56,16 +56,16 @@ const SubscriptionRefsCtrl = {
       : await SubscriptionPlan.create(plan) // Creates or updates plan
     return saved // Returns subscription plan
   },
-  getPlans: async function() {
+  getPlans: async () => {
     let plans = await SubscriptionPlan.findWithDeleted({}) // Retrieves all the plans
     return plans // Returns plans
   },
-  togglePlan: async function(planId) {
+  togglePlan: async planId => {
     let plan = await SubscriptionPlan.findOneWithDeleted({ _id: planId })
     let toggled = plan.deleted ? await plan.restore() : await plan.delete() // Deactivates plan
     return toggled // Returns plans
   },
-  createSubscriber: async function(user, subscriptionInfo) {
+  createSubscriber: async (user, subscriptionInfo) => {
     let customer = Object.assign({}, user) // Gets customer information
     customer.document = user.documents[0] // Sets document information
     customer.reference = user._id // Sets unique id reference to it
@@ -100,11 +100,11 @@ const SubscriptionRefsCtrl = {
         zipcode: customer.address.postalCode ? customer.address.postalCode.numbersOnly() : undefined // Address postal code (numbers only)
       }
     }
-    let instrumentIsCreditCard = customer.instrument && customer.instrument.expirationMonth // Checks if the payment instrument is credit card
+    const instrumentIsCreditCard = customer.instrument && customer.instrument.expirationMonth // Checks if the payment instrument is credit card
     data.billing_info = {} // Payment information
     if (instrumentIsCreditCard) {
       // In case it is
-      let expirationYear = customer.instrument.expirationYear // Gets the payment card expiration year
+      let { expirationYear } = customer.instrument // Gets the payment card expiration year
       expirationYear = expirationYear.substring(2, 4) // Sets the 2 last digits only
       data.billing_info = {
         // Sets the payment instrument information
@@ -123,7 +123,7 @@ const SubscriptionRefsCtrl = {
     await User.findOneAndUpdate({ _id: user._id }, { 'payment.subscriber': data }) // Saves it on the datase
     return data // Returns created subscriber
   },
-  saveSubscription: async function(customer, subscriptionInfo) {
+  saveSubscription: async (customer, subscriptionInfo) => {
     try {
       customer, (payment = customer.payment || {}) // Prevents undefined var errors
       let subscriber =
@@ -160,12 +160,12 @@ const SubscriptionRefsCtrl = {
       throw new Error(e)
     }
   },
-  getSubscription: async function(subscriptionCode) {
+  getSubscription: async subscriptionCode => {
     let url = `${process.env.MOIP_BASE_URL}/assinaturas/v1/subscriptions/${subscriptionCode}` // Sets request URL
     let subscription = (await axios.get(url, { headers: MOIP_HEADERS })).data // Gets subscription information
     return subscription // Returns subscription information
   },
-  isOutOfDate: async function(subscriptionCode) {
+  isOutOfDate: async subscriptionCode => {
     return false
     let subscription = await SubscriptionRefsCtrl.getSubscription(subscriptionCode) // Gets subscription information
     let status = subscription.status.toUpperCase() // Gets subscription status
@@ -177,7 +177,7 @@ const SubscriptionRefsCtrl = {
     let isOutOfDate = passedLastInvoice && !(status == 'ACTIVE' || status == 'TRIAL') // Checks if the subscription is out of date
     return isOutOfDate // Returns out of date status
   },
-  cancelSubscription: async function(subscriptionCode) {
+  cancelSubscription: async subscriptionCode => {
     let url = `${
       process.env.MOIP_BASE_URL
     }/assinaturas/v1/subscriptions/${subscriptionCode}/suspend` // Sets cancelation URL

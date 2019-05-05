@@ -18,7 +18,7 @@ socket.on('notifications received', async(notifications) => {
 })
 
 socket.on('notification read', async(data) => {
-    if (data && data.notification && data.user) {
+    if (data && data.notification && data.user) => {
         let notification = await Notification.findOneAndUpdate({ _id: data.notification }, { $addToSet: { readBy: data.user } }, { new: true })
         notification.to.forEach((user) => {
             socket.emit('notifications update', { room: user })

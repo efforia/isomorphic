@@ -24,7 +24,7 @@ const MOIP_HEADERS = {
 }
 const MARKETPLACE_PERCENTAGE = 5
 
-// --------------- Module functions
+// --------------- Module s
 const pad = num => {
   num = parseInt(num)
   return num < 10 ? `0${num.toString()}` : num.toString()
@@ -32,7 +32,7 @@ const pad = num => {
 
 // --------------- Module controller
 const OrderRefsCtrl = {
-  async createPayment(orderInfo, customer, merchant) {
+  createPayment: async (orderInfo, customer, merchant) => {
     if (!PaymentCtrl.MARKETPLACE_ID) await PaymentCtrl.init() // Initializes the marketplace id to prevent errors
     const data = {
       // Sets payment data
@@ -64,7 +64,7 @@ const OrderRefsCtrl = {
     const response = await moip.order.create(data) // Creates the order on the payment gateway
     return response.body // Returns the created order
   },
-  async authorizePayment(id) {
+  authorizePayment: async id => {
     let order = await Order.findOne({ _id: id }).populate('customer merchant items.information') // Gets the order information
     const holder = order.customer.payment.customer // Gets the customer information
     holder.birthdate = holder.birthDate // Gets the customer birth date
@@ -125,7 +125,7 @@ const OrderRefsCtrl = {
     const approval = (await axios.get(url, config)).data // Calls API for payment simulation
     return approval // Returns in case of success
   },
-  async getPayment(id) {
+  getPayment: async id => {
     const order = await Order.findOne({ _id: id }).lean()
     if (!order || !order.paymentInfo || !order.paymentInfo.id) return {}
     const paymentId = order.paymentInfo.id // Sets payment id
@@ -135,4 +135,5 @@ const OrderRefsCtrl = {
     return payment // Returns order
   }
 }
+
 export default OrderRefsCtrl

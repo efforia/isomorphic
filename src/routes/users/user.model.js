@@ -82,22 +82,22 @@ UserSchema.plugin(timestamps)
 UserSchema.plugin(mongooseDelete, { overrideMethods: 'all', validateBeforeDelete: false })
 
 // --------------- Module Methods
-UserSchema.methods.hashPassword = function(password) {
+UserSchema.methods.hashPassword = password => {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
 }
 
-UserSchema.methods.passwordIsValid = function(password) {
+UserSchema.methods.passwordIsValid = password => {
   if (!password || !this.password) return false
   return bcrypt.compareSync(password, this.password)
 }
 
-UserSchema.methods.getToken = function() {
+UserSchema.methods.getToken = () => {
   return jwt.sign({ _id: this._id }, process.env.MASTER_KEY)
 }
 
 // --------------- Module Hooks
 /* Converts { latitude: ..., longitude: ... } into { longitude: ..., latitude: ... } */
-function toLngLat(coordinates) {
+const toLngLat = coordinates => {
   const formatted = {}
   const isLngLat = Object.keys(coordinates)[0] == 'lng'
   Object.keys(coordinates)
@@ -107,7 +107,7 @@ function toLngLat(coordinates) {
   return isLngLat ? coordinates : formatted
 }
 
-UserSchema.pre('findOneAndUpdate', function(next) {
+UserSchema.pre('findOneAndUpdate', next => {
   const updates = this.getUpdate().$set
   if (updates && updates.address && updates.address.location) {
     updates.address.location = toLngLat(updates.address.location)
@@ -115,14 +115,14 @@ UserSchema.pre('findOneAndUpdate', function(next) {
   next()
 })
 
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', next => {
   if (this.password) this.password = this.hashPassword(this.password)
   next()
 })
 
 // --------------- Module Model
 const User = mongoose.model('User', UserSchema)
-User.getTokenFor = function(user) {
+User.getTokenFor = user => {
   return jwt.sign({ _id: user._id }, process.env.MASTER_KEY)
 }
 
@@ -132,7 +132,7 @@ export default User
 User.find({}, (err, users) => {
   users.map(async user => {
     console.log(user.email)
-    if (emailsToRemove.indexOf(user.email) > -1) {
+    if (emailsToRemove.indexOf(user.email) > -1) => {
       await User.findOneAndRemove({ _id: user._id })
       console.log('Removed ' + user.email + '.')
     }

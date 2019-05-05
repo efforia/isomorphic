@@ -6,9 +6,9 @@
 
 import PhoneNumber from 'awesome-phonenumber'
 
-export default (DataService = {
+export default {
   formatPhoneNumber: phone => {
     if (!phone) return ''
     return new PhoneNumber(phone, 'BR').getNumber('significant') // Formats user phone
   }
-})
+}

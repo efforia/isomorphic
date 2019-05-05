@@ -1,8 +1,9 @@
 import slug from 'slug'
 
 const SEO = {
-  getSlugFrom: function(name) {
+  getSlugFrom: name => {
     return name ? slug(name.toLowerCase()) : ''
   }
 }
+
 export default SEO

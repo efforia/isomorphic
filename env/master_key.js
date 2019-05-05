@@ -1,1 +1,1 @@
-module.exports = "cdmqXCAr-M5X8jBsE";
+module.exports = 'cdmqXCAr-M5X8jBsE'
