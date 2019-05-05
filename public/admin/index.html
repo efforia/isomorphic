@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+  <head>
+  <script data-ionic="inject">
+    (function(w){var i=w.Ionic=w.Ionic||{};i.version='3.9.2';i.angular='^6.0.7';i.staticDir='build/';})(window);
+  </script>
+    <title>99Pets</title>
+    <meta charset="UTF-8" />
+    <meta name="fragment" content="!" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, minimal-ui"
+    />
+    <meta name="apple-mobile-web-app-title" content="99Pets" />
+    <meta name="description" content="99Pets: Você ama pets? Então vem com a gente!" />
+    <meta name="format-detection" content="telephone=yes" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="theme-color" content="#ff0044" />
+    <meta name="msapplication-navbutton-color" content="#ff0044" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#ff0044" />
+    <link rel="icon" href="assets/icon/favicon.ico?v=2" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="apple-touch-icon" sizes="57x57" href="assets/icon/57x57.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="assets/icon/60x60.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/icon/72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/icon/76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="assets/icon/114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/icon/120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="assets/icon/144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/icon/152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icon/180x180.png" />
+    <style>
+      @font-face {
+        font-family: 'line-awesome';
+        src: url('assets/fonts/line-awesome/line-awesome.eot?39m2i2');
+        src: url('assets/fonts/line-awesome/line-awesome.eot?39m2i2#iefix')
+            format('embedded-opentype'),
+          url('assets/fonts/line-awesome/line-awesome.ttf?39m2i2') format('truetype'),
+          url('assets/fonts/line-awesome/line-awesome.woff?39m2i2') format('woff'),
+          url('assets/fonts/line-awesome/line-awesome.svg?39m2i2#line-awesome') format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+    <script>
+      function timestamp() {
+        var local = new Date()
+        return local.getHours() + ':' + local.getMinutes() + ':' + local.getSeconds()
+      }
+      document.onreadystatechange = function() {
+        console.log(timestamp(), document.readyState)
+        if (document.readyState === 'interactive') {
+          document.addEventListener(
+            'deviceready',
+            function() {
+              // Hides splashscreen as soons as the app is available
+              setTimeout(function() {
+                window.navigator.splashscreen.hide()
+                window.StatusBar.backgroundColorByHexString('#ff0044')
+                window.StatusBar.show()
+              }, 500)
+            },
+            false
+          )
+        }
+      }
+    </script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker
+          .register('service-worker.js')
+          .then(registration => {
+            registration.update()
+            console.log('Service worker enabled')
+          })
+          .catch(err => console.log('Error', err))
+      }
+    </script>
+    <style>
+      body {
+        margin: 0px;
+        background-color: #efefef;
+      }
+
+      [splashscreen] {
+        text-align: center;
+        padding-top: 25vh;
+      }
+
+      [splashscreen] img {
+        opacity: 0.4;
+      }
+
+      [splashscreen] h1,
+      [splashscreen] section,
+      [splashscreen] h5 {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+          Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        margin-bottom: 0px;
+        color: #bbb;
+      }
+
+      [splashscreen] h1 {
+        font-size: 40px;
+        margin-top: 0px;
+      }
+
+      [splashscreen] h5 {
+        font-size: 10px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      .loader {
+        height: 4px;
+        width: 100%;
+        max-width: 100px;
+        position: relative;
+        overflow: hidden;
+        background-color: #ddd;
+        margin: auto;
+        margin-top: 20px;
+        border-radius: 5px;
+        opacity: 0.8;
+      }
+
+      .loader:before {
+        display: block;
+        position: absolute;
+        content: '';
+        left: -200px;
+        width: 200px;
+        height: 4px;
+        background-color: #ff0044;
+        animation: loading 2s linear infinite;
+      }
+
+      @keyframes loading {
+        from {
+          left: -200px;
+          width: 30%;
+        }
+
+        50% {
+          width: 30%;
+        }
+
+        70% {
+          width: 70%;
+        }
+
+        80% {
+          left: 50%;
+        }
+
+        95% {
+          left: 120%;
+        }
+
+        to {
+          left: 100%;
+        }
+      }
+
+      footer {
+        text-align: center;
+        font-size: 14px;
+        bottom: 0px;
+        height: 80px;
+        background-color: #ff0044;
+        width: 100%;
+      }
+
+      footer section {
+        font-size: 16px;
+        font-family: Roboto, Oxygen, Ubuntu, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+          Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        color: #fff;
+      }
+    </style>
+
+    <link rel="manifest" href="manifest.json" />
+    <link defer async href="build/main.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+  </head>
+
+  <body>
+    <noscript>
+      <h3 style="color: #666; font-family: Helvetica; margin: 2rem; text-align: center;">
+        Ops! Parece que as funcionalidades JavaScript do seu navegador não estão habilitadas.
+      </h3>
+      <p style="text-align: center; color: #444; font-family: Helvetica; margin: 2rem;">
+        Será que você poderia habilitá-las?
+      </p>
+    </noscript>
+    <article splashscreen class="vignette">
+      <img alt="Application icon" src="assets/icon/icon.png" width="175" height="175" />
+      <h5>Acionando os motores...</h5>
+      <div class="loader"></div>
+    </article>
+
+    <ion-app></ion-app>
+
+    <script type="text/javascript" src="build/polyfills.js"></script>
+    <script type="text/javascript" src="build/vendor.js"></script>
+    <script type="text/javascript" src="build/main.js"></script>
+    <script type="text/javascript" src="assets/scripts/image-tools/image-tools.js"></script>
+    <script type="text/javascript" src="assets/scripts/misc/blueimp-load-image.min.js"></script>
+  </body>
+</html>
