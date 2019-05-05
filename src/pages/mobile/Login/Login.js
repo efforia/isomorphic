@@ -14,7 +14,7 @@ import isEmpty from 'validator/lib/isEmpty'
 import PrimaryInput from '../../../components/PrimaryInput'
 import PrimaryButton from '../../../components/PrimaryButton'
 
-import logoWithIcon from '../../../assets/vectors/logo-with-icon.svg'
+import logo from '../../../assets/img/logo.png'
 
 import './Login.scss'
 
@@ -72,7 +72,7 @@ class Login extends React.Component {
         <PageContent>
           <article className="login-page__content">
             <List className="login-page__form">
-              <img src={logoWithIcon} alt="Frete Fácil" className="login-page__logo" />
+              <img src={logo} alt="Frete Fácil" className="login-page__logo" />
               <PrimaryInput
                 value={user.email}
                 onChange={e => {

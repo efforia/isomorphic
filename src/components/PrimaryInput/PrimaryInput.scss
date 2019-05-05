@@ -1,73 +1,18 @@
+@import '../../theme/variables.scss';
+@import '../../theme/mixins.scss';
+
 .input-primary {
   --f7-list-item-padding-horizontal: 0px;
   list-style: none;
-  margin-top: 16px;
+  margin-top: 8px;
   .item-input-outline {
     padding-left: 0px;
-    .item-label {
-      left: 5px;
-      bottom: 5px;
-      font-size: 14px;
-      color: #080b1a;
-    }
     .item-inner {
       padding: 0px;
     }
     .item-input-wrap {
       input {
-        border: 2px solid #d0d7e1;
         font-size: 18px;
-        min-height: 64px;
-      }
-      &:after {
-        position: absolute;
-        transition-delay: 50ms;
-        transition-property: all;
-        transition-duration: 100ms;
-        transition-timing-function: ease-in;
-        background: #d0d7e1;
-        border: none;
-        border-radius: 10px;
-        z-index: -1;
-      }
-    }
-    &.item-input-focused {
-      .item-label {
-        color: #080b1a;
-      }
-      input {
-        border: none;
-      }
-      .item-input-wrap {
-        &:after {
-          background: linear-gradient(270deg, #1052f3 -53.49%, #15dcf4 132.56%);
-          border: none;
-          padding: 2px;
-          margin-top: -2px;
-          margin-bottom: -2px;
-          margin-left: -2px;
-          margin-right: -2px;
-          width: calc(100% + 4px);
-          height: calc(100% + 4px);
-        }
-      }
-    }
-  }
-  &.disabled {
-    opacity: 1 !important;
-    margin-top: -10px;
-    .item-label {
-      left: 0px;
-      bottom: -10px;
-    }
-    .item-input-wrap {
-      input {
-        padding-left: 0px;
-        border: none;
-        background: transparent;
-      }
-      &:after {
-        background: transparent;
       }
     }
   }

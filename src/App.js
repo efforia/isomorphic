@@ -12,7 +12,6 @@ import { F7App, View } from 'framework7-react'
 // ---- Web pages
 import Landing from './pages/web/Landing'
 import AddUser from './pages/web/AddUser'
-import AddVehicle from './pages/web/AddVehicle'
 import SignupFeedback from './pages/web/SignupFeedback'
 
 // ---- Mobile pages
@@ -127,11 +126,6 @@ const f7params = {
       component: AddUser
     },
     {
-      path: '/vehicle-add',
-      name: 'AddVehicle',
-      component: AddVehicle
-    },
-    {
       path: '/welcome',
       name: 'SignupFeedback',
       component: SignupFeedback
@@ -190,7 +184,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <F7App params={f7params} colorTheme="blue">
+      <F7App params={f7params} colorTheme="orange">
         <View main pushState pushStateSeparator="" />
       </F7App>
     )

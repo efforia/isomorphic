@@ -2,22 +2,28 @@
 @import '../../../theme/mixins.scss';
 
 .login-page {
+  .page-content {
+    background-color: $white-background;
+    padding-bottom: 0px;
+    margin: auto;
+  }
+
   &__content {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    max-width: 450px;
+    max-width: 400px;
     margin: auto;
     padding: 16px;
   }
 
   &__logo {
     display: block;
-    height: 15vw;
+    height: 30vh;
     min-height: 80px;
-    max-height: 100px;
+    max-height: 150px;
     margin: auto;
-    margin-bottom: 25px;
+    margin-bottom: 24px;
   }
 
   &__form {
@@ -31,8 +37,11 @@
     font-size: 1.6rem;
     text-align: center;
     color: $grey-one;
-    margin-top: 32px;
-    margin-bottom: 32px;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    &:first-of-type {
+      margin-top: 32px;
+    }
   }
 
   &__link {
@@ -65,12 +74,6 @@
       margin-top: -16px;
       margin-bottom: 16px;
     }
-  }
-
-  .page-content {
-    background-color: $white-background;
-    padding-bottom: 0px;
-    margin: auto;
   }
 
   .button-primary.button-fill {

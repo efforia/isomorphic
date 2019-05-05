@@ -1,8 +1,8 @@
 {
   "name": "Frete Fácil",
   "short_name": "Frete Fácil",
-  "theme_color": "#1082f3",
-  "background_color": "#1082f3",
+  "theme_color": "#ff9500",
+  "background_color": "#ff9500",
   "display": "standalone",
   "orientation": "portrait",
   "start_url": ".",

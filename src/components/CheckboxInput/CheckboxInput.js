@@ -26,7 +26,7 @@ class CheckboxInput extends React.Component {
         disabled={this.props.disabled}>
         <Row>
           <Col width={10}>
-            <Checkbox color="blue" checked={this.props.checked} />
+            <Checkbox color="orange" checked={this.props.checked} />
           </Col>
           <Col width={90}>{this.props.children}</Col>
         </Row>

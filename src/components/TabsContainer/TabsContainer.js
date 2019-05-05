@@ -10,8 +10,6 @@ import { Link, Toolbar, Tabs, Tab, Page } from 'framework7-react'
 
 import { connect } from 'react-redux'
 
-
-
 import iconHome from '../../assets/vectors/tab-icon-home.svg'
 import iconPolicy from '../../assets/vectors/tab-icon-policy.svg'
 import iconUtilization from '../../assets/vectors/tab-icon-utilization.svg'
@@ -32,19 +30,19 @@ const rootPages = [
   },
   {
     path: 'utilizations',
-    label: 'Utilizações',
+    label: 'Novo Frete',
     icon: iconUtilization,
     component: Utilization
   },
   {
     path: 'policy',
-    label: 'Apólice',
+    label: 'Meus Fretes',
     icon: iconPolicy,
     component: Policy
   },
   {
     path: 'contact',
-    label: 'Contato',
+    label: 'Opções',
     icon: iconContact,
     component: Contact
   }

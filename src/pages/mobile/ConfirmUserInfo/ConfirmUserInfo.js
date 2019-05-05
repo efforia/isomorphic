@@ -173,7 +173,7 @@ class ConfirmUserInfo extends React.Component {
 
     const renderSpinner = () => (
       <div className="user-info-page__content--loading">
-        <Preloader color="blue" className="user-info-page__preloader" />
+        <Preloader color="orange" className="user-info-page__preloader" />
         <p>Carregando...</p>
       </div>
     )
@@ -265,7 +265,7 @@ class ConfirmUserInfo extends React.Component {
                   }
                 })
               }}
-              colorTheme="blue"
+              colorTheme="orange"
               label="Estado"
               type="text"
             />

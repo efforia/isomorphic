@@ -102,7 +102,7 @@ class ConfirmVehicleInfo extends React.Component {
 
     const renderSpinner = () => (
       <div className="automobile-info-page__content--loading">
-        <Preloader color="blue" className="automobile-info-page__preloader" />
+        <Preloader color="orange" className="automobile-info-page__preloader" />
         <p>Carregando...</p>
       </div>
     )

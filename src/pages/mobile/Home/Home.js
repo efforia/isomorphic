@@ -10,15 +10,9 @@ import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import { Page } from 'framework7-react'
 
-import logo from '../../../assets/vectors/logo.svg'
 import bell from '../../../assets/vectors/bell-icon.svg'
 
 import Navbar from '../../../components/Navbar'
-import BuyCreditsButton from '../../../components/BuyCreditsButton'
-import MasterToggle from '../../../components/MasterToggle'
-import HardwareIndicator from '../../../components/HardwareIndicator'
-import UtilizationCard from '../../../components/UtilizationCard'
-import AvailableCreditsCard from '../../../components/AvailableCreditsCard'
 
 import {
   checkBluetoothState,
@@ -53,36 +47,18 @@ class Home extends React.Component {
   }
 
   render() {
-    const { device, bluetooth, gps } = this.props
     const pageTitle = 'Frete Fácil: Home'
     return (
       <Page className="home-page">
         <Helmet title={pageTitle} />
         <Navbar className="home-page__navbar">
-          <div className="app-navbar__left">
-            <img src={logo} alt="Instant" />
-          </div>
-          <div className="app-navbar__center">
-            <BuyCreditsButton />
-          </div>
+          <div className="app-navbar__left" />
+          <div className="app-navbar__center" />
           <div className="app-navbar__right">
             <img src={bell} alt="Notificações" />
           </div>
         </Navbar>
-        <div className="home-page__content">
-          <div className="home-page__toggle-container">
-            <MasterToggle isActive={false} />
-          </div>
-          <div className="home-page__indicators-container">
-            <HardwareIndicator label="Bluetooth" active={bluetooth && bluetooth.isEnabled} />
-            <HardwareIndicator label="GPS" active={gps && gps.isEnabled} />
-            <HardwareIndicator label="Device" active={device && device.id} tive />
-          </div>
-          <div className="home-page__cards-container">
-            <AvailableCreditsCard value="13" />
-            <UtilizationCard value="17" />
-          </div>
-        </div>
+        <div className="home-page__content" />
       </Page>
     )
   }

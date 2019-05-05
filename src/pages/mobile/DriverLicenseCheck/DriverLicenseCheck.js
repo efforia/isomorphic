@@ -12,7 +12,7 @@ import { Page, Link } from 'framework7-react'
 
 
 import arrowIcon from '../../../assets/vectors/arrow.svg'
-import cnh from '../../../assets/img/cnh.jpeg'
+import cnh from '../../../assets/img/assistant.png'
 
 import PrimaryButton from '../../../components/PrimaryButton'
 import Navbar from '../../../components/Navbar'

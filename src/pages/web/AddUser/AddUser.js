@@ -16,7 +16,6 @@ import { isValid as isValidCpf } from '@fnando/cpf' // import just one function
 import { createProfile } from '../../../actions/user'
 
 import arrowIcon from '../../../assets/vectors/arrow.svg'
-import logo from '../../../assets/vectors/logo-blue.svg'
 
 import PrimaryButton from '../../../components/PrimaryButton'
 import PrimaryInput from '../../../components/PrimaryInput'
@@ -24,8 +23,6 @@ import Navbar from '../../../components/Navbar'
 import Form from '../../../components/Form'
 
 import './AddUser.scss'
-
-
 
 class AddUser extends React.Component {
   constructor(props) {
@@ -122,7 +119,6 @@ class AddUser extends React.Component {
           <div className="app-navbar__right" />
         </Navbar>
         <div className="add-user-page__content">
-          <img className="add-user-page__logo" alt="" src={logo} />
           <div className="add-user-page__intro">
             <div className="add-user-page__intro__title">Cadastro</div>
             <div className="add-user-page__intro__content">
@@ -138,7 +134,7 @@ class AddUser extends React.Component {
                   this.setState({ user: { ...user, email: e.target.value } })
                 }}
                 required
-                colorTheme="blue"
+                colorTheme="orange"
                 label="E-mail"
                 type="email"
               />
@@ -147,7 +143,7 @@ class AddUser extends React.Component {
                 onChange={e => {
                   this.setState({ user: { ...user, password: e.target.value } })
                 }}
-                colorTheme="blue"
+                colorTheme="orange"
                 label="Senha"
                 type="password"
               />
@@ -167,7 +163,7 @@ class AddUser extends React.Component {
                   })
                 }}
                 maxlength={10}
-                colorTheme="blue"
+                colorTheme="orange"
                 placeholder="9999999999"
                 label="RG"
                 type="tel"

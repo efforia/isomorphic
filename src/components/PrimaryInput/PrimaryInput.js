@@ -23,7 +23,8 @@ class PrimaryInput extends React.Component {
       <ListInput
         {...this.props}
         className="input-primary"
-        colorTheme="blue"
+        colorTheme="orange"
+        floatingLabel
         outline
       />
     )
