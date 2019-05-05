@@ -5,13 +5,9 @@ import User from '../routes/users/user.model'
 import SubscriptionCtrl from '../routes/payments/subscription-references/subscription-references.controller'
 
 const auth = {
-  hasValidToken: () => {
-    return compose().use((req, res, next) => {
+  hasValidToken: () =>
+    compose().use((req, res, next) => {
       let token = null
-
-      if (req.cookies.access_token) {
-        token = req.cookies.token
-      }
 
       if (req.query.accessToken) {
         token = req.query.accessToken
@@ -55,38 +51,33 @@ const auth = {
           error: 'Whoops! An access token is required for this route!'
         })
       }
-    })
-  },
+    }),
 
-  isAuthenticated: (req, res, next) => {
-    return compose().use(auth.hasValidToken())
-  },
+  isAuthenticated: () => compose().use(auth.hasValidToken()),
 
-  isMerchant: () => {
-    return auth.hasValidToken().use((req, res, next) => {
+  isMerchant: () =>
+    auth.hasValidToken().use((req, res, next) => {
       if (req.user.roles.indexOf('MERCHANT') > -1) next()
       else
         res.status(403).json({
           error: `AREA 51! DO NOT TRESPASS. (a.k.a.: You don't have enought permissions for that.)`
         })
-    })
-  },
+    }),
 
-  isAdmin: () => {
-    return auth.hasValidToken().use((req, res, next) => {
+  isAdmin: () =>
+    auth.hasValidToken().use((req, res, next) => {
       if (req.user.roles.indexOf('ADMIN') > -1) next()
       else
         res.status(403).json({
           error: `AREA 51! DO NOT TRESPASS. (a.k.a.: You don't have enought permissions for that.)`
         })
-    })
-  },
+    }),
 
-  passwordIsValid: () => {
-    return compose().use((req, res, next) => {
-      let email = req.user ? req.user.email : req.body.email
-      let password = req.body.password
-      User.findOneWithDeleted({ email: email }, async (error, user) => {
+  passwordIsValid: () =>
+    compose().use((req, res, next) => {
+      const email = req.user ? req.user.email : req.body.email
+      const { password } = req.body
+      User.findOneWithDeleted({ email }, async (error, user) => {
         if (error) return res.status(500).send(error)
 
         if (!user) return res.status(401).send('Whoops! Check your credentials and try again!')
@@ -98,22 +89,20 @@ const auth = {
           return res.status(403).send('Whoops! It looks like this account has been suspended.')
         next()
       })
-    })
-  },
+    }),
 
-  paymentIsUpToDate: () => {
-    return compose().use((req, res, next) => {
+  paymentIsUpToDate: () =>
+    compose().use(() => {
       console.log('Been here!')
-    })
-  },
+    }),
 
   generatePassword: callback => {
-    let randomNewPassword = randomstring(6)
+    const randomNewPassword = randomstring(6)
     callback(randomNewPassword.toUpperCase())
   },
 
   generateEmailConfirmation: callback => {
-    let randomness = randomstring(16)
+    const randomness = randomstring(16)
     callback(randomness)
   }
 }

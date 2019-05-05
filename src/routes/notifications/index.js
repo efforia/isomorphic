@@ -7,16 +7,16 @@
 
 // --------------- Module Imports
 import express from 'express'
-
-
-const router = express.Router('notifications')
 import controller from './notifications.controller'
 import auth from '../../services/auth.service'
 
+
+const router = express.Router('notifications')
+
 router.post('/', auth.isAdmin(), async (req, res, error) => {
   try {
-    let notificationInfo = req.body
-    let notification = await controller.sendNotification(notificationInfo)
+    const notificationInfo = req.body
+    const notification = await controller.sendNotification(notificationInfo)
     return res.status(200).json(notification)
   } catch (e) {
     error(e)
@@ -25,8 +25,8 @@ router.post('/', auth.isAdmin(), async (req, res, error) => {
 
 router.get('/', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let user = req.user
-    let notifications = await controller.getByUser(user)
+    const {user} = req
+    const notifications = await controller.getByUser(user)
     return res.status(200).json(notifications)
   } catch (e) {
     error(e)
@@ -35,8 +35,8 @@ router.get('/', auth.isAuthenticated(), async (req, res, error) => {
 
 router.get('/:id', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let id = req.params.id
-    let notification = await controller.getById(id)
+    const {id} = req.params
+    const notification = await controller.getById(id)
     return res.status(200).json(notification)
   } catch (e) {
     error(e)

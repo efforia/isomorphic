@@ -7,11 +7,11 @@
 
 // --------------- Module Imports
 import express from 'express'
+import controller from './products.controller'
+import auth from '../../../services/auth.service'
 
 
 const router = express.Router('products')
-import controller from './products.controller'
-import auth from '../../../services/auth.service'
 
 /**
  * @interface save
@@ -19,9 +19,9 @@ import auth from '../../../services/auth.service'
  */
 router.post('/', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let user = req.user
-    let itemInfo = req.body
-    let item = await controller.save(user, itemInfo)
+    const {user} = req
+    const itemInfo = req.body
+    const item = await controller.save(user, itemInfo)
     return res.status(200).json(item)
   } catch (e) {
     error(e)
@@ -34,8 +34,8 @@ router.post('/', auth.isAuthenticated(), async (req, res, error) => {
  */
 router.get('/:id', async (req, res, error) => {
   try {
-    let id = req.params.id
-    let item = await controller.get(id)
+    const {id} = req.params
+    const item = await controller.get(id)
     return res.status(200).json(item)
   } catch (e) {
     error(e)
@@ -48,8 +48,8 @@ router.get('/:id', async (req, res, error) => {
  */
 router.get('/by-slug/:slug', async (req, res, error) => {
   try {
-    let slug = req.params.slug
-    let item = await controller.getBySlug(slug)
+    const {slug} = req.params
+    const item = await controller.getBySlug(slug)
     return res.status(200).json(item)
   } catch (e) {
     error(e)
@@ -62,8 +62,8 @@ router.get('/by-slug/:slug', async (req, res, error) => {
  */
 router.post('/:id/accept', async (req, res, error) => {
   try {
-    let id = req.params.id
-    let accepted = controller.accept(id)
+    const {id} = req.params
+    const accepted = controller.accept(id)
     return res.status(200).json(accepted)
   } catch (e) {
     error(e)
@@ -76,8 +76,8 @@ router.post('/:id/accept', async (req, res, error) => {
  */
 router.post('/:id/reject', async (req, res, error) => {
   try {
-    let id = req.params.id
-    let rejected = controller.reject(id)
+    const {id} = req.params
+    const rejected = controller.reject(id)
     return res.status(200).json(rejected)
   } catch (e) {
     error(e)
@@ -90,8 +90,8 @@ router.post('/:id/reject', async (req, res, error) => {
  */
 router.post('/deactivate/:id', auth.isAdmin(), async (req, res, error) => {
   try {
-    let id = req.params.id
-    let deactivated = await controller.deactivate(id)
+    const {id} = req.params
+    const deactivated = await controller.deactivate(id)
     return res.status(200).json(deactivated)
   } catch (e) {
     error(e)
@@ -104,8 +104,8 @@ router.post('/deactivate/:id', auth.isAdmin(), async (req, res, error) => {
  */
 router.post('/activate/:id', auth.isAdmin(), async (req, res, error) => {
   try {
-    let id = req.params.id
-    let activated = await controller.activate(id)
+    const {id} = req.params
+    const activated = await controller.activate(id)
     return res.status(200).json(activated)
   } catch (e) {
     error(e)
@@ -118,7 +118,7 @@ router.post('/activate/:id', auth.isAdmin(), async (req, res, error) => {
  */
 router.get('/filter/pending', auth.isAdmin(), async (req, res, error) => {
   try {
-    let items = await controller.listPending()
+    const items = await controller.listPending()
     return res.status(200).json(items)
   } catch (e) {
     error(e)
@@ -131,14 +131,14 @@ router.get('/filter/pending', auth.isAdmin(), async (req, res, error) => {
  */
 router.get('/list/:category/as-admin', auth.isAdmin(), async (req, res, error) => {
   try {
-    let user = req.user
-    let category = req.params.category
-    let paginate = req.query.page && req.query.pageSize
-    let page = parseInt(req.query.page || 1) // Parses pagination current page
-    let pageSize = parseInt(req.query.pageSize || 5) // Parses pagination page size
+    const {user} = req
+    const {category} = req.params
+    const paginate = req.query.page && req.query.pageSize
+    const page = parseInt(req.query.page || 1, 10) // Parses pagination current page
+    const pageSize = parseInt(req.query.pageSize || 5, 10) // Parses pagination page size
     let exclude = req.query.exclude || [] // Gets the items that should be ignored by the query
-    if (typeof exclude == 'object') exclude = Object.values(exclude) // In case the ignored items array comes in the wrong format
-    let items = await controller.listByCategory(user, category, exclude, paginate, page, pageSize)
+    if (typeof exclude === 'object') exclude = Object.values(exclude) // In case the ignored items array comes in the wrong format
+    const items = await controller.listByCategory(user, category, exclude, paginate, page, pageSize)
     return res.status(200).json(items)
   } catch (e) {
     error(e)
@@ -151,14 +151,14 @@ router.get('/list/:category/as-admin', auth.isAdmin(), async (req, res, error) =
  */
 router.get('/list/:category', async (req, res, error) => {
   try {
-    let user = req.user
-    let category = req.params.category
-    let paginate = req.query.page && req.query.pageSize
-    let page = parseInt(req.query.page || 1) // Parses pagination current page
-    let pageSize = parseInt(req.query.pageSize || 5) // Parses pagination page size
+    const {user} = req
+    const {category} = req.params
+    const paginate = req.query.page && req.query.pageSize
+    const page = parseInt(req.query.page || 1, 10) // Parses pagination current page
+    const pageSize = parseInt(req.query.pageSize || 5, 10) // Parses pagination page size
     let exclude = req.query.exclude || [] // Gets the items that should be ignored by the query
-    if (typeof exclude == 'object') exclude = Object.values(exclude) // In case the ignored items array comes in the wrong format
-    let items = await controller.listByCategory(user, category, exclude, paginate, page, pageSize)
+    if (typeof exclude === 'object') exclude = Object.values(exclude) // In case the ignored items array comes in the wrong format
+    const items = await controller.listByCategory(user, category, exclude, paginate, page, pageSize)
     return res.status(200).json(items)
   } catch (e) {
     error(e)

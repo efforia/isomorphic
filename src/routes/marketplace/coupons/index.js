@@ -19,7 +19,7 @@ const router = express.Router('coupons')
  */
 router.get('/', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let coupon = await controller.list()
+    const coupon = await controller.list()
     return res.status(200).json(coupon)
   } catch (e) {
     error(e)
@@ -32,8 +32,8 @@ router.get('/', auth.isAuthenticated(), async (req, res, error) => {
  */
 router.post('/', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let couponInfo = req.body
-    let coupon = await controller.save(couponInfo)
+    const couponInfo = req.body
+    const coupon = await controller.save(couponInfo)
     return res.status(200).json(coupon)
   } catch (e) {
     error(e)
@@ -46,7 +46,7 @@ router.post('/', auth.isAuthenticated(), async (req, res, error) => {
  */
 router.post('/:id/toggle', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let coupon = await controller.toggle(req.params.id)
+    const coupon = await controller.toggle(req.params.id)
     return res.status(200).json(coupon)
   } catch (e) {
     error(e)
@@ -59,8 +59,8 @@ router.post('/:id/toggle', auth.isAuthenticated(), async (req, res, error) => {
  */
 router.get('/:name', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let name = req.params.name
-    let coupon = await controller.get(name)
+    const {name} = req.params
+    const coupon = await controller.get(name)
     return res.status(200).json(coupon)
   } catch (e) {
     error(e)
@@ -73,8 +73,8 @@ router.get('/:name', auth.isAuthenticated(), async (req, res, error) => {
  */
 router.post('/:name/use', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let name = req.parameters.name
-    let updated = await controller.use(name)
+    const {name} = req.parameters
+    const updated = await controller.use(name)
     return res.status(200).json(updated)
   } catch (e) {
     error(e)

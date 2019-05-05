@@ -6,13 +6,13 @@
  */
 
 // --------------- Module Imports
-import User from '../../users/user.model'
 
 import axios from 'axios'
 import gerarCpf from 'gerar-cpf'
 import mongoose from 'mongoose'
 import PhoneNumber from 'awesome-phonenumber'
 import countries from 'i18n-iso-countries'
+import User from '../../users/user.model'
 
 // --------------- Module Variables
 const MOIP_HEADERS = {
@@ -23,31 +23,31 @@ const DEFAULT_BIRTHDATE = '1990-10-10'
 
 // --------------- Module Controller
 const MerchantRefCtrl = {
-  create: async (user) => {
-    user = MerchantRefCtrl.formatAccountForGateway(user) // Fomats the database user as the payment gateway requires
-    let url = `${process.env.MOIP_BASE_URL}/v2/accounts` // Sets the URL for the request
-    let data = {
+  create: async user => {
+    const formattedUser = MerchantRefCtrl.formatAccountForGateway(user) // Fomats the database user as the payment gateway requires
+    const url = `${process.env.MOIP_BASE_URL}/v2/accounts` // Sets the URL for the request
+    const data = {
       // Sets request payload
-      email: { address: user.email }, // User e-mail
+      email: { address: formattedUser.email }, // User e-mail
       person: {
         // User information
-        name: user.name.split(' ')[0], // User first name
-        lastName: user.name.split(' ')[1] || user.name.split(' ')[0], // User last name
+        name: formattedUser.name.split(' ')[0], // User first name
+        lastName: formattedUser.name.split(' ')[1] || formattedUser.name.split(' ')[0], // User last name
         taxDocument: { type: 'CPF', number: gerarCpf() }, // User tax document
         birthDate: DEFAULT_BIRTHDATE, // Since establishments don't have birth dates, returns the default one
-        phone: user.formattedPhone, // User phone
-        address: user.address // User address
+        phone: formattedUser.formattedPhone, // User phone
+        address: formattedUser.address // User address
       },
       type: 'MERCHANT', // User type
       transparentAccount: true // User account type (transparent accounts do not have to authenticate on the gateway)
     }
-    let config = { headers: MOIP_HEADERS } // Sets the request config
-    let merchant = (await axios.post(url, data, config)).data // Creates the merchant account on the gateway
+    const config = { headers: MOIP_HEADERS } // Sets the request config
+    const merchant = (await axios.post(url, data, config)).data // Creates the merchant account on the gateway
     await User.findOneAndUpdate({ _id: user._id }, { 'payment.merchant': merchant }) // Adds the account to the user on our database
     return merchant // Returns the created account
   },
   formatAccountForGateway: merchant => {
-    let phone = new PhoneNumber(merchant.phone, 'BR').getNumber('significant') // Formats user phone
+    const phone = new PhoneNumber(merchant.phone, 'BR').getNumber('significant') // Formats user phone
     merchant.taxDocument = {
       // Formats user document
       type: merchant.documents[0].type, // Document type (CPF or CNPJ)

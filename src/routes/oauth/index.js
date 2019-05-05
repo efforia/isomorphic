@@ -7,11 +7,11 @@
 
 // --------------- Module Imports
 import express from 'express'
+import passport from 'passport'
+import controller from './oauth.controller'
 
 
 const router = express.Router('oauth')
-import controller from './oauth.controller'
-import passport from 'passport'
 
 /**
  * @interface accessWithFacebook
@@ -22,8 +22,8 @@ router.post(
   passport.authenticate('facebook-token', { session: false }),
   async (req, res, error) => {
     try {
-      let profile = req.user // Gets the social profile
-      let user = await controller.accessWithFacebook(profile)
+      const profile = req.user // Gets the social profile
+      const user = await controller.accessWithFacebook(profile)
       return res.status(200).json(user)
     } catch (e) {
       error(e)

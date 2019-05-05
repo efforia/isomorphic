@@ -10,14 +10,12 @@ import mongoose from 'mongoose'
 
 import deepPopulateFactory from 'mongoose-deep-populate'
 import timestamps from 'mongoose-timestamp'
-import jsonschemaFactory from 'mongoose-schema-jsonschema'
 import mongooseDelete from 'mongoose-delete'
 import lifecycle from 'mongoose-lifecycle'
 import bcrypt from 'bcrypt-nodejs'
 import jwt from 'jsonwebtoken'
 
 const deepPopulate = deepPopulateFactory(mongoose)
-const jsonschema = jsonschemaFactory(mongoose)
 
 // --------------- Module Schema
 const UserSchema = mongoose.Schema({
@@ -82,28 +80,26 @@ UserSchema.plugin(timestamps)
 UserSchema.plugin(mongooseDelete, { overrideMethods: 'all', validateBeforeDelete: false })
 
 // --------------- Module Methods
-UserSchema.methods.hashPassword = password => {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
-}
+UserSchema.methods.hashPassword = password => bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
 
 UserSchema.methods.passwordIsValid = password => {
   if (!password || !this.password) return false
   return bcrypt.compareSync(password, this.password)
 }
 
-UserSchema.methods.getToken = () => {
-  return jwt.sign({ _id: this._id }, process.env.MASTER_KEY)
-}
+UserSchema.methods.getToken = () => jwt.sign({ _id: this._id }, process.env.MASTER_KEY)
 
 // --------------- Module Hooks
 /* Converts { latitude: ..., longitude: ... } into { longitude: ..., latitude: ... } */
 const toLngLat = coordinates => {
   const formatted = {}
-  const isLngLat = Object.keys(coordinates)[0] == 'lng'
+  const isLngLat = Object.keys(coordinates)[0] === 'lng'
   Object.keys(coordinates)
     .sort()
     .reverse()
-    .map(key => (formatted[key] = coordinates[key]))
+    .forEach(key => {
+      formatted[key] = coordinates[key]
+    })
   return isLngLat ? coordinates : formatted
 }
 
@@ -122,9 +118,7 @@ UserSchema.pre('save', next => {
 
 // --------------- Module Model
 const User = mongoose.model('User', UserSchema)
-User.getTokenFor = user => {
-  return jwt.sign({ _id: user._id }, process.env.MASTER_KEY)
-}
+User.getTokenFor = user => jwt.sign({ _id: user._id }, process.env.MASTER_KEY)
 
 export default User
 

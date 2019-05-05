@@ -34,7 +34,7 @@ router.post('/', auth.isAuthenticated(), async (req, res, error) => {
 router.get('/', auth.isAuthenticated(), async (req, res, error) => {
   try {
     const { user } = req
-    const status = req.query.status
+    const {status} = req.query
     const orders = await controller.getOrdersByUserId(user, status)
     return res.status(200).json(orders)
   } catch (e) {
@@ -49,9 +49,9 @@ router.get('/', auth.isAuthenticated(), async (req, res, error) => {
 router.get('/between-dates', auth.isAuthenticated(), async (req, res, error) => {
   try {
     const { user } = req
-    const status = req.query.status
-    const startDate = req.query.startDate
-    const endDate = req.query.endDate
+    const {status} = req.query
+    const {startDate} = req.query
+    const {endDate} = req.query
     const dates = await controller.getOrdersByDatesAndUserId(user, startDate, endDate, status)
     return res.status(200).json(dates)
   } catch (e) {
@@ -111,7 +111,7 @@ router.post('/:id/rate/:rate', auth.isAuthenticated(), async (req, res, error) =
   try {
     const { user } = req
     const { id } = req.params
-    const rate = req.params.rate
+    const {rate} = req.params
     const updated = await controller.rate(user, id, rate)
     return res.status(200).json(updated)
   } catch (e) {

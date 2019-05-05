@@ -7,11 +7,11 @@
 
 // --------------- Module Imports
 import express from 'express'
+import controller from './customers.controller'
+import auth from '../../../services/auth.service'
 
 
 const router = express.Router('customers')
-import controller from './customers.controller'
-import auth from '../../../services/auth.service'
 
 /**
  * @interface addFavourite
@@ -19,9 +19,9 @@ import auth from '../../../services/auth.service'
  */
 router.post('/favourites/merchant/:merchant', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let merchant = req.params.merchant
-    let user = req.user
-    let favourites = await controller.addFavourite(user, merchant)
+    const {merchant} = req.params
+    const {user} = req
+    const favourites = await controller.addFavourite(user, merchant)
     return res.status(200).json(favourites)
   } catch (e) {
     error(e)
@@ -34,9 +34,9 @@ router.post('/favourites/merchant/:merchant', auth.isAuthenticated(), async (req
  */
 router.post('/favourites/merchant/:merchant', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let merchant = req.params.merchant
-    let user = req.user
-    let favourites = await controller.removeFavourite(user, merchant)
+    const {merchant} = req.params
+    const {user} = req
+    const favourites = await controller.removeFavourite(user, merchant)
     return res.status(200).json(favourites)
   } catch (e) {
     error(e)
@@ -49,8 +49,8 @@ router.post('/favourites/merchant/:merchant', auth.isAuthenticated(), async (req
  */
 router.get('/favourites/merchants', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let user = req.user
-    let favourites = await controller.getFavourites(user)
+    const {user} = req
+    const favourites = await controller.getFavourites(user)
     return res.status(200).json(favourites)
   } catch (e) {
     error(e)

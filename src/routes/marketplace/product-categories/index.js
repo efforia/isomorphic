@@ -7,11 +7,11 @@
 
 // --------------- Module Imports
 import express from 'express'
+import controller from './product-categories.controller'
+import auth from '../../../services/auth.service'
 
 
 const router = express.Router('product-categories')
-import controller from './product-categories.controller'
-import auth from '../../../services/auth.service'
 
 /**
  * @interface saveProductCategory
@@ -19,8 +19,8 @@ import auth from '../../../services/auth.service'
  */
 router.post('/', auth.isAdmin(), async (req, res, error) => {
   try {
-    let categoryInfo = req.body
-    let saved = await controller.save(categoryInfo)
+    const categoryInfo = req.body
+    const saved = await controller.save(categoryInfo)
     return res.status(200).json(saved)
   } catch (e) {
     error(e)
@@ -33,8 +33,8 @@ router.post('/', auth.isAdmin(), async (req, res, error) => {
  */
 router.get('/', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let user = req.user
-    let categories = await controller.list(user)
+    const {user} = req
+    const categories = await controller.list(user)
     return res.status(200).json(categories)
   } catch (e) {
     error(e)
@@ -47,8 +47,8 @@ router.get('/', auth.isAuthenticated(), async (req, res, error) => {
  */
 router.get('/root', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let user = req.user
-    let categories = await controller.listRoot(user)
+    const {user} = req
+    const categories = await controller.listRoot(user)
     return res.status(200).json(categories)
   } catch (e) {
     error(e)
@@ -61,9 +61,9 @@ router.get('/root', auth.isAuthenticated(), async (req, res, error) => {
  */
 router.get('/by-slug/:category', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let user = req.user
-    let slug = req.params.category
-    let category = await controller.getBySlug(user, slug)
+    const {user} = req
+    const slug = req.params.category
+    const category = await controller.getBySlug(user, slug)
     return res.status(200).json(category)
   } catch (e) {
     error(e)
@@ -76,8 +76,8 @@ router.get('/by-slug/:category', auth.isAuthenticated(), async (req, res, error)
  */
 router.post('/:categoryId/deactivate', auth.isAdmin(), async (req, res, error) => {
   try {
-    let id = req.params.categoryId
-    let deactivated = await controller.deactivate(id)
+    const id = req.params.categoryId
+    const deactivated = await controller.deactivate(id)
     return res.status(200).json(deactivated)
   } catch (e) {
     error(e)
@@ -90,8 +90,8 @@ router.post('/:categoryId/deactivate', auth.isAdmin(), async (req, res, error) =
  */
 router.post('/categories/:categoryId/activate', auth.isAdmin(), async (req, res, error) => {
   try {
-    let id = req.params.categoryId
-    let activated = await controller.activate(id)
+    const id = req.params.categoryId
+    const activated = await controller.activate(id)
     return res.status(200).json(activated)
   } catch (e) {
     error(e)

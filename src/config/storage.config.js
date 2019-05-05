@@ -8,6 +8,7 @@
 import path from 'path'
 
 import fs from 'fs-extra'
+
 const gcloudKeyFilepath = path.resolve(__dirname, '../keys/gcloud.json')
 
 export default {

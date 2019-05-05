@@ -29,6 +29,10 @@
         "props": false
       }
     ],
+    "no-console": 0,
+    "camelcase": 0,
+    "no-plusplus": 0,
+    "no-shadow": 0,
     "func-names": 0,
     "space-before-function-paren": 0,
     "max-len": 0,

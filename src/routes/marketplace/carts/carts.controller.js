@@ -14,14 +14,8 @@ import ProductCategory from '../product-categories/product-category.model'
 
 // --------------- Module Controller
 const CartsCtrl = {
-  create: async cartInfo => {
-    return Cart.create(cartInfo) // Returns created cart
-  },
-
-  get: async id => {
-    return CartsCtrl.getCart({ _id: id }) // Get given cart and information
-  },
-
+  create: async cartInfo => Cart.create(cartInfo), // Returns created cart
+  get: async id => CartsCtrl.getCart({ _id: id }), // Get given cart and information
   clear: async id => {
     await CartItem.remove({ ownerId: id }) // Removes all the cart items for the given card
     await Cart.findOneAndUpdate({ _id: id }, { items: [] }) // Sets an empty items list on the cart
@@ -86,7 +80,8 @@ const CartsCtrl = {
       if (!item.isDuplicated) delete item._id // In case the item is not duplicated, create it
       item.parentType = 'Cart' // Converts the item into an cart item
     }
-    item.quantity = item.quantity ? (increment ? ++item.quantity : --item.quantity) : 1 // Sets the proper item quantity
+    const updatedQuantity = increment ? ++item.quantity : --item.quantity
+    item.quantity = item.quantity ? updatedQuantity : 1 // Sets the proper item quantity
     item.mustDelete = !(item.quantity > 0) // Checks if item has to be removed from the cart (quatity lesser than one)
     return item // Returns item
   },

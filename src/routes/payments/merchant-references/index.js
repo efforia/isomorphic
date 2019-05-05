@@ -7,11 +7,11 @@
 
 // --------------- Module Imports
 import express from 'express'
+import controller from './merchant-references.controller'
+import auth from '../../../services/auth.service'
 
 
 const router = express.Router('merchant-references')
-import controller from './merchant-references.controller'
-import auth from '../../../services/auth.service'
 
 /**
  * @interface create
@@ -19,8 +19,8 @@ import auth from '../../../services/auth.service'
  */
 router.post('/', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let user = req.body
-    let account = await controller.create(user)
+    const user = req.body
+    const account = await controller.create(user)
     return res.status(200).json(account)
   } catch (e) {
     error(e)

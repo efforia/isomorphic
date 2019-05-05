@@ -10,7 +10,7 @@ import moment from 'moment'
 import axios from 'axios'
 import Order from '../../marketplace/orders/order.model'
 
-import PaymentCtrl from '../payments.controller.js'
+import PaymentCtrl from '../payments.controller'
 
 // --------------- Module variables
 const moip = require('moip-sdk-node').default({
@@ -23,12 +23,6 @@ const MOIP_HEADERS = {
   Authorization: `OAuth ${process.env.MOIP_APP_TOKEN}`
 }
 const MARKETPLACE_PERCENTAGE = 5
-
-// --------------- Module s
-const pad = num => {
-  num = parseInt(num)
-  return num < 10 ? `0${num.toString()}` : num.toString()
-}
 
 // --------------- Module controller
 const OrderRefsCtrl = {
@@ -43,7 +37,7 @@ const OrderRefsCtrl = {
           // Order meta (goes into the NFe)
           product: process.env.PROJECT_DISPLAY_NAME, // Project name
           quantity: 1, // One quantity with the total order amount
-          price: parseInt((orderInfo.total.toFixed(2) * 100).toFixed(0)) // Total order amount
+          price: parseInt((orderInfo.total.toFixed(2) * 100).toFixed(0), 10) // Total order amount
         }
       ],
       customer: { id: customer.id } // And the payment gateway customer id
@@ -69,7 +63,6 @@ const OrderRefsCtrl = {
     const holder = order.customer.payment.customer // Gets the customer information
     holder.birthdate = holder.birthDate // Gets the customer birth date
     let paymentInstrument
-    let confirmation
     const isCreditCardPayment = order.paymentInstrument.first4
     if (isCreditCardPayment) {
       paymentInstrument = {
@@ -109,11 +102,8 @@ const OrderRefsCtrl = {
       }
     }
     const paymentInfo = (await moip.payment.create(order.gatewayInfo.id, paymentInstrument)).body // Payment creation
-    if (env.client.IS_DEVELOPMENT)
-      confirmation = await OrderRefsCtrl.simulatePaymentApproval(
-        paymentInfo.id,
-        paymentInfo.amount.total
-      ) // Payment simulation for testing environments
+    if (process.env.IS_DEVELOPMENT)
+      await OrderRefsCtrl.simulatePaymentApproval(paymentInfo.id, paymentInfo.amount.total) // Payment simulation for testing environments
     order = await Order.findOneAndUpdate({ _id: order._id }, { paymentInfo }) // Payment saving
     return order // Returns order
   },

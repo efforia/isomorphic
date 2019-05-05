@@ -6,10 +6,10 @@
  */
 
 // --------------- Module Imports
+import axios from 'axios'
 import PaymentMethod from './payment-method.model'
 
 import SeoService from '../../services/seo.service'
-import axios from 'axios'
 
 // --------------- Module Variables
 const MOIP_HEADERS = {
@@ -28,46 +28,45 @@ const PaymentsCtrl = {
     }
   },
   getPaymentDetails: async paymentId => {
-    let url = `${process.env.MOIP_BASE_URL}/v2/payments/${paymentId}` // Sets request url
-    let config = { headers: MOIP_HEADERS } // Sets request config
-    let payment = (await axios.get(url, config)).data // Requests payment information
+    const url = `${process.env.MOIP_BASE_URL}/v2/payments/${paymentId}` // Sets request url
+    const config = { headers: MOIP_HEADERS } // Sets request config
+    const payment = (await axios.get(url, config)).data // Requests payment information
     return payment // Returns the payment information
   },
-  savePaymentMethod: async (method) => {
+  savePaymentMethod: async method => {
     delete method.createdAt // Removes timestamps in order to prevent conflicts
     delete method.updatedAt // Removes timestamps in order to prevent conflicts
     delete method.__v // Removes versioning in order to prevent conflicts
     method.value = SeoService.getSlugFrom(method.label)
       .toUpperCase()
       .replace(/-/g, '_') // Generates method code
-    let saved = method._id
+    const saved = method._id
       ? await PaymentMethod.findOneAndUpdate({ _id: method._id }, method)
       : await PaymentMethod.create(method) // Creates or updates method
     return saved // Returns subscription method
   },
-  togglePaymentMethod: async (methodId) => {
-    let method = await PaymentMethod.findOneWithDeleted({ _id: methodId })
-    let toggled = method.deleted ? await method.restore() : await method.delete() // Deactivates method
+  togglePaymentMethod: async methodId => {
+    const method = await PaymentMethod.findOneWithDeleted({ _id: methodId })
+    const toggled = method.deleted ? await method.restore() : await method.delete() // Deactivates method
     return toggled // Returns methods
   },
-  getPaymentMethods: async (user) => {
-    return user.roles.indexOf('ADMIN') > -1
-      ? await PaymentMethod.findWithDeleted({}).sort('label')
-      : await PaymentMethod.find({}).sort('label') // Gets payment modes list
-  },
+  getPaymentMethods: async user =>
+    user.roles.indexOf('ADMIN') > -1
+      ? PaymentMethod.findWithDeleted({}).sort('label')
+      : PaymentMethod.find({}).sort('label'), // Gets payment modes list
   getPaymentAuthKeys: async () => {
-    let url = `${process.env.MOIP_BASE_URL}/v2/keys` // Sets the request url
-    let keys = (await axios.get(url, { headers: MOIP_HEADERS })).data // Retrieves the payent gateway keys
+    const url = `${process.env.MOIP_BASE_URL}/v2/keys` // Sets the request url
+    const keys = (await axios.get(url, { headers: MOIP_HEADERS })).data // Retrieves the payent gateway keys
     return keys // Returns the keys
   },
   getPublicKey: async () => {
-    let url = `${process.env.MOIP_BASE_URL}/v2/keys` // Sets the request url
-    let response = (await axios.get(url, { headers: MOIP_HEADERS })).data // Retrieves the payent gateway keys
+    const url = `${process.env.MOIP_BASE_URL}/v2/keys` // Sets the request url
+    const response = (await axios.get(url, { headers: MOIP_HEADERS })).data // Retrieves the payent gateway keys
     return response.keys.encryption // Returns the public key
   },
   getMarketplaceId: async () => {
     try {
-      let account = (await axios.get(process.env.MOIP_BASE_URL + '/v2/accounts', {
+      const account = (await axios.get(`${process.env.MOIP_BASE_URL}/v2/accounts`, {
         headers: MOIP_HEADERS
       })).data // Gets the account informatoin for given oauth token
       return account.id // Returns the (marketplace) account id.

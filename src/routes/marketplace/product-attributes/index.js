@@ -7,11 +7,11 @@
 
 // --------------- Module Imports
 import express from 'express'
+import controller from './product-attributes.controller'
+import auth from '../../../services/auth.service'
 
 
 const router = express.Router('product-attributes')
-import controller from './product-attributes.controller'
-import auth from '../../../services/auth.service'
 
 /**
  * @interface save
@@ -19,8 +19,8 @@ import auth from '../../../services/auth.service'
  */
 router.post('/', auth.isAdmin(), async (req, res, error) => {
   try {
-    let attributeInfo = req.body
-    let attribute = await controller.save(attributeInfo)
+    const attributeInfo = req.body
+    const attribute = await controller.save(attributeInfo)
     return res.status(200).json(attribute)
   } catch (e) {
     error(e)
@@ -33,7 +33,7 @@ router.post('/', auth.isAdmin(), async (req, res, error) => {
  */
 router.get('/', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let attributes = await controller.list()
+    const attributes = await controller.list()
     return res.status(200).json(attributes)
   } catch (e) {
     error(e)

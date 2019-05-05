@@ -8,7 +8,6 @@
 // --------------- Module Imports
 import express from 'express'
 import controller from './carts.controller'
-import auth from '../../../services/auth.service'
 
 const router = express.Router('carts')
 
@@ -18,8 +17,8 @@ const router = express.Router('carts')
  */
 router.post('/', async (req, res, error) => {
   try {
-    let cartInfo = req.body
-    let cart = await controller.create(cartInfo)
+    const cartInfo = req.body
+    const cart = await controller.create(cartInfo)
     return res.status(200).json(cart)
   } catch (e) {
     error(e)
@@ -32,8 +31,8 @@ router.post('/', async (req, res, error) => {
  */
 router.get('/:id', async (req, res, error) => {
   try {
-    let id = req.params.id // Gets cart id.
-    let cart = await controller.get(id)
+    const {id} = req.params // Gets cart id.
+    const cart = await controller.get(id)
     return res.status(200).json(cart)
   } catch (e) {
     error(e)
@@ -46,8 +45,8 @@ router.get('/:id', async (req, res, error) => {
  */
 router.put('/:id/clear', async (req, res, error) => {
   try {
-    let id = req.params.id
-    let cleared = await controller.clear(id)
+    const {id} = req.params
+    const cleared = await controller.clear(id)
     return res.status(200).json(cleared)
   } catch (e) {
     error(e)
@@ -60,9 +59,9 @@ router.put('/:id/clear', async (req, res, error) => {
  */
 router.get('/:id/items/list/:category', async (req, res, error) => {
   try {
-    let id = req.params.id
-    let category = req.params.category
-    let items = await controller.getCategoryItems(id, category)
+    const {id} = req.params
+    const {category} = req.params
+    const items = await controller.getCategoryItems(id, category)
     return res.status(200).json(items)
   } catch (e) {
     error(e)
@@ -75,9 +74,9 @@ router.get('/:id/items/list/:category', async (req, res, error) => {
  */
 router.put('/:id/items/increment', async (req, res, error) => {
   try {
-    let id = req.params.id
-    let item = req.body
-    let updatedCart = await controller.incrementItem(id, item)
+    const {id} = req.params
+    const item = req.body
+    const updatedCart = await controller.incrementItem(id, item)
     return res.status(200).json(updatedCart)
   } catch (e) {
     error(e)
@@ -90,9 +89,9 @@ router.put('/:id/items/increment', async (req, res, error) => {
  */
 router.put('/:id/items/decrement', async (req, res, error) => {
   try {
-    let id = req.params.id
-    let item = req.body
-    let updatedCart = await controller.decrementItem(id, item)
+    const {id} = req.params
+    const item = req.body
+    const updatedCart = await controller.decrementItem(id, item)
     return res.status(200).json(updatedCart)
   } catch (e) {
     error(e)

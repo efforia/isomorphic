@@ -7,10 +7,7 @@
 
 // --------------- Module Imports
 import Merchant from './merchant.model'
-
 import Order from '../orders/order.model'
-import ProductCategory from '../product-categories/product-category.model'
-import ProductCategoriesCtrl from '../product-categories/product-categories.controller'
 
 // --------------- Module Variables
 const DEFAULT_RADIUS = 100000
@@ -32,11 +29,11 @@ const MerchantsCtrl = {
       '-_id ratings.customerRate'
     ) // Gets merchant orders
     let ratingsTotal = 0 // Initializes rating count
-    orders.map(order => {
+    orders.forEach(order => {
       ratingsTotal += order.ratings.customerRate
     }) // Calculates the rating amount
     const rating = ratingsTotal / orders.length // Divides it by the ratings number
-    const merchant = await Merchant.findOneAndUpdate({ _id: id }, { rating: rating }) // Updates it on the the merchant
+    const merchant = await Merchant.findOneAndUpdate({ _id: id }, { rating }) // Updates it on the the merchant
     return merchant // Returns the updated merchant
   },
 

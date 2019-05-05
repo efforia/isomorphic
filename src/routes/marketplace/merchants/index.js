@@ -7,11 +7,9 @@
 
 // --------------- Module Imports
 import express from 'express'
-
+import controller from './merchants.controller'
 
 const router = express.Router('merchants')
-import controller from './merchants.controller'
-import auth from '../../../services/auth.service'
 
 /**
  * @interface details
@@ -19,8 +17,8 @@ import auth from '../../../services/auth.service'
  */
 router.get('/:id', async (req, res, error) => {
   try {
-    let id = req.params.id
-    let merchant = await controller.details(id)
+    const {id} = req.params
+    const merchant = await controller.details(id)
     return res.status(200).json(merchant)
   } catch (e) {
     error(e)
@@ -33,8 +31,8 @@ router.get('/:id', async (req, res, error) => {
  */
 router.get('/by-username/:username', async (req, res, error) => {
   try {
-    let username = req.params.username
-    let merchant = await controller.details(undefined, username)
+    const {username} = req.params
+    const merchant = await controller.details(undefined, username)
     return res.status(200).json(merchant)
   } catch (e) {
     error(e)
@@ -47,11 +45,11 @@ router.get('/by-username/:username', async (req, res, error) => {
  */
 router.get('/by-location/nearby', async (req, res, error) => {
   try {
-    let latitude = req.query.latitude
-    let longitude = req.query.longitude
-    let radius = req.query.radius
-    let keyword = req.query.keyword
-    let merchants = await controller.nearbyMerchants(latitude, longitude, radius, keyword)
+    const {latitude} = req.query
+    const {longitude} = req.query
+    const {radius} = req.query
+    const {keyword} = req.query
+    const merchants = await controller.nearbyMerchants(latitude, longitude, radius, keyword)
     return res.status(200).json(merchants)
   } catch (e) {
     error(e)
@@ -64,12 +62,12 @@ router.get('/by-location/nearby', async (req, res, error) => {
  */
 router.get('/nearby/:service', async (req, res, error) => {
   try {
-    let service = req.params.service
-    let latitude = req.query.latitude
-    let longitude = req.query.longitude
-    let radius = req.query.radius
-    let keyword = req.query.keyword
-    let merchants = await controller.nearbyByService(service, latitude, longitude, radius, keyword)
+    const {service} = req.params
+    const {latitude} = req.query
+    const {longitude} = req.query
+    const {radius} = req.query
+    const {keyword} = req.query
+    const merchants = await controller.nearbyByService(service, latitude, longitude, radius, keyword)
     return res.status(200).json(merchants)
   } catch (e) {
     error(e)

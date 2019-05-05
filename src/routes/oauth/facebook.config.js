@@ -8,7 +8,7 @@ passport.use(
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET
     },
     (accessToken, refreshToken, profile, next) => {
-      let user = profile._json
+      const user = profile._json
       return next(null, user)
     }
   )

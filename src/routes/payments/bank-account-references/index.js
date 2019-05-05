@@ -19,9 +19,9 @@ const router = express.Router('bank-account-references')
  */
 router.post('/', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let user = req.user
-    let accountInfo = req.body
-    let created = await controller.add(user, accountInfo)
+    const {user} = req
+    const accountInfo = req.body
+    const created = await controller.add(user, accountInfo)
     return res.status(200).json(created)
   } catch (e) {
     error(e)
@@ -34,8 +34,8 @@ router.post('/', auth.isAuthenticated(), async (req, res, error) => {
  */
 router.get('/', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let user = req.user
-    let accounts = await controller.list(user)
+    const {user} = req
+    const accounts = await controller.list(user)
     return res.status(200).json(accounts)
   } catch (e) {
     error(e)
@@ -48,9 +48,9 @@ router.get('/', auth.isAuthenticated(), async (req, res, error) => {
  */
 router.post('/remove/:id', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let user = req.user
-    let id = req.params.id // Gets bank account id
-    let updatedAccounts = await controller.remove(user, id)
+    const {user} = req
+    const {id} = req.params // Gets bank account id
+    const updatedAccounts = await controller.remove(user, id)
     return res.status(200).json(updatedAccounts)
   } catch (e) {
     error(e)

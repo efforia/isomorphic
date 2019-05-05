@@ -8,9 +8,6 @@
 // --------------- Module Imports
 import express from 'express'
 
-
 const router = express.Router('order-references')
-import controller from './order-references.controller'
-import auth from '../../../services/auth.service'
 
 export default router

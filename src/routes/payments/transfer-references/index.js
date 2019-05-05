@@ -7,11 +7,11 @@
 
 // --------------- Module Imports
 import express from 'express'
+import controller from './transfer-references.controller'
+import auth from '../../../services/auth.service'
 
 
 const router = express.Router('transfer-references')
-import controller from './transfer-references.controller'
-import auth from '../../../services/auth.service'
 
 /**
  * @interface getAvailabeWithdrawal
@@ -19,8 +19,8 @@ import auth from '../../../services/auth.service'
  */
 router.get('/available', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let user = req.user
-    let withdrawal = await controller.getAvailabeWithdrawal(user)
+    const {user} = req
+    const withdrawal = await controller.getAvailabeWithdrawal(user)
     return res.status(200).json(withdrawal)
   } catch (e) {
     error(e)
@@ -33,10 +33,10 @@ router.get('/available', auth.isAuthenticated(), async (req, res, error) => {
  */
 router.post('/transfer', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let user = req.user
-    let amount = req.body.amount
-    let bankAccount = req.body.bankAccount
-    let withdrawal = await controller.transferWithdrawal(user, bankAccount, amount)
+    const {user} = req
+    const {amount} = req.body
+    const {bankAccount} = req.body
+    const withdrawal = await controller.transferWithdrawal(user, bankAccount, amount)
     return res.status(200).json(withdrawal)
   } catch (e) {
     error(e)

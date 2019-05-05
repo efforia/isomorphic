@@ -7,11 +7,11 @@
 
 // --------------- Module Imports
 import express from 'express'
+import controller from './card-references.controller'
+import auth from '../../../services/auth.service'
 
 
 const router = express.Router('card-references')
-import controller from './card-references.controller'
-import auth from '../../../services/auth.service'
 
 /**
  * @interface addPaymentCard
@@ -19,9 +19,9 @@ import auth from '../../../services/auth.service'
  */
 router.post('/', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let user = req.user
-    let cardInfo = req.body // Gets the card information
-    let created = await controller.add(user, cardInfo)
+    const {user} = req
+    const cardInfo = req.body // Gets the card information
+    const created = await controller.add(user, cardInfo)
     return res.status(200).json(created)
   } catch (e) {
     error(e)
@@ -34,9 +34,9 @@ router.post('/', auth.isAuthenticated(), async (req, res, error) => {
  */
 router.post('/remove/:id', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let user = req.user
-    let id = req.params.id // Gets the payment card id
-    let removed = await controller.remove(user, id)
+    const {user} = req
+    const {id} = req.params // Gets the payment card id
+    const removed = await controller.remove(user, id)
     return res.status(200).json(removed)
   } catch (e) {
     error(e)
@@ -49,8 +49,8 @@ router.post('/remove/:id', auth.isAuthenticated(), async (req, res, error) => {
  */
 router.get('/', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let user = req.user
-    let cards = await controller.list(user)
+    const {user} = req
+    const cards = await controller.list(user)
     return res.status(200).json(cards)
   } catch (e) {
     error(e)

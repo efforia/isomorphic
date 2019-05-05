@@ -10,37 +10,36 @@ import mongoose from 'mongoose'
 
 import gerarCpf from 'gerar-cpf'
 import JSEncrypt from 'node-jsencrypt'
-import CustomerRefCtrl from '../customer-references/customer-references.controller'
-import PaymentCtrl from '../../payments/payments.controller'
 import PhoneNumber from 'awesome-phonenumber'
+import { MoipCreditCard } from 'moip-sdk-js'
+import CustomerRefCtrl from '../customer-references/customer-references.controller'
+import PaymentCtrl from '../payments.controller'
 import User from '../../users/user.model'
 
 // --------------- Module Variables
-import { MoipCreditCard } from 'moip-sdk-js'
 
 // --------------- Module Controller
 const CardRefsCtrl = {
   add: async (user, cardInfo) => {
     if (!user.payment || !user.payment.customer) {
       // In case the user does not have an customer account
-      let customerAccount = await CustomerRefCtrl.create(user) // Creates the customer account
+      const customerAccount = await CustomerRefCtrl.create(user) // Creates the customer account
       user.payment = { instruments: [], customer: customerAccount } // Sets it in the session user
     }
-    let gatewayRef = user.payment.customer // Gets the customer reference from the payyment gateway
-    let phone = new PhoneNumber(cardInfo.holder.phone, 'BR').getNumber('significant') // Formats the phone number
-    let birthDate = (cardInfo.holder.birthDate ? new Date(cardInfo.holder.birthDate) : new Date())
+    const phone = new PhoneNumber(cardInfo.holder.phone, 'BR').getNumber('significant') // Formats the phone number
+    const birthDate = (cardInfo.holder.birthDate ? new Date(cardInfo.holder.birthDate) : new Date())
       .toISOString()
       .split('T')[0] // Formats the birthdate
-    let sensitiveInfo = {
+    const sensitiveInfo = {
       // Payment instrument information
       expirationMonth: cardInfo.expirationMonth, // Expiration month
       expirationYear: cardInfo.expirationYear.substring(2, 5), // Expiration year
       number: cardInfo.number.numbersOnly(), // Card number (without special chars)
       cvc: cardInfo.cvv // Cars security code
     }
-    let hash = await CardRefsCtrl.hash(sensitiveInfo) // Hashes the payment card
-    let creditCard = Object.assign(
-      { hash: hash },
+    const hash = await CardRefsCtrl.hash(sensitiveInfo) // Hashes the payment card
+    const creditCard = Object.assign(
+      { hash },
       {
         first4: sensitiveInfo.number.substring(0, 4),
         last4: sensitiveInfo.number.substring(
@@ -65,36 +64,37 @@ const CardRefsCtrl = {
         }
       }
     )
-    let instrument = Object.assign(creditCard, {
+    const instrument = Object.assign(creditCard, {
       _id: new mongoose.Types.ObjectId(),
-      hash: hash,
+      hash,
       createdAt: new Date()
     }) // Saves the payment card on the DB
-    user = await User.findOneAndUpdate(
+    const updated = await User.findOneAndUpdate(
       { _id: user._id },
       { $addToSet: { 'payment.instruments': instrument } },
       { new: true }
-    ).lean() // Updates the user
-    let instruments = user.payment ? user.payment.instruments : [] // Retrieves the updated payment instruments list
+    ).lean() // Updates the updated
+    const instruments = updated.payment ? updated.payment.instruments : [] // Retrieves the updated payment instruments list
     return instruments // Returns the list
   },
   remove: async (user, id) => {
-    user = await User.findOneAndUpdate(
+    const updated = await User.findOneAndUpdate(
       { _id: user._id },
       { $pull: { 'payment.instruments': { _id: new mongoose.Types.ObjectId(id) } } },
       { new: true }
     ).lean() // Updates the user
-    let instruments = user.payment ? user.payment.instruments : [] // Retrieves the updated payment instruments list
+    const instruments = updated.payment ? updated.payment.instruments : [] // Retrieves the updated payment instruments list
     return instruments // Returns the list
   },
   list: async user => {
-    user = await User.findOne({ _id: user._id }).lean() // Retrieves logged in user
-    let instruments = user.payment && user.payment.instruments ? user.payment.instruments : [] // Retrieves payment instruments list
+    const parsed = await User.findOne({ _id: user._id }).lean() // Retrieves logged in user
+    const instruments =
+      parsed.payment && parsed.payment.instruments ? parsed.payment.instruments : [] // Retrieves payment instruments list
     return instruments // Returns the list
   },
   hash: async card => {
-    let pub_key = await PaymentCtrl.getPublicKey() // Gets the cateway master account public key
-    let hash = await MoipCreditCard.setEncrypter(JSEncrypt, 'node')
+    const pub_key = await PaymentCtrl.getPublicKey() // Gets the cateway master account public key
+    const hash = await MoipCreditCard.setEncrypter(JSEncrypt, 'node')
       .setPubKey(pub_key)
       .setCreditCard(card)
       .hash() // Hashes the card sensitive information

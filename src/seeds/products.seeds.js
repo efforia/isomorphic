@@ -53,7 +53,7 @@ const saveCategories = () => {
                 let createdChild = await ProductCategory.findOne({
                   description: child.description
                 })
-                if (!createdChild) => {
+                if (!createdChild) {
                   createdChild = await ProductCategory.create(
                     Object.assign(child, {
                       parent: parent._id,
@@ -66,10 +66,7 @@ const saveCategories = () => {
               })
             })
           )
-          const updated = await ProductCategory.findOneAndUpdate(
-            { _id: parent._id },
-            { children }
-          )
+          const updated = await ProductCategory.findOneAndUpdate({ _id: parent._id }, { children })
           log('Created category ', updated)
           resolve()
         })
@@ -84,7 +81,7 @@ const savePictures = async () => {
   await Promise.all(
     pictures.map(
       picture =>
-        new Promise(async (resolve, reject) => {
+        new Promise(async (resolve) => {
           const filepath = path.join(productsSourcePath, picture)
           const filename = `/products/pictures/${picture}`
           try {
@@ -143,7 +140,7 @@ const saveItems = () => {
               delete product.brand
               let item = await Product.findOne({ slug: product.slug })
               if (!item) item = await Product.create(product)
-              if (picture && picture.metadata && item) => {
+              if (picture && picture.metadata && item) {
                 const { metadata } = picture
                 /* await picture.makePublic() */
                 const pictureExists = await Picture.findOne({
@@ -184,7 +181,7 @@ const saveItems = () => {
 }
 
 const execute = async () => {
-  // await savePictures();
+  await savePictures();
   await saveCategories()
   saveItems()
 }

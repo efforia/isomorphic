@@ -15,7 +15,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "npx nodemon index.js",
-    "deploy": "node .bin/deploy"
+    "deploy": "node .bin/deploy",
+    "lint:fix": "eslint --fix ./src"
   },
   "dependencies": {
     "@google-cloud/storage": "^2.0.3",

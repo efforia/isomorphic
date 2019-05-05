@@ -15,11 +15,11 @@ import SeoService from '../../../services/seo.service'
 const ProductCategoriesCtrl = {
   save: async categoryInfo => {
     categoryInfo.isRoot = !categoryInfo.parent // Checks if it is root
-    let category = categoryInfo._id
+    const category = categoryInfo._id
       ? await ProductCategory.findOneAndUpdate({ _id: categoryInfo._id }, { $set: categoryInfo })
       : await ProductCategory.create(categoryInfo) // Creates or updates the category
-    let slug = await ProductCategoriesCtrl.getSlug(category._id) // Gets the updated category slug
-    await ProductCategory.findOneAndUpdate({ _id: category._id }, { slug: slug }) // Sets it on the categoryInfobase
+    const slug = await ProductCategoriesCtrl.getSlug(category._id) // Gets the updated category slug
+    await ProductCategory.findOneAndUpdate({ _id: category._id }, { slug }) // Sets it on the categoryInfobase
     if (categoryInfo.parent)
       await ProductCategory.findOneAndUpdate(
         { _id: categoryInfo.parent },
@@ -29,14 +29,14 @@ const ProductCategoriesCtrl = {
   },
 
   list: async user => {
-    let withDeleted = ProductCategoriesCtrl.withDeleted(user) // Gets the categories including the deleted ones
+    const withDeleted = ProductCategoriesCtrl.withDeleted(user) // Gets the categories including the deleted ones
     return ProductCategory.findWithDeleted(withDeleted, 'description slug children deleted', {
       sort: { description: 1 }
     }).populate('children') // Retrieves the categories information
   },
 
   listRoot: async user => {
-    let withDeleted = ProductCategoriesCtrl.withDeleted(user) // Gets the root categories including the deleted ones
+    const withDeleted = ProductCategoriesCtrl.withDeleted(user) // Gets the root categories including the deleted ones
     return ProductCategory.findWithDeleted(
       Object.assign({ parent: { $exists: false } }, withDeleted),
       'description slug children deleted',
@@ -45,97 +45,88 @@ const ProductCategoriesCtrl = {
   },
 
   getBySlug: async (user, slug) => {
-    let withDeleted = ProductCategoriesCtrl.withDeleted(user) // Gets the categories including the deleted ones
-    let category = await ProductCategory.findOneWithDeleted({ slug: slug }).lean() // Gets the category information
+    const withDeleted = ProductCategoriesCtrl.withDeleted(user) // Gets the categories including the deleted ones
+    const category = await ProductCategory.findOneWithDeleted({ slug }).lean() // Gets the category information
     if (category)
       category.children = await ProductCategory.findWithDeleted(
         Object.assign({ _id: { $in: category.children } }, withDeleted)
       ).lean() // Populates children category information
-    category.children.sort((a, b) => {
-      return a.description ? a.description.localeCompare(b.description) : 0
-    }) // Sorts the children categories alphabetically
+    category.children.sort((a, b) => a.description ? a.description.localeCompare(b.description) : 0) // Sorts the children categories alphabetically
     return category // Returns the category information
   },
 
   deactivate: async id => {
-    let category = await ProductCategory.findOneWithDeleted({ _id: id }) // Gets the category
+    const category = await ProductCategory.findOneWithDeleted({ _id: id }) // Gets the category
     await category.delete() // Deactivates it
     return category // Returns the deactivates category
   },
 
   activate: async id => {
-    let category = await ProductCategory.findOneWithDeleted({ _id: id }) // Gets the category
+    const category = await ProductCategory.findOneWithDeleted({ _id: id }) // Gets the category
     await category.restore() // Activates it
     return category // Returns the activated category
   },
 
-  getSlug: async categoryId => {
-    return new Promise((resolve, reject) => {
+  getSlug: async categoryId => new Promise((resolve, reject) => {
       ProductCategoriesCtrl.getParentsFor(categoryId, (error, parents) => {
         // Gets all the parent levels categories for the categoy
         if (error) return reject(error) // In case of error, returns it
         const reversed = parents.reverse() // Sets the proper parent order (root > parent > parent > ... > child)
         let categoryPath = '' // Initializes catgory path (parent-category-child-category)
-        reversed.map((parent, index) => {
+        reversed.forEach((parent, index) => {
           // For every category parent
           categoryPath += parent.description // Adds the category parent
           if (index !== reversed.length - 1) categoryPath += '-' // Followed by a dash
         })
-        let slug = SeoService.getSlugFrom(categoryPath.toLowerCase().replace(/\//g, '-')) // Sluggify the category path
+        const slug = SeoService.getSlugFrom(categoryPath.toLowerCase().replace(/\//g, '-')) // Sluggify the category path
         resolve(slug) // Returns the slug
       })
-    })
-  },
+    }),
 
   getParentsFor: async (categoryId, callback) => {
-    let getParentsFor = (categoryId, categories, callback) => {
+    const getParentsFor = (childCategoryId, categories, recursiveCallback) => {
       // Gets parents of all leves for given category
       ProductCategory.findOne(
-        { _id: categoryId },
+        { _id: childCategoryId },
         'parent description isRoot _id',
         (error, category) => {
           // Retrieves the given category information
-          if (error) return callback(error) // In case of error, returns it
+          if (error) return recursiveCallback(error) // In case of error, returns it
           if (category) categories.push(category) // Adds parent to the list list
           return !category || category.isRoot
-            ? callback(undefined, categories)
-            : getParentsFor(category.parent, categories, callback) // So, that's a recursive loop
+            ? recursiveCallback(undefined, categories)
+            : getParentsFor(category.parent, categories, recursiveCallback) // So, that's a recursive loop
         }
       )
     }
     getParentsFor(categoryId, [], callback) // Starts the recursive loop
   },
 
-  getAllCategoriesForItem: async id => {
-    return new Promise(async (resolve, reject) => {
+  getAllCategoriesForItem: async id => new Promise(async (resolve, reject) => {
       const item = await Product.findOne({ _id: id }, 'categories -_id') // Gets the item and information
       const itemCategories = item.categories || [] // Initializes item categories array
       const currentCategory = 0 // Initializes iterated categories counter
       const lastCategory = itemCategories.length // Stop condition for the loop
       let categories = [] // Initializes parsed categories array
-      itemCategories.forEach(async (categoryId, index) => {
+      itemCategories.forEach(async (categoryId) => {
         // For every item category
         this.getParentsFor(categoryId, (error, parents) => {
           // Gets the multilevel parent categories
           if (error) return reject(error) // In case of errors, returns them
           if (parents && parents.length) {
             // In case there are any parents
-            parents.filter(category => {
-              return categories.indexOfObject('_id', category._id) == -1
-            }) // Checks if the parent does not exists on the list
+            parents.filter(category => categories.indexOfObject('_id', category._id) === -1) // Checks if the parent does not exists on the list
             categories = categories.concat(parents) // Adds the new parents found
           }
-          if (currentCategory + 1 == lastCategory) {
+          if (currentCategory + 1 === lastCategory) {
             // In case the loop ended
             resolve(categories) // Returns the results
           }
         })
       })
-    })
-  },
+    }),
 
-  getCategoriesForItems: async items => {
-    return new Promise(async (resolve, reject) => {
+  getCategoriesForItems: async items => new Promise(async (resolve) => {
       // Gets all the levels of categories for given items list
       let categories =
         (await Product.aggregate([
@@ -143,14 +134,13 @@ const ProductCategoriesCtrl = {
           { $unwind: '$fullCategoriesList' }, // Retrieve the full categories list
           { $group: { _id: '$fullCategoriesList' } } // As unique category ids
         ])) || []
-      categories = categories.map(category => category._id + '') // Reduces the categories results to an array of ids
+      categories = categories.map(category => `${category._id  }`) // Reduces the categories results to an array of ids
       resolve(categories) // Returns the results
-    })
-  },
+    }),
 
-  withDeleted: user => {
-    return user && user.role == 'ADMIN' ? {} : { deleted: false } // Checks if the queries must return deactivates items or not
-  }
+  withDeleted: user => 
+     user && user.role === 'ADMIN' ? {} : { deleted: false } // Checks if the queries must return deactivates items or not
+  
 }
 
 /*     getItemsForCategoryAsAdmin: async  (category) => {

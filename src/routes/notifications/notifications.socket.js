@@ -6,8 +6,8 @@
  */
 
 // --------------- Module Imports
-import Notification from './notification.model'
-/* const socket = require('../../config/socket').get()
+/* import Notification from './notification.model'
+const socket = require('../../config/socket').get()
 
 // --------------- Module Events
 socket.on('notifications received', async(notifications) => {

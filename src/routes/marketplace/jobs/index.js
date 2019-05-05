@@ -7,22 +7,22 @@
 
 // --------------- Module Imports
 import express from 'express'
+import controller from './jobs.controller'
+import auth from '../../../services/auth.service'
 
 
 const router = express.Router('jobs')
-import controller from './jobs.controller'
-import auth from '../../../services/auth.service'
 
 // --------------- Module Routes
 router.post('/request/:service/nearby', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    let user = req.user
-    let service = req.params.service
-    let latitude = req.query.latitude
-    let longitude = req.query.longitude
-    let radius = req.query.radius
-    let keyword = req.query.keyword
-    let merchants = await controller.requestNearby(
+    const {user} = req
+    const {service} = req.params
+    const {latitude} = req.query
+    const {longitude} = req.query
+    const {radius} = req.query
+    const {keyword} = req.query
+    const merchants = await controller.requestNearby(
       user,
       service,
       latitude,
@@ -38,8 +38,8 @@ router.post('/request/:service/nearby', auth.isAuthenticated(), async (req, res,
 
 router.get('/jobs', auth.isMerchant(), async (req, res, error) => {
   try {
-    let user = req.user
-    let events = await controller.getByMerchant(user)
+    const {user} = req
+    const events = await controller.getByMerchant(user)
     return res.status(200).json(events)
   } catch (e) {
     error(e)

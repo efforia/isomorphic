@@ -4,22 +4,15 @@
  * @author Leonardo Quevedo
  */
 
-export default (logger = {
-  log: message => {
-    let prefix = logger.timePrefix()
-    message = prefix + '  ' + message
-    console.log(message)
-  },
+export default {
   timePrefix: () => {
-    var date = new Date()
-    return (
-      '[' +
-      ('0' + date.getHours()).slice(-2) +
-      ':' +
-      ('0' + date.getMinutes()).slice(-2) +
-      ':' +
-      ('0' + date.getSeconds()).slice(-2) +
-      ']'
-    )
+    const date = new Date()
+    return `[${`0${date.getHours()}`.slice(-2)}:${`0${date.getMinutes()}`.slice(
+      -2
+    )}:${`0${date.getSeconds()}`.slice(-2)}]`
+  },
+  log: message => {
+    const prefix = this.timePrefix()
+    console.log(`${prefix}  ${message}`)
   }
-})
+}

@@ -6,13 +6,13 @@
  */
 
 // --------------- Module Imports
-import User from '../../users/user.model'
 
 import gerarCpf from 'gerar-cpf'
 import PhoneNumber from 'awesome-phonenumber'
 import countries from 'i18n-iso-countries'
 import mongoose from 'mongoose'
 import axios from 'axios'
+import User from '../../users/user.model'
 
 // --------------- Module Variables
 const MOIP_HEADERS = {
@@ -23,20 +23,20 @@ const DEFAULT_BIRTHDATE = '1991-10-10'
 
 // --------------- Module Controller
 const CustomerRefsCtrl = {
-  create: async (user) => {
-    user = CustomerRefsCtrl.format(user) // Formats the user information
-    let url = `${process.env.MOIP_BASE_URL}/v2/customers` // Sets payment gateway customer url
-    let customer = (await axios.post(
+  create: async user => {
+    const formattedUser = CustomerRefsCtrl.format(user) // Formats the user information
+    const url = `${process.env.MOIP_BASE_URL}/v2/customers` // Sets payment gateway customer url
+    const customer = (await axios.post(
       url,
       {
         // Creates the user on the payment gateway
-        ownId: user.reference, // User database reference on our API
-        fullname: user.fullname, // User fullname
-        email: user.email, // User e-mail
-        birthDate: user.birthDate, // User birthdate
-        taxDocument: user.taxDocument, // User tax document
-        phone: user.formattedFone, // User phone
-        shippingAddress: user.shippingAddress, // User billing information
+        ownId: formattedUser.reference, // User database reference on our API
+        fullname: formattedUser.fullname, // User fullname
+        email: formattedUser.email, // User e-mail
+        birthDate: formattedUser.birthDate, // User birthdate
+        taxDocument: formattedUser.taxDocument, // User tax document
+        phone: formattedUser.formattedFone, // User phone
+        shippingAddress: formattedUser.shippingAddress, // User billing information
         transparentAccount: true // Lets the application manage the user account
       },
       { headers: MOIP_HEADERS }
@@ -44,20 +44,19 @@ const CustomerRefsCtrl = {
     await User.findOneAndUpdate({ _id: user._id }, { 'payment.customer': customer }) // Adds the account to the user on our database
     return customer // Returns the created account
   },
-  get: async (id) => {
-    let url = `${process.env.MOIP_BASE_URL}/v2/customers/${id}` // Sets payment gateway customer url
-    let customer = (await axios.get(url, { headers: MOIP_HEADERS })).data // Calls gateway
+  get: async id => {
+    const url = `${process.env.MOIP_BASE_URL}/v2/customers/${id}` // Sets payment gateway customer url
+    const customer = (await axios.get(url, { headers: MOIP_HEADERS })).data // Calls gateway
     return customer // Returns the updated user
   },
-  remove: async (user) => {
-    let id = user.payment.customer.id // Get account id
-    let url = `${process.env.MOIP_BASE_URL}/v2/accounts/${id}` // Sets payment gateway delete url
-    let deleted = (await axios.delete(url, { headers: MOIP_HEADERS })).body // Calls gateway
-    user = await User.findOneAndUpdate({ _id: user._id }, { $unset: { 'payment.customer': 1 } }) // Removes the account from our database
-    return user // Returns the updated user
+  remove: async user => {
+    const { id } = user.payment.customer // Get account id
+    const url = `${process.env.MOIP_BASE_URL}/v2/accounts/${id}` // Sets payment gateway delete url
+    await axios.delete(url, { headers: MOIP_HEADERS }) // Calls gateway
+    return User.findOneAndUpdate({ _id: user._id }, { $unset: { 'payment.customer': 1 } }) // Removes the account from our database
   },
   format: customer => {
-    let phone = new PhoneNumber(customer.phone, 'BR').getNumber('significant') // Formats user phone
+    const phone = new PhoneNumber(customer.phone, 'BR').getNumber('significant') // Formats user phone
     customer.birthDate = customer.birthDate
       ? customer.birthDate.toISOString().split('T')[0]
       : DEFAULT_BIRTHDATE // Gets user birthdate

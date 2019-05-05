@@ -44,7 +44,7 @@ app.set('port', port)
 const server = app.listen(port, () => {
   router.init(app)
   database.connect()
-  // storage.init(app)
+  storage.init(app)
   if (process.env.NODE_ENV === 'dev') seeds.init(app)
   log(`☮ Server: API listening on http://${host}:${port}`.green.bold)
 })

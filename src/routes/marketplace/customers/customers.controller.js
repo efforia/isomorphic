@@ -11,7 +11,7 @@ import Customer from './customer.model'
 // --------------- Module Controller
 const CustomersCtrl = {
   addFavorite: async (user, merchant) => {
-    let favorites = (await Customer.findOneAndUpdate(
+    const favorites = (await Customer.findOneAndUpdate(
       { _id: user._id },
       { $addToSet: { favoriteMerchants: merchant } },
       { upsert: true, new: true }
@@ -20,7 +20,7 @@ const CustomersCtrl = {
     return favorites // Returns the updated list
   },
   removeFavorite: async (user, merchant) => {
-    let favorites = (await Customer.findOneAndUpdate(
+    const favorites = (await Customer.findOneAndUpdate(
       { _id: user._id },
       { $pull: { favoriteMerchants: merchant } },
       { new: true }
@@ -29,7 +29,7 @@ const CustomersCtrl = {
     return favorites // Returns the updated list
   },
   getFavorites: async (user) => {
-    let favorites = (await Customer.findOne({ _id: user._id })).favoriteMerchants // Gets the favorites list
+    const favorites = (await Customer.findOne({ _id: user._id })).favoriteMerchants // Gets the favorites list
     return favorites // Returns the list
   }
 }
