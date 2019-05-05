@@ -1,9 +1,9 @@
 {
-  "name": "universe-server",
+  "name": "react-universe-server",
   "version": "1.0.0",
   "author": "Leonardo Quevedo",
   "homepage": "https://www.github.com/leopq",
-  "description": "Awesome Ionic Framework Application!",
+  "description": "Awesome Node.js Application!",
   "license": "MIT",
   "keywords": [
     "mean",
@@ -11,12 +11,11 @@
     "nodejs",
     "mongoose"
   ],
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "npx nodemon app.js",
-    "deploy": "node .bin/deploy",
-    "import:products": "node .bin/import/products"
+    "start": "node index.js",
+    "dev": "npx nodemon index.js",
+    "deploy": "node .bin/deploy"
   },
   "dependencies": {
     "@google-cloud/storage": "^2.0.3",
