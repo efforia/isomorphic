@@ -1,0 +1,50 @@
+@import './variables.scss';
+@import './components.scss';
+@import './icons.scss';
+
+* {
+  font-family: 'Source Sans Pro', sans-serif;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 65%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 60%;
+  }
+}
+
+.device-cordova {
+  .page-content {
+    padding-top: 30px;
+    padding-bottom: 0px;
+    &:after {
+      position: fixed;
+      display: block;
+      content: ' ';
+      height: 30px;
+      width: 100vw;
+      top: 0;
+      left: 0;
+      background-color: inherit;
+      z-index: 9999;
+    }
+  }
+}
+
+.preloader-backdrop {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.preloader-modal {
+  --f7-preloader-modal-bg-color: transparent;
+}
+
+.dialog {
+  --f7-dialog-border-radius: 15px;
+}
