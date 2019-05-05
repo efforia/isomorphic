@@ -6,14 +6,15 @@
  */
 
 // --------------- Module Imports
-const Cart = require('./cart.model')
-const CartItem = require('./cart-item.model')
-const MarketItem = require('../market-items/market-item.model')
-const MarketItemCategory = require('../market-item-categories/market-item-category.model')
-const InventoryItem = require('../inventories/inventory-item.model')
+import Cart from './cart.model'
+
+import CartItem from './cart-item.model'
+import MarketItem from '../market-items/market-item.model'
+import MarketItemCategory from '../market-item-categories/market-item-category.model'
+import InventoryItem from '../inventories/inventory-item.model'
 
 // --------------- Module Controller
-const CartsCtrl = (module.exports = {
+const CartsCtrl = {
   create: async function(cartInfo) {
     return await Cart.create(cartInfo) // Returns created cart
   },
@@ -124,4 +125,5 @@ const CartsCtrl = (module.exports = {
     cart = await CartsCtrl.getCart({ _id: id }) // Gets the updated cart with items and information
     return cart // Returns the cart
   }
-})
+}
+export default CartsCtrl

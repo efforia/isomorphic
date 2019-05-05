@@ -6,11 +6,12 @@
  */
 
 // --------------- Module Imports
-const SwaggerExpressRouter = require('../../../swagger/swagger.router')
-const SwaggerUtils = require('../../../swagger/swagger.utils')
+import SwaggerExpressRouter from '../../../swagger/swagger.router'
+
+import SwaggerUtils from '../../../swagger/swagger.utils'
 const router = new SwaggerExpressRouter('customers')
-const controller = require('./customers.controller')
-const auth = require('../../../services/auth.service')
+import controller from './customers.controller'
+import auth from '../../../services/auth.service'
 
 /**
  * @interface addFavourite
@@ -56,4 +57,4 @@ router.get('/favourites/merchants', auth.isAuthenticated(), async (req, res, err
   }
 })
 
-module.exports = router
+export default router

@@ -5,16 +5,16 @@
  * @description Seeds configuration.
  */
 
-const path = require('path')
-const fs = require('fs-extra')
+import path from 'path'
+import fs from 'fs-extra'
 
-module.exports = {
+export default {
   init: async app => {
     app.use('/plant', (req, res) => {
       // import data for test
       const seedsDir = path.join(__dirname, '../seeds')
       let isFile
-      fs.readdirSync(seedsDir).forEach(function(seed) {
+      fs.readdirSync(seedsDir).forEach(seed => {
         isFile = seed && seed.indexOf('.') > -1 && seed.indexOf('product') > -1
         if (isFile) require(path.join(seedsDir, seed))
       })

@@ -6,19 +6,20 @@
  */
 
 // --------------- Module Imports
-const mongoose = require('mongoose')
-const gerarCpf = require('gerar-cpf')
-const JSEncrypt = require('node-jsencrypt')
-const CustomerRefCtrl = require('../customer-references/customer-references.controller')
-const PaymentCtrl = require('../../payments/payments.controller')
-const PhoneNumber = require('awesome-phonenumber')
-const User = require('../../users/user.model')
+import mongoose from 'mongoose'
+
+import gerarCpf from 'gerar-cpf'
+import JSEncrypt from 'node-jsencrypt'
+import CustomerRefCtrl from '../customer-references/customer-references.controller'
+import PaymentCtrl from '../../payments/payments.controller'
+import PhoneNumber from 'awesome-phonenumber'
+import User from '../../users/user.model'
 
 // --------------- Module Variables
-const MoipCreditCard = require('moip-sdk-js').MoipCreditCard
+import { MoipCreditCard } from 'moip-sdk-js'
 
 // --------------- Module Controller
-const CardRefsCtrl = (module.exports = {
+const CardRefsCtrl = {
   add: async function(user, cardInfo) {
     if (!user.payment || !user.payment.customer) {
       // In case the user does not have an customer account
@@ -99,4 +100,5 @@ const CardRefsCtrl = (module.exports = {
       .hash() // Hashes the card sensitive information
     return hash // Returns the card hash
   }
-})
+}
+export default CardRefsCtrl

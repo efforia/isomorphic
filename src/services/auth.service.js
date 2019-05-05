@@ -1,10 +1,10 @@
-const jwt = require('jsonwebtoken')
-const compose = require('composable-middleware')
-const randomstring = require('just.randomstring')
-const User = require('../routes/users/user.model')
-const SubscriptionCtrl = require('../routes/payments/subscription-references/subscription-references.controller')
+import jwt from 'jsonwebtoken'
+import compose from 'composable-middleware'
+import randomstring from 'just.randomstring'
+import User from '../routes/users/user.model'
+import SubscriptionCtrl from '../routes/payments/subscription-references/subscription-references.controller'
 
-const auth = (module.exports = {
+const auth = {
   hasValidToken: () => {
     return compose().use((req, res, next) => {
       let token = null
@@ -118,4 +118,5 @@ const auth = (module.exports = {
     let randomness = randomstring(16)
     callback(randomness)
   }
-})
+}
+export default auth

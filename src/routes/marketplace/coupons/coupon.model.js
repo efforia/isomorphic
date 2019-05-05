@@ -6,14 +6,18 @@
  */
 
 // --------------- Module Imports
-const mongoose = require('mongoose')
-const timestamps = require('mongoose-timestamp')
-const mongoose_delete = require('mongoose-delete')
-const lifecycle = require('mongoose-lifecycle')
-require('mongoose-schema-jsonschema')(mongoose)
+import mongoose from 'mongoose'
+
+import timestamps from 'mongoose-timestamp'
+import mongooseDelete from 'mongoose-delete'
+import lifecycle from 'mongoose-lifecycle'
+
+import jsonSchema from 'mongoose-schema-jsonschema'
+
+jsonSchema(mongoose)
 
 // --------------- Module Schema
-let CouponSchema = mongoose.Schema({
+const CouponSchema = mongoose.Schema({
   name: { type: String, required: true }, // nome do cupom
   user: { type: String }, // id do merchant se desconto específico para um prestador de serviço
   countMax: { type: Number, required: true }, // quantidade de cupons a serem utilizados
@@ -24,8 +28,8 @@ let CouponSchema = mongoose.Schema({
 // --------------- Module Plugins
 CouponSchema.plugin(lifecycle)
 CouponSchema.plugin(timestamps)
-CouponSchema.plugin(mongoose_delete, { overrideMethods: 'all', validateBeforeDelete: false })
+CouponSchema.plugin(mongooseDelete, { overrideMethods: 'all', validateBeforeDelete: false })
 
 // --------------- Module Model
 const Coupon = mongoose.model('Coupon', CouponSchema)
-module.exports = Coupon
+export default Coupon

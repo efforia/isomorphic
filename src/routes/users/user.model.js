@@ -6,14 +6,18 @@
  */
 
 // --------------- Module Imports
-const mongoose = require('mongoose')
-const deepPopulate = require('mongoose-deep-populate')(mongoose)
-const timestamps = require('mongoose-timestamp')
-const jsonschema = require('mongoose-schema-jsonschema')(mongoose)
-const mongoose_delete = require('mongoose-delete')
-const lifecycle = require('mongoose-lifecycle')
-const bcrypt = require('bcrypt-nodejs')
-const jwt = require('jsonwebtoken')
+import mongoose from 'mongoose'
+
+import deepPopulateFactory from 'mongoose-deep-populate'
+import timestamps from 'mongoose-timestamp'
+import jsonschemaFactory from 'mongoose-schema-jsonschema'
+import mongooseDelete from 'mongoose-delete'
+import lifecycle from 'mongoose-lifecycle'
+import bcrypt from 'bcrypt-nodejs'
+import jwt from 'jsonwebtoken'
+
+const deepPopulate = deepPopulateFactory(mongoose)
+const jsonschema = jsonschemaFactory(mongoose)
 
 // --------------- Module Schema
 const UserSchema = mongoose.Schema({
@@ -75,7 +79,7 @@ UserSchema.index({ 'address.location': '2dsphere' })
 UserSchema.plugin(deepPopulate)
 UserSchema.plugin(lifecycle)
 UserSchema.plugin(timestamps)
-UserSchema.plugin(mongoose_delete, { overrideMethods: 'all', validateBeforeDelete: false })
+UserSchema.plugin(mongooseDelete, { overrideMethods: 'all', validateBeforeDelete: false })
 
 // --------------- Module Methods
 UserSchema.methods.hashPassword = function(password) {
@@ -94,8 +98,8 @@ UserSchema.methods.getToken = function() {
 // --------------- Module Hooks
 /* Converts { latitude: ..., longitude: ... } into { longitude: ..., latitude: ... } */
 function toLngLat(coordinates) {
-  let formatted = {}
-  let isLngLat = Object.keys(coordinates)[0] == 'lng'
+  const formatted = {}
+  const isLngLat = Object.keys(coordinates)[0] == 'lng'
   Object.keys(coordinates)
     .sort()
     .reverse()
@@ -104,7 +108,7 @@ function toLngLat(coordinates) {
 }
 
 UserSchema.pre('findOneAndUpdate', function(next) {
-  let updates = this.getUpdate().$set
+  const updates = this.getUpdate().$set
   if (updates && updates.address && updates.address.location) {
     updates.address.location = toLngLat(updates.address.location)
   }
@@ -121,7 +125,8 @@ const User = mongoose.model('User', UserSchema)
 User.getTokenFor = function(user) {
   return jwt.sign({ _id: user._id }, process.env.MASTER_KEY)
 }
-module.exports = User
+
+export default User
 
 /* const emailsToRemove = ['ooooo@gmail.com']
 User.find({}, (err, users) => {

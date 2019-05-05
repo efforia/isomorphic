@@ -6,25 +6,28 @@
  */
 
 // --------------- Module Imports
-const mongoose = require('mongoose')
-const timestamps = require('mongoose-timestamp')
-const mongoose_delete = require('mongoose-delete')
-const lifecycle = require('mongoose-lifecycle')
-require('mongoose-schema-jsonschema')(mongoose)
+import mongoose from 'mongoose'
+
+import timestamps from 'mongoose-timestamp'
+import mongooseDelete from 'mongoose-delete'
+import lifecycle from 'mongoose-lifecycle'
+import jsonSchema from 'mongoose-schema-jsonschema'
+
+jsonSchema(mongoose)
 
 // --------------- Module Schema
-let MarketItemAttributeSchema = mongoose.Schema({
+const MarketItemAttributeSchema = mongoose.Schema({
   description: { type: String, required: true }
 })
 
 // --------------- Module Plugins
 MarketItemAttributeSchema.plugin(lifecycle)
 MarketItemAttributeSchema.plugin(timestamps)
-MarketItemAttributeSchema.plugin(mongoose_delete, {
+MarketItemAttributeSchema.plugin(mongooseDelete, {
   overrideMethods: 'all',
   validateBeforeDelete: false
 })
 
 // --------------- Module Model
 const MarketItemAttribute = mongoose.model('MarketItemAttribute', MarketItemAttributeSchema)
-module.exports = MarketItemAttribute
+export default MarketItemAttribute

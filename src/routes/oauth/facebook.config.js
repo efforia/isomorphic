@@ -1,5 +1,5 @@
-const passport = require('passport')
-const FacebookTokenStrategy = require('passport-facebook-token')
+import passport from 'passport'
+import FacebookTokenStrategy from 'passport-facebook-token'
 
 passport.use(
   new FacebookTokenStrategy(

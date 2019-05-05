@@ -6,12 +6,13 @@
  */
 
 // --------------- Module Imports
-const MarketItem = require('./market-item.model')
-const SeoService = require('../../../services/seo.service')
-const MarketItemCategory = require('../market-item-categories/market-item-category.model')
-const MarketItemCategories = require('../market-item-categories/market-item-categories.controller')
+import MarketItem from './market-item.model'
 
-const MarketItemsCtrl = (module.exports = {
+import SeoService from '../../../services/seo.service'
+import MarketItemCategory from '../market-item-categories/market-item-category.model'
+import MarketItemCategories from '../market-item-categories/market-item-categories.controller'
+
+const MarketItemsCtrl = {
   save: async function(user, item) {
     item = MarketItemsCtrl.format(user, item) // Formats market item date
     let itemByName = await MarketItem.findOne({ name: item.name }) // Checks if the product name is already taken
@@ -101,4 +102,5 @@ const MarketItemsCtrl = (module.exports = {
       ? { description: category.description, items: items, totalCount: totalCount }
       : {} // Returns the category items
   }
-})
+}
+export default MarketItemsCtrl

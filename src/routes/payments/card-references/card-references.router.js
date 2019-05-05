@@ -6,11 +6,12 @@
  */
 
 // --------------- Module Imports
-const SwaggerExpressRouter = require('../../../swagger/swagger.router')
-const SwaggerUtils = require('../../../swagger/swagger.utils')
+import SwaggerExpressRouter from '../../../swagger/swagger.router'
+
+import SwaggerUtils from '../../../swagger/swagger.utils'
 const router = new SwaggerExpressRouter('card-references')
-const controller = require('./card-references.controller')
-const auth = require('../../../services/auth.service')
+import controller from './card-references.controller'
+import auth from '../../../services/auth.service'
 
 /**
  * @interface addPaymentCard
@@ -56,4 +57,4 @@ router.get('/', auth.isAuthenticated(), async (req, res, error) => {
   }
 })
 
-module.exports = router
+export default router

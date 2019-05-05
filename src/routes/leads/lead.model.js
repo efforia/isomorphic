@@ -6,11 +6,14 @@
  */
 
 // --------------- Module Imports
-const mongoose = require('mongoose')
-const timestamps = require('mongoose-timestamp')
-const mongoose_delete = require('mongoose-delete')
-const lifecycle = require('mongoose-lifecycle')
-require('mongoose-schema-jsonschema')(mongoose)
+import mongoose from 'mongoose'
+
+import timestamps from 'mongoose-timestamp'
+import mongooseDelete from 'mongoose-delete'
+import lifecycle from 'mongoose-lifecycle'
+import jsonSchema from 'mongoose-schema-jsonschema'
+
+jsonSchema(mongoose)
 
 // --------------- Module Schema
 const LeadSchema = mongoose.Schema({
@@ -20,8 +23,8 @@ const LeadSchema = mongoose.Schema({
 // --------------- Module Plugins
 LeadSchema.plugin(lifecycle)
 LeadSchema.plugin(timestamps)
-LeadSchema.plugin(mongoose_delete, { overrideMethods: 'all', validateBeforeDelete: false })
+LeadSchema.plugin(mongooseDelete, { overrideMethods: 'all', validateBeforeDelete: false })
 
 // --------------- Module Model
 const Lead = mongoose.model('Lead', LeadSchema)
-module.exports = Lead
+export default Lead

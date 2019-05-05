@@ -6,12 +6,13 @@
  */
 
 // --------------- Module Imports
-const MarketItemCategory = require('./market-item-category.model')
-const MarketItem = require('../market-items/market-item.model')
-const SeoService = require('../../../services/seo.service')
+import MarketItemCategory from './market-item-category.model'
+
+import MarketItem from '../market-items/market-item.model'
+import SeoService from '../../../services/seo.service'
 
 // --------------- Module Controller
-const MarketItemCategoriesCtrl = (module.exports = {
+const MarketItemCategoriesCtrl = {
   save: async function(categoryInfo) {
     categoryInfo.isRoot = !categoryInfo.parent // Checks if it is root
     let category = categoryInfo._id
@@ -154,7 +155,7 @@ const MarketItemCategoriesCtrl = (module.exports = {
   withDeleted: function(user) {
     return user && user.role == 'ADMIN' ? {} : { deleted: false } // Checks if the queries must return deactivates items or not
   }
-})
+}
 
 /*     getItemsForCategoryAsAdmin: async function (category) {
         let categorySlug = category // Gets category slug
@@ -170,3 +171,4 @@ const MarketItemCategoriesCtrl = (module.exports = {
         })
        return category && items ? { description: category.description, items: items } : {} // Finally, returns the results
     }, */
+export default MarketItemCategoriesCtrl

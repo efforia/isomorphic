@@ -1,4 +1,4 @@
-const PaymentMethod = require('../routes/payments/payment-method.model')
+import PaymentMethod from '../routes/payments/payment-method.model'
 
 console.log(`☮ DB: Planting seeds for the PaymentMethod model...`.yellow)
 PaymentMethod.remove({}, async () => {

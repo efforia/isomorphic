@@ -6,26 +6,23 @@
  */
 
 // --------------- Module Imports
-const nodemailerSendgrid = require('nodemailer-sendgrid')
-const hbs = require('nodemailer-express-handlebars')
-const nodemailer = require('nodemailer')
-const locales = require('../../services/locales.service')
-const theme = require('../../config/theme.config')
+import path from 'path'
+import nodemailerSendgrid from 'nodemailer-sendgrid'
 
-const defaultLocales = locales.i18n.locales[locales.i18n.defaultLocale]
-const full_year = new Date().getFullYear() // Full year
+import hbs from 'nodemailer-express-handlebars'
+import nodemailer from 'nodemailer'
+
+const fullYear = new Date().getFullYear() // Full year
 
 // --------------- Module Controller
-const EmailsCtrl = (module.exports = {
-  send: async function(options) {
-    let defaults = {
+const EmailsCtrl = {
+  send: async options => {
+    const defaults = {
       // Default context variables
       header_background: `${process.env.SERVER_ADDRESS}/texture.jpg`, // E-mail background
       icon: `${process.env.SERVER_ADDRESS}/icon.png`, // Application icon
-      locales: defaultLocales, // Application locales for internationalization
       env: process.env, // Environment variables
-      year: full_year, // Full year label
-      colors: theme
+      year: fullYear // Full year label
     }
     options.context = options.context ? Object.assign(defaults, options.context) : defaults // Context variables
 
@@ -41,13 +38,14 @@ const EmailsCtrl = (module.exports = {
         // E-mail sender configuration
         viewEngine: {
           extname: '.hbs', // E-mail rendering engine
-          layoutsDir: __dirname + '/templates/', //
-          partialsDir: __dirname + '/templates/partials/' //
+          layoutsDir: path.join(__dirname, '/templates/'),
+          partialsDir: path.join(__dirname, '/templates/partials/') //
         },
-        viewPath: __dirname + '/templates/', //
+        viewPath: path.join(__dirname, '/templates/'), //
         extName: '.hbs' //
       })
     )
-    return await transport.sendMail(options)
+    return transport.sendMail(options)
   }
-})
+}
+export default EmailsCtrl

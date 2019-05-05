@@ -6,11 +6,12 @@
  */
 
 // --------------- Module Imports
-const SwaggerExpressRouter = require('../../../swagger/swagger.router')
-const SwaggerUtils = require('../../../swagger/swagger.utils')
+import SwaggerExpressRouter from '../../../swagger/swagger.router'
+
+import SwaggerUtils from '../../../swagger/swagger.utils'
 const router = new SwaggerExpressRouter('jobs')
-const controller = require('./jobs.controller')
-const auth = require('../../../services/auth.service')
+import controller from './jobs.controller'
+import auth from '../../../services/auth.service'
 
 // --------------- Module Routes
 router.post('/request/:service/nearby', auth.isAuthenticated(), async (req, res, error) => {
@@ -45,4 +46,4 @@ router.get('/jobs', auth.isMerchant(), async (req, res, error) => {
   }
 })
 
-module.exports = router
+export default router

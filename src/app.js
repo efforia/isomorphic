@@ -5,52 +5,51 @@
  * @description Server main file.
  */
 
-const path = require('path')
+import 'colors'
+import path from 'path'
+import express from 'express'
+import passport from 'passport'
+import logger from 'morgan'
+import ip from 'ip'
+import cors from 'cors'
+import bodyParser from 'body-parser'
+import dotenv from 'dotenv'
+import dotenvExpand from 'dotenv-expand'
+import compression from 'compression'
+import secure from 'express-force-https'
+
+import router from './config/routes.config'
+import database from './config/database.config'
+import seeds from './config/seeds.config'
+import socket from './config/socket.config'
+import storage from './config/storage.config'
+
+const { log } = console
+
 const dotenvPath = path.resolve(__dirname, './.env')
-const env = require('dotenv').config({ path: dotenvPath })
-require('dotenv-expand')(env)
-require('colors')
-require('./overrides')
-const express = require('express')
-const logger = require('morgan')
-const cookieParser = require('cookie-parser')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const passport = require('passport')
-const ip = require('ip')
-const compression = require('compression')
-const secure = require('express-force-https')
-const database = require('./config/database.config')
-const seeds = require('./config/seeds.config')
-const routes = require('./config/routes.config')
-const subdomain = require('./config/subdomain.config')
-const socket = require('./config/socket.config')
-const storage = require('./config/storage.config')
+const env = dotenv.config({ path: dotenvPath })
+dotenvExpand(env)
 
 const app = express()
-let host = ip.address()
-let port = process.env.PORT || '3000'
+const host = ip.address()
+const port = process.env.PORT || '3000'
 app.use(secure)
 app.use(compression())
 app.use(cors())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(cookieParser())
 app.use(passport.initialize())
 app.use(logger('dev'))
 app.set('port', port)
 const server = app.listen(port, () => {
-  routes.init(app)
+  // router.init(app)
   database.connect()
-  subdomain.init(app)
-  storage.init(app)
-  if (process.env.NODE_ENV == 'dev') seeds.init(app)
-  console.log(`☮ Server: API listening on http://${host}:${port}`.green.bold)
-  let isSwaggerUpdate = process.env.npm_config_updateswagger
-  if (isSwaggerUpdate) process.exit()
+  // storage.init(app)
+  if (process.env.NODE_ENV === 'dev') seeds.init(app)
+  log(`☮ Server: API listening on http://${host}:${port}`.green.bold)
 })
 
 socket(server)
 
-module.exports = app
+export default app

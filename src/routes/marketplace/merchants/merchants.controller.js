@@ -6,20 +6,21 @@
  */
 
 // --------------- Module Imports
-const Merchant = require('./merchant.model')
-const Order = require('../orders/order.model')
-const Inventory = require('../inventories/inventory.model')
-const Promotion = require('../promotions/promotion.model')
-const InventoryItem = require('../inventories/inventory-item.model')
-const PromotionsCtrl = require('../promotions/promotions.controller')
-const MarketItemCategory = require('../market-item-categories/market-item-category.model')
-const MarketItemCategoriesCtrl = require('../market-item-categories/market-item-categories.controller')
+import Merchant from './merchant.model'
+
+import Order from '../orders/order.model'
+import Inventory from '../inventories/inventory.model'
+import Promotion from '../promotions/promotion.model'
+import InventoryItem from '../inventories/inventory-item.model'
+import PromotionsCtrl from '../promotions/promotions.controller'
+import MarketItemCategory from '../market-item-categories/market-item-category.model'
+import MarketItemCategoriesCtrl from '../market-item-categories/market-item-categories.controller'
 
 // --------------- Module Variables
 const DEFAULT_RADIUS = 100000
 
 // --------------- Module Controller
-const MerchantsCtrl = (module.exports = {
+const MerchantsCtrl = {
   details: async function(id, username) {
     let promotionItems, promotionCategories // Initializes promotion variables
     let byCriteria = username ? { username: username } : { _id: id } // Creates criteria
@@ -162,4 +163,5 @@ const MerchantsCtrl = (module.exports = {
     parameters.criteria = { services: { $elemMatch: { description: service } } } // Query service type
     return (await MerchantsCtrl.nearby(parameters, '_id')) || [] // Returns nearby merchants
   }
-})
+}
+export default MerchantsCtrl

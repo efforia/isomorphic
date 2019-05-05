@@ -6,11 +6,12 @@
  */
 
 // --------------- Module Imports
-const SwaggerExpressRouter = require('../../../swagger/swagger.router')
-const SwaggerUtils = require('../../../swagger/swagger.utils')
+import SwaggerExpressRouter from '../../../swagger/swagger.router'
+
+import SwaggerUtils from '../../../swagger/swagger.utils'
 const router = new SwaggerExpressRouter('promotions')
-const controller = require('./promotions.controller')
-const auth = require('../../../services/auth.service')
+import controller from './promotions.controller'
+import auth from '../../../services/auth.service'
 
 router.get('/', auth.isMerchant(), async (req, res, error) => {
   try {
@@ -135,4 +136,4 @@ router.post('/:id/:category/items/remove', auth.isMerchant(), async (req, res, e
   }
 })
 
-module.exports = router
+export default router

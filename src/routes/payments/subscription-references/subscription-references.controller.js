@@ -6,15 +6,16 @@
  */
 
 // --------------- Module Imports
-const PhoneNumber = require('awesome-phonenumber')
-const countries = require('i18n-iso-countries')
-const mongoose = require('mongoose')
-const moment = require('moment')
-const axios = require('axios')
-const User = require('../../users/user.model')
-const SeoService = require('../../../services/seo.service')
-const SubscriptionPlan = require('./subscription-plan.model')
-const gerarCpf = require('gerar-cpf')
+import PhoneNumber from 'awesome-phonenumber'
+
+import countries from 'i18n-iso-countries'
+import mongoose from 'mongoose'
+import moment from 'moment'
+import axios from 'axios'
+import User from '../../users/user.model'
+import SeoService from '../../../services/seo.service'
+import SubscriptionPlan from './subscription-plan.model'
+import gerarCpf from 'gerar-cpf'
 
 // --------------- Module Variables
 const DEFAULT_SUBSCRIBER_BIRTHDATE = '10-10-1991'
@@ -24,7 +25,7 @@ const MOIP_HEADERS = {
 }
 
 // --------------- Module Controller
-const SubscriptionRefsCtrl = (module.exports = {
+const SubscriptionRefsCtrl = {
   DEFAULT_SUBSCRIBER_BIRTHDATE: DEFAULT_SUBSCRIBER_BIRTHDATE,
   savePlan: async function(plan) {
     let url = `${process.env.MOIP_BASE_URL}/assinaturas/v1/plans` // Sets request URL
@@ -183,4 +184,5 @@ const SubscriptionRefsCtrl = (module.exports = {
     let confirmation = (await axios.put(url, {}, { headers: MOIP_HEADERS })).data // Makes API call
     return confirmation // Retuns cancelation confirmation
   }
-})
+}
+export default SubscriptionRefsCtrl

@@ -6,11 +6,12 @@
  */
 
 // --------------- Module Imports
-const SwaggerExpressRouter = require('../../swagger/swagger.router')
-const SwaggerUtils = require('../../swagger/swagger.utils')
+import SwaggerExpressRouter from '../../swagger/swagger.router'
+
+import SwaggerUtils from '../../swagger/swagger.utils'
 const router = new SwaggerExpressRouter('oauth')
-const controller = require('./oauth.controller')
-const passport = require('passport')
+import controller from './oauth.controller'
+import passport from 'passport'
 
 /**
  * @interface accessWithFacebook
@@ -30,4 +31,4 @@ router.post(
   }
 )
 
-module.exports = router
+export default router

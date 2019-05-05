@@ -6,11 +6,12 @@
  */
 
 // --------------- Module Imports
-const SwaggerExpressRouter = require('../../../swagger/swagger.router')
-const SwaggerUtils = require('../../../swagger/swagger.utils')
+import SwaggerExpressRouter from '../../../swagger/swagger.router'
+
+import SwaggerUtils from '../../../swagger/swagger.utils'
 const router = new SwaggerExpressRouter('merchants')
-const controller = require('./merchants.controller')
-const auth = require('../../../services/auth.service')
+import controller from './merchants.controller'
+import auth from '../../../services/auth.service'
 
 /**
  * @interface details
@@ -75,4 +76,4 @@ router.get('/nearby/:service', async (req, res, error) => {
   }
 })
 
-module.exports = router
+export default router

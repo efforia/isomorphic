@@ -6,13 +6,14 @@
  */
 
 // --------------- Module Imports
-const Job = require('./job.model')
-const Order = require('../orders/order.model')
-const MerchantCtrl = require('../merchants/merchants.controller')
-const NotificationsCtrl = require('../../notifications/notifications.controller')
+import Job from './job.model'
+
+import Order from '../orders/order.model'
+import MerchantCtrl from '../merchants/merchants.controller'
+import NotificationsCtrl from '../../notifications/notifications.controller'
 
 // --------------- Module Controller
-const JobsCtrl = (module.exports = {
+const JobsCtrl = {
   requestNearby: async function(user, service, latitude, longitude, radius, keyword) {
     let merchants = await MerchantCtrl.nearbyByService(
       service,
@@ -43,4 +44,5 @@ const JobsCtrl = (module.exports = {
   getByMerchant: async function(merchant) {
     return await Job.find({ merchant: merchant._id }) // Returns the jobd events
   }
-})
+}
+export default JobsCtrl

@@ -5,11 +5,12 @@
  * @description Google Cloud Storage configuration.
  */
 
-const path = require('path')
-const fs = require('fs-extra')
+import path from 'path'
+
+import fs from 'fs-extra'
 const gcloudKeyFilepath = path.resolve(__dirname, '../keys/gcloud.json')
 
-module.exports = {
+export default {
   init: async () => {
     const gcloudKey = process.env.GOOGLE_APPLICATION_CREDENTIALS_VALUE
     process.env.GOOGLE_APPLICATION_CREDENTIALS = gcloudKeyFilepath

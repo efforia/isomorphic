@@ -6,12 +6,12 @@
  */
 
 // --------------- Module Imports
-const Lead = require('./lead.model')
+import Lead from './lead.model'
 
 // --------------- Module Variables
 
 // --------------- Module Controller
-const LeadsCtrl = (module.exports = {
+const LeadsCtrl = {
   save: async function(lead) {
     let saved = await Lead.create(lead)
     return saved // Returns the created lead
@@ -22,4 +22,5 @@ const LeadsCtrl = (module.exports = {
   get: async function(id) {
     return await Lead.findOne({ _id: id }) // Gets the lead information
   }
-})
+}
+export default LeadsCtrl

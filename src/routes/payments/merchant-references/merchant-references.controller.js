@@ -6,12 +6,13 @@
  */
 
 // --------------- Module Imports
-const User = require('../../users/user.model')
-const axios = require('axios')
-const gerarCpf = require('gerar-cpf')
-const mongoose = require('mongoose')
-const PhoneNumber = require('awesome-phonenumber')
-const countries = require('i18n-iso-countries')
+import User from '../../users/user.model'
+
+import axios from 'axios'
+import gerarCpf from 'gerar-cpf'
+import mongoose from 'mongoose'
+import PhoneNumber from 'awesome-phonenumber'
+import countries from 'i18n-iso-countries'
 
 // --------------- Module Variables
 const MOIP_HEADERS = {
@@ -21,7 +22,7 @@ const MOIP_HEADERS = {
 const DEFAULT_BIRTHDATE = '1990-10-10'
 
 // --------------- Module Controller
-const MerchantRefCtrl = (module.exports = {
+const MerchantRefCtrl = {
   create: async function(user) {
     user = MerchantRefCtrl.formatAccountForGateway(user) // Fomats the database user as the payment gateway requires
     let url = `${process.env.MOIP_BASE_URL}/v2/accounts` // Sets the URL for the request
@@ -79,4 +80,5 @@ const MerchantRefCtrl = (module.exports = {
     }
     return merchant // Returns the formatted account information
   }
-})
+}
+export default MerchantRefCtrl

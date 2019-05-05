@@ -6,11 +6,12 @@
  */
 
 // --------------- Module Imports
-const SwaggerExpressRouter = require('../../../swagger/swagger.router')
-const SwaggerUtils = require('../../../swagger/swagger.utils')
+import SwaggerExpressRouter from '../../../swagger/swagger.router'
+
+import SwaggerUtils from '../../../swagger/swagger.utils'
 const router = new SwaggerExpressRouter('orders')
-const controller = require('./orders.controller')
-const auth = require('../../../services/auth.service')
+import controller from './orders.controller'
+import auth from '../../../services/auth.service'
 
 /**
  * @interface createOrder
@@ -132,4 +133,4 @@ router.get('/receiving-modes', async (req, res, error) => {
   }
 })
 
-module.exports = router
+export default router

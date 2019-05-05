@@ -5,32 +5,30 @@
  * @description Routes configuration.
  */
 
-const express = require('express')
-const path = require('path')
-const klawSync = require('klaw-sync')
+import express from 'express'
+import path from 'path'
+import klawSync from 'klaw-sync'
+
 const routesPath = path.resolve(__dirname, '..', 'routes')
 const isWin = process.platform === 'win32'
-const routes = klawSync(routesPath) // Returns the folder files list
+const routes = klawSync(routesPath)
   .map(route => {
     if (route) return route.path
-  }) // Maps object to file path only
-  .filter(route => {
-    return route && route.indexOf('router.js') > -1
-  }) // Filters files leaving the routes
+    return undefined
+  })
+  .filter(route => route && route.indexOf('router.js') > -1)
 
-module.exports = RoutesConfig = {
-  init: app => {
-    let routePath = ''
-    let router = express.Router()
-    routes.forEach(route => {
-      routePath = isWin ? route.split('\\') : route.split('/')
-      routePath = routePath[routePath.length - 2]
-      router.use(`/${routePath}`, require(`${route}`))
-      console.log(`☮ Initializing ${RoutesConfig.getRouteName(routePath)} routes...`.yellow)
-    })
-    app.use(router) // Add to app routes
-  },
-  getRouteName(routePath) {
-    return routePath.replace(/-/g, ' ').toTitleCase()
-  }
+const getRouteName = routePath => routePath.replace(/-/g, ' ').toTitleCase()
+const init = app => {
+  let routePath = ''
+  const router = express.Router()
+  routes.forEach(route => {
+    routePath = isWin ? route.split('\\') : route.split('/')
+    routePath = routePath[routePath.length - 2]
+    router.use(`/${routePath}`, require(`${route}`))
+    console.log(`☮ Initializing ${getRouteName(routePath)} routes...`.yellow)
+  })
+  app.use(router) // Add to app routes
 }
+
+export default { init }

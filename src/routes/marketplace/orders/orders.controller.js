@@ -6,17 +6,18 @@
  */
 
 // --------------- Module Imports
-const Order = require('./order.model')
-const User = require('../../users/user.model')
-const ReceivingMode = require('./receiving-mode.model')
-const Notification = require('../../notifications/notification.model')
-const EmailsCtrl = require('../../emails/emails.controller')
-const currencyFormatter = require('currency-formatter')
-const MerchantCtrl = require('../merchants/merchants.controller.js')
-const OrderRefsCtrl = require('../../payments/order-references/order-references.controller')
-const InventoryItem = require('../inventories/inventory-item.model')
-const locales = require('../../../services/locales.service')
-const socket = require('../../../services/socket.service')
+import Order from './order.model'
+
+import User from '../../users/user.model'
+import ReceivingMode from './receiving-mode.model'
+import Notification from '../../notifications/notification.model'
+import EmailsCtrl from '../../emails/emails.controller'
+import currencyFormatter from 'currency-formatter'
+import MerchantCtrl from '../merchants/merchants.controller.js'
+import OrderRefsCtrl from '../../payments/order-references/order-references.controller'
+import InventoryItem from '../inventories/inventory-item.model'
+import locales from '../../../services/locales.service'
+import socket from '../../../services/socket.service'
 
 // --------------- Module functions
 const pad = num => {
@@ -25,7 +26,7 @@ const pad = num => {
 }
 
 // --------------- Module controller
-const OrdersCtrl = (module.exports = {
+const OrdersCtrl = {
   create: async function(user, order) {
     let gatewayInfo = {} // Declares function variables
     let isGatewayPayment = order && order.paymentInstrument && order.paymentInstrument.first4 // Checks if order is payed by the app
@@ -262,4 +263,5 @@ const OrdersCtrl = (module.exports = {
       : order.paymentInstrument.label // Sets the proper locale
     return order // Returns formatted order
   }
-})
+}
+export default OrdersCtrl

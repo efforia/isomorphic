@@ -6,11 +6,12 @@
  */
 
 // --------------- Module Imports
-const mongoose = require('mongoose')
-const mongoose_delete = require('mongoose-delete')
+import mongoose from 'mongoose'
+
+import mongooseDelete from 'mongoose-delete'
 
 // --------------- Module Schema
-let CartItemSchema = new mongoose.Schema({
+const CartItemSchema = new mongoose.Schema({
   ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Cart', required: true },
   information: { type: mongoose.Schema.Types.ObjectId, ref: 'MarketItem' },
   inventoryRef: { type: mongoose.Schema.Types.ObjectId, ref: 'InventoryItem', required: true },
@@ -21,8 +22,8 @@ let CartItemSchema = new mongoose.Schema({
 })
 
 // --------------- Module Plugins
-CartItemSchema.plugin(mongoose_delete, { overrideMethods: 'all', validateBeforeDelete: false })
+CartItemSchema.plugin(mongooseDelete, { overrideMethods: 'all', validateBeforeDelete: false })
 
 // --------------- Module Model
 const CartItem = mongoose.model('CartItem', CartItemSchema)
-module.exports = CartItem
+export default CartItem

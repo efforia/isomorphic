@@ -6,13 +6,13 @@
  */
 
 // --------------- Module Imports
-const SwaggerExpressRouter = require('../../swagger/swagger.router')
-const SwaggerUtils = require('../../swagger/swagger.utils')
-const router = new SwaggerExpressRouter('pictures')
-const controller = require('./pictures.controller')
-const auth = require('../../services/auth.service')
+import SwaggerExpressRouter from '../../swagger/swagger.router'
 
-const formidable = require('express-formidable')
+import SwaggerUtils from '../../swagger/swagger.utils'
+const router = new SwaggerExpressRouter('pictures')
+import controller from './pictures.controller'
+import auth from '../../services/auth.service'
+import formidable from 'express-formidable'
 
 router.post('/', auth.isAuthenticated(), formidable(), async (req, res, error) => {
   try {
@@ -51,4 +51,4 @@ router.post('/remove/:id', auth.isAuthenticated(), async (req, res, error) => {
   }
 })
 
-module.exports = router
+export default router

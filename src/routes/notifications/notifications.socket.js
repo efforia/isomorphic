@@ -6,7 +6,7 @@
  */
 
 // --------------- Module Imports
-const Notification = require('./notification.model')
+import Notification from './notification.model'
 /* const socket = require('../../config/socket').get()
 
 // --------------- Module Events

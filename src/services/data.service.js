@@ -4,11 +4,11 @@
  * @author Leonardo Quevedo
  */
 
-const PhoneNumber = require('awesome-phonenumber')
+import PhoneNumber from 'awesome-phonenumber'
 
-module.exports = DataService = {
+export default (DataService = {
   formatPhoneNumber: phone => {
     if (!phone) return ''
     return new PhoneNumber(phone, 'BR').getNumber('significant') // Formats user phone
   }
-}
+})

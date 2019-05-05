@@ -1,8 +1,9 @@
 // define models =========================================================
-var User = require('../users/user.model.js')
-const OauthCtrl = (module.exports = {
-  accessWithFacebook: async function(profile) {
-    let oauthUser = await User.findOne({ 'oauth.facebook.id': profile.id }).lean() // In case the user exists
+import User from '../users/user.model'
+
+const OauthCtrl = {
+  async accessWithFacebook(profile) {
+    const oauthUser = await User.findOne({ 'oauth.facebook.id': profile.id }).lean() // In case the user exists
     if (oauthUser) return Object.assign(oauthUser, { token: User.getTokenFor(oauthUser) }) // Creates a session and returns it
 
     let user = await User.findOne({ email: profile.email }).lean() // Otherwise, in case the e-mail exists on the database
@@ -17,4 +18,5 @@ const OauthCtrl = (module.exports = {
     })).toObject() // Creates the user
     return { created: Object.assign(user, { token: User.getTokenFor(user) }) } // And return it with a token
   }
-})
+}
+export default OauthCtrl

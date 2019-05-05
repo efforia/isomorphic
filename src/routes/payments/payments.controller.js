@@ -6,9 +6,10 @@
  */
 
 // --------------- Module Imports
-const PaymentMethod = require('./payment-method.model')
-const SeoService = require('../../services/seo.service')
-const axios = require('axios')
+import PaymentMethod from './payment-method.model'
+
+import SeoService from '../../services/seo.service'
+import axios from 'axios'
 
 // --------------- Module Variables
 const MOIP_HEADERS = {
@@ -17,7 +18,7 @@ const MOIP_HEADERS = {
 }
 
 // --------------- Module Controller
-const PaymentsCtrl = (module.exports = {
+const PaymentsCtrl = {
   init: async () => {
     try {
       PaymentsCtrl.MARKETPLACE_ID = await PaymentsCtrl.getMarketplaceId() // Gets the MARTPLACE_ID and adds it the module exports
@@ -74,6 +75,8 @@ const PaymentsCtrl = (module.exports = {
       console.log(e)
     }
   }
-})
+}
+
+export default PaymentsCtrl
 
 PaymentsCtrl.init()

@@ -6,11 +6,12 @@
  */
 
 // --------------- Module Imports
-const CouponPkg = require('coupon')
-const Coupon = require('./coupon.model')
+import CouponPkg from 'coupon'
+
+import Coupon from './coupon.model'
 
 // --------------- Module Controller
-const CouponsCtrl = (module.exports = {
+const CouponsCtrl = {
   save: async function(coupon) {
     let couponInfo = CouponPkg(coupon.name)
       .give(coupon.discount)
@@ -35,4 +36,5 @@ const CouponsCtrl = (module.exports = {
     let toggled = coupon.deleted ? await coupon.restore() : await coupon.delete() // Deactivates coupon
     return toggled // Returns coupon
   }
-})
+}
+export default CouponsCtrl

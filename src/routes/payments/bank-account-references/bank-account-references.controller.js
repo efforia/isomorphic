@@ -6,9 +6,10 @@
  */
 
 // --------------- Module Imports
-const MerchantRefCtrl = require('../merchant-references/merchant-references.controller')
-const User = require('../../users/user.model')
-const axios = require('axios')
+import MerchantRefCtrl from '../merchant-references/merchant-references.controller'
+
+import User from '../../users/user.model'
+import axios from 'axios'
 
 // --------------- Module Variables
 const moip = require('moip-sdk-node').default({
@@ -21,7 +22,7 @@ const MOIP_HEADERS = {
 }
 
 // --------------- Module Controller
-const BankAccountRefsCtrl = (module.exports = {
+const BankAccountRefsCtrl = {
   add: async function(user, accountInfo) {
     if (!user.payment || !user.payment.merchant) {
       // In case the user does not have a merchant account
@@ -59,4 +60,5 @@ const BankAccountRefsCtrl = (module.exports = {
     let bankAccounts = user.payment && user.payment.bankAccounts ? user.payment.bankAccounts : [] // Gets bank accounts
     return bankAccounts // Returns bank accounts
   }
-})
+}
+export default BankAccountRefsCtrl

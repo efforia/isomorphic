@@ -6,15 +6,20 @@
  */
 
 // --------------- Module Imports
-const mongoose = require('mongoose')
-const deepPopulate = require('mongoose-deep-populate')(mongoose)
-const timestamps = require('mongoose-timestamp')
-const mongoose_delete = require('mongoose-delete')
-const lifecycle = require('mongoose-lifecycle')
-require('mongoose-schema-jsonschema')(mongoose)
+import mongoose from 'mongoose'
+
+import deepPopulateFactory from 'mongoose-deep-populate'
+import timestamps from 'mongoose-timestamp'
+import mongooseDelete from 'mongoose-delete'
+import lifecycle from 'mongoose-lifecycle'
+
+import jsonSchema from 'mongoose-schema-jsonschema'
+
+jsonSchema(mongoose)
+const deepPopulate = deepPopulateFactory(mongoose)
 
 // --------------- Module Schema
-let MarketItemSchema = mongoose.Schema({
+const MarketItemSchema = mongoose.Schema({
   name: { type: String, required: true, unique: true },
   slug: { type: String, required: true, unique: true, lowercase: true },
   description: { type: String },
@@ -47,8 +52,8 @@ MarketItemSchema.pre('save', next => {
 MarketItemSchema.plugin(lifecycle)
 MarketItemSchema.plugin(timestamps)
 MarketItemSchema.plugin(deepPopulate)
-MarketItemSchema.plugin(mongoose_delete, { overrideMethods: 'all', validateBeforeDelete: false })
+MarketItemSchema.plugin(mongooseDelete, { overrideMethods: 'all', validateBeforeDelete: false })
 
 // --------------- Module Model
 const MarketItem = mongoose.model('MarketItem', MarketItemSchema)
-module.exports = MarketItem
+export default MarketItem

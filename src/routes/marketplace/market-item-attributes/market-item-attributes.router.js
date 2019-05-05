@@ -6,11 +6,12 @@
  */
 
 // --------------- Module Imports
-const SwaggerExpressRouter = require('../../../swagger/swagger.router')
-const SwaggerUtils = require('../../../swagger/swagger.utils')
+import SwaggerExpressRouter from '../../../swagger/swagger.router'
+
+import SwaggerUtils from '../../../swagger/swagger.utils'
 const router = new SwaggerExpressRouter('market-item-attributes')
-const controller = require('./market-item-attributes.controller')
-const auth = require('../../../services/auth.service')
+import controller from './market-item-attributes.controller'
+import auth from '../../../services/auth.service'
 
 /**
  * @interface save
@@ -39,4 +40,4 @@ router.get('/', auth.isAuthenticated(), async (req, res, error) => {
   }
 })
 
-module.exports = router
+export default router

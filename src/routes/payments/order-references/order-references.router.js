@@ -6,10 +6,11 @@
  */
 
 // --------------- Module Imports
-const SwaggerExpressRouter = require('../../../swagger/swagger.router')
-const SwaggerUtils = require('../../../swagger/swagger.utils')
-const router = new SwaggerExpressRouter('order-references')
-const controller = require('./order-references.controller')
-const auth = require('../../../services/auth.service')
+import SwaggerExpressRouter from '../../../swagger/swagger.router'
 
-module.exports = router
+import SwaggerUtils from '../../../swagger/swagger.utils'
+const router = new SwaggerExpressRouter('order-references')
+import controller from './order-references.controller'
+import auth from '../../../services/auth.service'
+
+export default router

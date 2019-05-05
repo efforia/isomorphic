@@ -4,7 +4,7 @@
  * @author Leonardo Quevedo
  */
 
-module.exports = logger = {
+export default (logger = {
   log: message => {
     let prefix = logger.timePrefix()
     message = prefix + '  ' + message
@@ -22,4 +22,4 @@ module.exports = logger = {
       ']'
     )
   }
-}
+})

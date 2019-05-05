@@ -6,15 +6,16 @@
  */
 
 // --------------- Module Imports
-const Picture = require('./picture.model')
-const { Storage } = require('@google-cloud/storage')
+import Picture from './picture.model'
+
+import { Storage } from '@google-cloud/storage'
 
 // --------------- Module Variables
 const bucket = process.env.FIREBASE_CONFIG_STORAGE_BUCKET
 const storage = new Storage({ projectId: process.env.FIREBASE_CONFIG_PROJECT_ID }) // In case of authentication errors, please check the keys inside the env gcloud.json file
 
 // --------------- Module Controller
-const PicturesCtrl = (module.exports = {
+const PicturesCtrl = {
   save: async function(filename, filepath, ownerId, mimeType, sent) {
     try {
       await storage.bucket(bucket).upload(filepath, { destination: filename, resumable: false }) // Opens the storage bucket
@@ -48,4 +49,5 @@ const PicturesCtrl = (module.exports = {
     await Picture.remove({ _id: picture._id }) // Removes picture from database
     return picture
   }
-})
+}
+export default PicturesCtrl

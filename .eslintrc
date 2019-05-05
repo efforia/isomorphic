@@ -36,6 +36,8 @@
     "consistent-return": 0,
     "prefer-arrow-callback": 1,
     "import/no-extraneous-dependencies": 0,
+    "import/no-dynamic-require": 0,
+    "global-require": 0,
     "linebreak-style": 0,
     "quotes": [
       2,

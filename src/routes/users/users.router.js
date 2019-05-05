@@ -6,11 +6,12 @@
  */
 
 // --------------- Module Imports
-const SwaggerExpressRouter = require('../../swagger/swagger.router')
-const SwaggerUtils = require('../../swagger/swagger.utils')
+import SwaggerExpressRouter from '../../swagger/swagger.router'
+
+import SwaggerUtils from '../../swagger/swagger.utils'
 const router = new SwaggerExpressRouter('users')
-const controller = require('./users.controller')
-const auth = require('../../services/auth.service')
+import controller from './users.controller'
+import auth from '../../services/auth.service'
 
 // --------------- Module Controller
 router.post('/', async (req, res, error) => {
@@ -101,6 +102,6 @@ router.post('/skips/:skip', auth.isAuthenticated(), async (req, res, error) => {
   }
 })
 
-module.exports = router
+export default router
 
 /* router.post('/email/verify/:confirmation', controller.confirmEmail) */

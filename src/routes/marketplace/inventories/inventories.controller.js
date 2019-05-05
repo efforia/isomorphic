@@ -6,16 +6,17 @@
  */
 
 // --------------- Module Imports
-const Inventory = require('./inventory.model')
-const InventoryItem = require('./inventory-item.model')
-const Merchant = require('../merchants/merchant.model')
-const MarketItem = require('../market-items/market-item.model')
-const MarketItemCategory = require('../market-item-categories/market-item-category.model')
-const MarketItemCategoryCtrl = require('../market-item-categories/market-item-categories.controller')
-const PromotionCtrl = require('../promotions/promotions.controller')
+import Inventory from './inventory.model'
+
+import InventoryItem from './inventory-item.model'
+import Merchant from '../merchants/merchant.model'
+import MarketItem from '../market-items/market-item.model'
+import MarketItemCategory from '../market-item-categories/market-item-category.model'
+import MarketItemCategoryCtrl from '../market-item-categories/market-item-categories.controller'
+import PromotionCtrl from '../promotions/promotions.controller'
 
 // --------------- Module Controller
-const InventoriesCtrl = (module.exports = {
+const InventoriesCtrl = {
   saveItem: async function(merchant, item) {
     delete item.__v // Removes version in order to prevent conflicts
     delete item.createdAt // Removes timestamp in order to prevent conflicts
@@ -122,4 +123,5 @@ const InventoriesCtrl = (module.exports = {
     })
     return { description: byUsername.name, id: byUsername._id, items: inventory } // Returns the inventory items
   }
-})
+}
+export default InventoriesCtrl

@@ -6,11 +6,12 @@
  */
 
 // --------------- Module Imports
-const SwaggerExpressRouter = require('../../swagger/swagger.router')
-const SwaggerUtils = require('../../swagger/swagger.utils')
+import SwaggerExpressRouter from '../../swagger/swagger.router'
+
+import SwaggerUtils from '../../swagger/swagger.utils'
 const router = new SwaggerExpressRouter('notifications')
-const controller = require('./notifications.controller')
-const auth = require('../../services/auth.service')
+import controller from './notifications.controller'
+import auth from '../../services/auth.service'
 
 router.post('/', auth.isAdmin(), async (req, res, error) => {
   try {
@@ -42,4 +43,4 @@ router.get('/:id', auth.isAuthenticated(), async (req, res, error) => {
   }
 })
 
-module.exports = router
+export default router

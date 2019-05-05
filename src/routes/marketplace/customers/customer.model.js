@@ -6,15 +6,17 @@
  */
 
 // --------------- Module Imports
-const mongoose = require('mongoose')
-const timestamps = require('mongoose-timestamp')
-const mongoose_delete = require('mongoose-delete')
-const lifecycle = require('mongoose-lifecycle')
-require('mongoose-schema-jsonschema')(mongoose)
-const User = require('../../users/user.model.js')
+import mongoose from 'mongoose'
+
+import timestamps from 'mongoose-timestamp'
+import mongooseDelete from 'mongoose-delete'
+import lifecycle from 'mongoose-lifecycle'
+import User from '../../users/user.model'
+
+require('mongoose-schemua-jsonschema')(mongoose)
 
 // --------------- Module Schema
-let CustomerSchema = new mongoose.Schema({
+const CustomerSchema = new mongoose.Schema({
   orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }],
   paymentData: { type: Object },
   pets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Pet', default: [] }],
@@ -25,9 +27,9 @@ let CustomerSchema = new mongoose.Schema({
 // --------------- Module Plugins
 CustomerSchema.plugin(lifecycle)
 CustomerSchema.plugin(timestamps)
-CustomerSchema.plugin(mongoose_delete, { overrideMethods: 'all', validateBeforeDelete: false })
+CustomerSchema.plugin(mongooseDelete, { overrideMethods: 'all', validateBeforeDelete: false })
 
 // --------------- Module Model
-let Customer = User.discriminator('Customer', CustomerSchema)
+const Customer = User.discriminator('Customer', CustomerSchema)
 
-module.exports = Customer
+export default Customer

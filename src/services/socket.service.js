@@ -1,2 +1,2 @@
-const socket = require('../config/socket.config')
-module.exports = socket()
+import socket from '../config/socket.config'
+export default socket()

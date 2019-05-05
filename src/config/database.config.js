@@ -5,18 +5,19 @@
  * @description Database configuration.
  */
 
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
+import bluebird from 'bluebird'
 
-module.exports = {
-  connect: async () => {
-    try {
-      console.log(`☮ Connecting to MongoDB: ${process.env.MONGODB_URI}...`.yellow)
-      mongoose.Promise = require('bluebird')
-      mongoose.set('useCreateIndex', true)
-      await mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true })
-      return mongoose.connection.db
-    } catch (error) {
-      console.log(`☮ MongoDB connection failure: ${error}!`.red)
-    }
+const connect = async () => {
+  try {
+    console.log(`☮ Connecting to MongoDB: ${process.env.MONGODB_URI}...`.yellow)
+    mongoose.Promise = bluebird
+    mongoose.set('useCreateIndex', true)
+    await mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true })
+    return mongoose.connection.db
+  } catch (error) {
+    console.log(`☮ MongoDB connection failure: ${error}!`.red)
   }
 }
+
+export default { connect }

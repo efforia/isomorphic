@@ -6,11 +6,12 @@
  */
 
 // --------------- Module Imports
-const SwaggerExpressRouter = require('../../../swagger/swagger.router')
-const SwaggerUtils = require('../../../swagger/swagger.utils')
+import SwaggerExpressRouter from '../../../swagger/swagger.router'
+
+import SwaggerUtils from '../../../swagger/swagger.utils'
 const router = new SwaggerExpressRouter('coupons')
-const controller = require('./coupons.controller')
-const auth = require('../../../services/auth.service')
+import controller from './coupons.controller'
+import auth from '../../../services/auth.service'
 
 /**
  * @interface getCoupons
@@ -80,4 +81,4 @@ router.post('/:name/use', auth.isAuthenticated(), async (req, res, error) => {
   }
 })
 
-module.exports = router
+export default router

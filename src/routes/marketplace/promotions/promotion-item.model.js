@@ -6,11 +6,12 @@
  */
 
 // --------------- Module Imports
-const mongoose = require('mongoose')
-const mongoose_delete = require('mongoose-delete')
+import mongoose from 'mongoose'
+
+import mongooseDelete from 'mongoose-delete'
 
 // --------------- Module Schema
-let PromotionItemSchema = new mongoose.Schema({
+const PromotionItemSchema = new mongoose.Schema({
   ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Merchant', required: true },
   information: { type: mongoose.Schema.Types.ObjectId, ref: 'MarketItem', required: true },
   promotion: { type: mongoose.Schema.Types.ObjectId, ref: 'Promotion', required: true },
@@ -21,8 +22,8 @@ let PromotionItemSchema = new mongoose.Schema({
 
 // --------------- Module Plugins and indexes
 PromotionItemSchema.index({ promotion: 1, inventoryRef: 1 }, { unique: true })
-PromotionItemSchema.plugin(mongoose_delete, { overrideMethods: 'all', validateBeforeDelete: false })
+PromotionItemSchema.plugin(mongooseDelete, { overrideMethods: 'all', validateBeforeDelete: false })
 
 // --------------- Module Model
 const PromotionItem = mongoose.model('PromotionItem', PromotionItemSchema)
-module.exports = PromotionItem
+export default PromotionItem

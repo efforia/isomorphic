@@ -6,12 +6,17 @@
  */
 
 // --------------- Module Imports
-const mongoose = require('mongoose')
-const deepPopulate = require('mongoose-deep-populate')(mongoose)
-const timestamps = require('mongoose-timestamp')
-const mongoose_delete = require('mongoose-delete')
-const lifecycle = require('mongoose-lifecycle')
-require('mongoose-schema-jsonschema')(mongoose)
+import mongoose from 'mongoose'
+
+import deepPopulateFactory from 'mongoose-deep-populate'
+import timestamps from 'mongoose-timestamp'
+import mongooseDelete from 'mongoose-delete'
+import lifecycle from 'mongoose-lifecycle'
+
+import jsonSchema from 'mongoose-schema-jsonschema'
+
+jsonSchema(mongoose)
+const deepPopulate = deepPopulateFactory(mongoose)
 
 // --------------- Module Schema
 const PromotionSchema = new mongoose.Schema({
@@ -24,13 +29,13 @@ const PromotionSchema = new mongoose.Schema({
 })
 
 // --------------- Module Functions and Hooks
-let isActive = function(promotion) {
-  let today = new Date()
+const isActive = function(promotion) {
+  const today = new Date()
   return new Date(promotion.startsAt) <= today && today <= new Date(promotion.endsAt)
 }
 
-let isEditable = function(promotion) {
-  let today = new Date()
+const isEditable = function(promotion) {
+  const today = new Date()
   return today <= new Date(promotion.endsAt)
 }
 
@@ -54,8 +59,8 @@ PromotionSchema.post('find', promotions => {
 PromotionSchema.plugin(deepPopulate)
 PromotionSchema.plugin(lifecycle)
 PromotionSchema.plugin(timestamps)
-PromotionSchema.plugin(mongoose_delete, { overrideMethods: 'all', validateBeforeDelete: false })
+PromotionSchema.plugin(mongooseDelete, { overrideMethods: 'all', validateBeforeDelete: false })
 
 // --------------- Module Model
 const Promotion = mongoose.model('Promotion', PromotionSchema)
-module.exports = Promotion
+export default Promotion

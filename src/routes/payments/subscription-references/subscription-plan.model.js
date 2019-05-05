@@ -6,11 +6,15 @@
  */
 
 // --------------- Module Imports
-const mongoose = require('mongoose')
-const timestamps = require('mongoose-timestamp')
-const mongoose_delete = require('mongoose-delete')
-const lifecycle = require('mongoose-lifecycle')
-require('mongoose-schema-jsonschema')(mongoose)
+import mongoose from 'mongoose'
+
+import timestamps from 'mongoose-timestamp'
+import mongooseDelete from 'mongoose-delete'
+import lifecycle from 'mongoose-lifecycle'
+
+import jsonSchema from 'mongoose-schema-jsonschema'
+
+jsonSchema(mongoose)
 
 // --------------- Module Schema
 const SubscriptionPlanSchema = mongoose.Schema({
@@ -25,11 +29,11 @@ const SubscriptionPlanSchema = mongoose.Schema({
 // --------------- Module Plugins and Indexes
 SubscriptionPlanSchema.plugin(lifecycle)
 SubscriptionPlanSchema.plugin(timestamps)
-SubscriptionPlanSchema.plugin(mongoose_delete, {
+SubscriptionPlanSchema.plugin(mongooseDelete, {
   overrideMethods: 'all',
   validateBeforeDelete: false
 })
 
 // --------------- Module Model
 const SubscriptionPlan = mongoose.model('SubscriptionPlan', SubscriptionPlanSchema)
-module.exports = SubscriptionPlan
+export default SubscriptionPlan

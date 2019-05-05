@@ -6,10 +6,10 @@
  */
 
 // --------------- Module Imports
-const Customer = require('./customer.model')
+import Customer from './customer.model'
 
 // --------------- Module Controller
-const CustomersCtrl = (module.exports = {
+const CustomersCtrl = {
   addFavorite: async function(user, merchant) {
     let favorites = (await Customer.findOneAndUpdate(
       { _id: user._id },
@@ -32,4 +32,5 @@ const CustomersCtrl = (module.exports = {
     let favorites = (await Customer.findOne({ _id: user._id })).favoriteMerchants // Gets the favorites list
     return favorites // Returns the list
   }
-})
+}
+export default CustomersCtrl

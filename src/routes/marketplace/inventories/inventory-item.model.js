@@ -6,11 +6,12 @@
  */
 
 // --------------- Module Imports
-const mongoose = require('mongoose')
-const mongoose_delete = require('mongoose-delete')
+import mongoose from 'mongoose'
+
+import mongooseDelete from 'mongoose-delete'
 
 // --------------- Module Schema
-let InventoryItemSchema = new mongoose.Schema({
+const InventoryItemSchema = new mongoose.Schema({
   ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Merchant', required: true },
   information: { type: mongoose.Schema.Types.ObjectId, ref: 'MarketItem', required: true },
   parentType: { type: String, default: 'Inventory' },
@@ -19,8 +20,8 @@ let InventoryItemSchema = new mongoose.Schema({
 })
 
 // --------------- Module Plugins
-InventoryItemSchema.plugin(mongoose_delete, { overrideMethods: 'all', validateBeforeDelete: false })
+InventoryItemSchema.plugin(mongooseDelete, { overrideMethods: 'all', validateBeforeDelete: false })
 
 // --------------- Module Model
 const InventoryItem = mongoose.model('InventoryItem', InventoryItemSchema)
-module.exports = InventoryItem
+export default InventoryItem

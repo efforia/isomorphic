@@ -6,9 +6,9 @@
  */
 
 // --------------- Module Imports
-const MarketItemAttribute = require('./market-item-attribute.model')
+import MarketItemAttribute from './market-item-attribute.model'
 
-const MarketItemAttributesCtrl = (module.exports = {
+const MarketItemAttributesCtrl = {
   save: async function(attributeInfo) {
     let attribute = await MarketItemAttribute.findOne({
       description: attributeInfo.description
@@ -19,4 +19,5 @@ const MarketItemAttributesCtrl = (module.exports = {
   list: async function() {
     return await MarketItemAttribute.find({}, null, { sort: { description: 1 } }) // Returns attributes list
   }
-})
+}
+export default MarketItemAttributesCtrl

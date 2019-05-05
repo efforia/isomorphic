@@ -6,11 +6,12 @@
  */
 
 // --------------- Module Imports
-const Notification = require('./notification.model')
-const request = require('request')
+import Notification from './notification.model'
+
+import request from 'request'
 
 // --------------- Module Controller
-const NotificationsCtrl = (module.exports = {
+const NotificationsCtrl = {
   sendNotification: async function(notification) {
     return await this.send(notification) // Sends and return the notification
   },
@@ -69,4 +70,5 @@ const NotificationsCtrl = (module.exports = {
       })
     })
   }
-})
+}
+export default NotificationsCtrl

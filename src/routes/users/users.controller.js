@@ -6,20 +6,21 @@
  */
 
 // --------------- Module Imports
-const auth = require('../../services/auth.service')
-const EmailsCtrl = require('../emails/emails.controller')
-const DataService = require('../../services/data.service')
-const User = require('./user.model')
-const Admin = require('../admin/admin.model.js')
-const Merchant = require('../marketplace/merchants/merchant.model.js')
-const Customer = require('../marketplace/customers/customer.model.js')
+import auth from '../../services/auth.service'
+
+import EmailsCtrl from '../emails/emails.controller'
+import DataService from '../../services/data.service'
+import User from './user.model'
+import Admin from '../admin/admin.model'
+import Merchant from '../marketplace/merchants/merchant.model'
+import Customer from '../marketplace/customers/customer.model'
 
 // --------------- Module Variables
 const UserModels = { ADMIN: Admin, CUSTOMER: Customer, MERCHANT: Merchant }
 const UserModelKeys = Object.keys(UserModels)
 
 // --------------- Module Controller
-const UsersCtrl = (module.exports = {
+const UsersCtrl = {
   ERRORS: {
     DUPLICATED_USER: 'DUPLICATED_USER'
   },
@@ -127,4 +128,5 @@ const UsersCtrl = (module.exports = {
     ).lean() // Updates user skips
     return updated // Returns updated user
   }
-})
+}
+export default UsersCtrl

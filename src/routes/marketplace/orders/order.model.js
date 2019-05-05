@@ -6,14 +6,18 @@
  */
 
 // --------------- Module Imports
-const mongoose = require('mongoose')
-const timestamps = require('mongoose-timestamp')
-const mongoose_delete = require('mongoose-delete')
-const lifecycle = require('mongoose-lifecycle')
-require('mongoose-schema-jsonschema')(mongoose)
+import mongoose from 'mongoose'
+
+import timestamps from 'mongoose-timestamp'
+import mongooseDelete from 'mongoose-delete'
+import lifecycle from 'mongoose-lifecycle'
+
+import jsonSchema from 'mongoose-schema-jsonschema'
+
+jsonSchema(mongoose)
 
 // --------------- Module Schema
-let OrderSchema = mongoose.Schema({
+const OrderSchema = mongoose.Schema({
   customer: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   merchant: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   availableMerchants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
@@ -48,8 +52,8 @@ let OrderSchema = mongoose.Schema({
 // --------------- Module Plugins
 OrderSchema.plugin(lifecycle)
 OrderSchema.plugin(timestamps)
-OrderSchema.plugin(mongoose_delete, { overrideMethods: 'all', validateBeforeDelete: false })
+OrderSchema.plugin(mongooseDelete, { overrideMethods: 'all', validateBeforeDelete: false })
 
 // --------------- Module Model
-const Order =  mongoose.model('Order', OrderSchema)
-module.exports = Order
+const Order = mongoose.model('Order', OrderSchema)
+export default Order

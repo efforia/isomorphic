@@ -1,12 +1,13 @@
 // define models =========================================================
-const Promotion = require('./promotion.model')
-const PromotionItem = require('./promotion-item.model')
-const Merchant = require('../merchants/merchant.model')
-const MarketItem = require('../market-items/market-item.model')
-const MarketItemCategory = require('../market-item-categories/market-item-category.model')
-const MarketItemCategoriesCtrl = require('../market-item-categories/market-item-categories.controller')
+import Promotion from './promotion.model'
 
-const PromotionsCtrl = (module.exports = {
+import PromotionItem from './promotion-item.model'
+import Merchant from '../merchants/merchant.model'
+import MarketItem from '../market-items/market-item.model'
+import MarketItemCategory from '../market-item-categories/market-item-category.model'
+import MarketItemCategoriesCtrl from '../market-item-categories/market-item-categories.controller'
+
+const PromotionsCtrl = {
   save: async function(merchant, promotionInfo) {
     let activePromotion = await Promotion.findOne({
       ownerId: merchant._id,
@@ -193,4 +194,5 @@ const PromotionsCtrl = (module.exports = {
     promotion = promotion ? Object.assign(promotion, { items: items }) : emptyCategory // Combines the promotion with the items
     return promotion // Returns the promotion category items
   }
-})
+}
+export default PromotionsCtrl

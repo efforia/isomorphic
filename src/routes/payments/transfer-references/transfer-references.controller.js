@@ -6,14 +6,15 @@
  */
 
 // --------------- Module Imports
-const MerchantRefCtrl = require('../merchant-references/merchant-references.controller')
-const User = require('../../users/user.model')
-const axios = require('axios')
+import MerchantRefCtrl from '../merchant-references/merchant-references.controller'
+
+import User from '../../users/user.model'
+import axios from 'axios'
 
 // --------------- Module Variables
 
 // --------------- Module Controller
-const TransferRefsCtrl = (module.exports = {
+const TransferRefsCtrl = {
   getAvailabeWithdrawal: async function(user) {
     try {
       if (!user.payment || !user.payment.merchant) {
@@ -64,4 +65,5 @@ const TransferRefsCtrl = (module.exports = {
     let response = (await axios.post(url, data, { headers: headers })).data // Transfers the amount
     return response // Returns the operation status
   }
-})
+}
+export default TransferRefsCtrl

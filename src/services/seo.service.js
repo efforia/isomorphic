@@ -1,7 +1,8 @@
-const slug = require('slug')
+import slug from 'slug'
 
-const SEO = (module.exports = {
+const SEO = {
   getSlugFrom: function(name) {
     return name ? slug(name.toLowerCase()) : ''
   }
-})
+}
+export default SEO

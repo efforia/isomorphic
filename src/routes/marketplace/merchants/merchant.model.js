@@ -6,15 +6,18 @@
  */
 
 // --------------- Module Imports
-const mongoose = require('mongoose')
-const timestamps = require('mongoose-timestamp')
-const mongoose_delete = require('mongoose-delete')
-const lifecycle = require('mongoose-lifecycle')
-const User = require('../../users/user.model.js')
-require('mongoose-schema-jsonschema')(mongoose)
+import mongoose from 'mongoose'
+
+import timestamps from 'mongoose-timestamp'
+import mongooseDelete from 'mongoose-delete'
+import lifecycle from 'mongoose-lifecycle'
+import jsonSchema from 'mongoose-schema-jsonschema'
+import User from '../../users/user.model'
+
+jsonSchema(mongoose)
 
 // --------------- Module Schema
-let MerchantSchema = new mongoose.Schema({
+const MerchantSchema = new mongoose.Schema({
   merchantType: { type: String, enum: ['SERVICE_PROVIDER', 'MERCHANT'] },
   description: { type: String },
   website: { type: String },
@@ -54,15 +57,14 @@ let MerchantSchema = new mongoose.Schema({
   },
   paymentMethods: [{ type: mongoose.Schema.Types.ObjectId, ref: 'PaymentMethod' }],
   rating: { type: Number, default: 0 },
-  roles: [{ type: String, required: true, uppercase: true, default: 'MERCHANT' }],
   roles: [{ type: String, required: true, uppercase: true, default: 'MERCHANT' }]
 })
 
 // --------------- Module Plugins
 MerchantSchema.plugin(lifecycle)
 MerchantSchema.plugin(timestamps)
-MerchantSchema.plugin(mongoose_delete, { overrideMethods: 'all', validateBeforeDelete: false })
+MerchantSchema.plugin(mongooseDelete, { overrideMethods: 'all', validateBeforeDelete: false })
 
 // --------------- Module Model
 const Merchant = User.discriminator('Merchant', MerchantSchema)
-module.exports = Merchant
+export default Merchant

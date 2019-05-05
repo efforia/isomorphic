@@ -6,11 +6,14 @@
  */
 
 // --------------- Module Imports
-const mongoose = require('mongoose')
-const timestamps = require('mongoose-timestamp')
-const mongoose_delete = require('mongoose-delete')
-const lifecycle = require('mongoose-lifecycle')
-require('mongoose-schema-jsonschema')(mongoose)
+import mongoose from 'mongoose'
+
+import timestamps from 'mongoose-timestamp'
+import mongooseDelete from 'mongoose-delete'
+import lifecycle from 'mongoose-lifecycle'
+import jsonSchema from 'mongoose-schema-jsonschema'
+
+jsonSchema(mongoose)
 
 // --------------- Module Schema
 const PictureSchema = mongoose.Schema({
@@ -23,8 +26,8 @@ const PictureSchema = mongoose.Schema({
 // --------------- Module Plugins
 PictureSchema.plugin(lifecycle)
 PictureSchema.plugin(timestamps)
-PictureSchema.plugin(mongoose_delete, { overrideMethods: 'all', validateBeforeDelete: false })
+PictureSchema.plugin(mongooseDelete, { overrideMethods: 'all', validateBeforeDelete: false })
 
 // --------------- Module Model
 const Picture = mongoose.model('Picture', PictureSchema)
-module.exports = Picture
+export default Picture

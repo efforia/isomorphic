@@ -6,11 +6,12 @@
  */
 
 // --------------- Module Imports
-const SwaggerExpressRouter = require('../../../swagger/swagger.router')
-const SwaggerUtils = require('../../../swagger/swagger.utils')
+import SwaggerExpressRouter from '../../../swagger/swagger.router'
+
+import SwaggerUtils from '../../../swagger/swagger.utils'
 const router = new SwaggerExpressRouter('market-item-categories')
-const controller = require('./market-item-categories.controller')
-const auth = require('../../../services/auth.service')
+import controller from './market-item-categories.controller'
+import auth from '../../../services/auth.service'
 
 /**
  * @interface saveMarketItemCategory
@@ -97,4 +98,4 @@ router.post('/categories/:categoryId/activate', auth.isAdmin(), async (req, res,
   }
 })
 
-module.exports = router
+export default router
