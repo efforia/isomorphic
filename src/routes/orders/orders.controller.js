@@ -9,13 +9,13 @@
 import currencyFormatter from 'currency-formatter'
 
 import Order from './order.model'
-import User from '../../users/user.model'
+import User from '../users/user.model'
 import ReceivingMode from './receiving-mode.model'
-import Notification from '../../notifications/notification.model'
-import EmailsCtrl from '../../../services/emails/emails.controller'
-import MerchantCtrl from '../merchants/merchants.controller'
-import OrderRefsCtrl from '../../payments/order-references/order-references.controller'
-import socket from '../../../services/socket.service'
+import Notification from '../notifications/notification.model'
+import EmailsCtrl from '../../services/emails/emails.controller'
+import DriverCtrl from '../drivers/drivers.controller'
+import OrderRefsCtrl from '../payments/order-references/order-references.controller'
+import socket from '../../services/socket.service'
 
 const locales = {}
 
@@ -106,7 +106,7 @@ const OrdersCtrl = {
         // With the context variables
         items: options.order.items, // Inclusding the items
         user: options.user, // The user that triggered the action
-        viewerIsMerchant: options.to.__t === 'Merchant', // In case the e-mail receiver will be a merchant
+        viewerIsDriver: options.to.__t === 'Driver', // In case the e-mail receiver will be a merchant
         viewerIsCustomer: options.to.__t === 'Customer', // In case the e-mail receiver will be a customer
         orderLink: `${process.env.SERVER_ADDRESS}/#/order-details/${order._id}` // And, of course, the order link
       })
@@ -140,11 +140,11 @@ const OrdersCtrl = {
   rate: async (user, id, rate) => {
     const ratings = {} // Initializes ratings object
     const role = user.__t // Checks user role
-    if (role === 'Merchant') ratings.merchantRate = rate
-    // Merchant rating the user
+    if (role === 'Driver') ratings.merchantRate = rate
+    // Driver rating the user
     else ratings.customerRate = rate // User rating the merchant
     const order = await Order.findOneAndUpdate({ _id: id }, { ratings }, { new: true }) // Customer rating update
-    if (role === 'Customer') MerchantCtrl.updateRating(order.merchant) // Merchant rating update
+    if (role === 'Customer') DriverCtrl.updateRating(order.merchant) // Driver rating update
     return order // Returns confirmation
   },
   getOrdersByUserId: async (user, status) => {

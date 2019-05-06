@@ -7,11 +7,10 @@
 
 // --------------- Module Imports
 import express from 'express'
-import controller from './jobs.controller'
-import auth from '../../../services/auth.service'
+import controller from './rides.controller'
+import auth from '../../services/auth.service'
 
-
-const router = express.Router('jobs')
+const router = express.Router('rides')
 
 // --------------- Module Routes
 router.post('/request/:service/nearby', auth.isAuthenticated(), async (req, res, error) => {
@@ -22,7 +21,7 @@ router.post('/request/:service/nearby', auth.isAuthenticated(), async (req, res,
     const {longitude} = req.query
     const {radius} = req.query
     const {keyword} = req.query
-    const merchants = await controller.requestNearby(
+    const drivers = await controller.requestNearby(
       user,
       service,
       latitude,
@@ -30,16 +29,16 @@ router.post('/request/:service/nearby', auth.isAuthenticated(), async (req, res,
       radius,
       keyword
     )
-    return res.status(200).json(merchants)
+    return res.status(200).json(drivers)
   } catch (e) {
     error(e)
   }
 })
 
-router.get('/jobs', auth.isMerchant(), async (req, res, error) => {
+router.get('/rides', auth.isDriver(), async (req, res, error) => {
   try {
     const {user} = req
-    const events = await controller.getByMerchant(user)
+    const events = await controller.getByDriver(user)
     return res.status(200).json(events)
   } catch (e) {
     error(e)

@@ -19,7 +19,7 @@ jsonSchema(mongoose)
 // --------------- Module Schema
 const DriverSchema = new mongoose.Schema({
   rating: { type: Number, default: 0 },
-  website: { type: String },
+  cpf: { type: String },
   paymentData: {
     holder: { type: String },
     bankCode: { type: String },

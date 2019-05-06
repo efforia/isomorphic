@@ -22,15 +22,14 @@ const UserSchema = mongoose.Schema({
   name: { type: String, default: '' },
   email: { type: String, default: '', unique: true, lowercase: true, sparse: true },
   username: { type: String, unique: true, lowercase: true, sparse: true },
-  verifiedEmail: { type: Boolean, default: false },
+  provider: { type: String, default: 'native' },
+  isEmailVerified: { type: Boolean, default: false },
   emailConfirmation: {
     hash: { type: String },
     createdAt: { type: Date }
   },
   birthDate: { type: Date },
   oauth: { type: Object },
-  provider: { type: String, default: 'native' },
-  signupStep: { type: String, default: '' },
   password: { type: String },
   phone: { type: String },
   formattedPhone: { countryCode: String, areaCode: String, number: String },
@@ -46,12 +45,6 @@ const UserSchema = mongoose.Schema({
     location: { lng: Number, lat: Number },
     postalCode: { type: String }
   },
-  documents: [
-    {
-      type: { type: String, enum: ['CPF', 'CNPJ'], default: 'CPF' },
-      number: { type: String, default: '' }
-    }
-  ],
   payment: {
     customer: { type: Object },
     merchant: { type: Object },
@@ -62,13 +55,6 @@ const UserSchema = mongoose.Schema({
     hasDelayedPayments: { type: Boolean, default: false }
   },
   pictures: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Picture' }],
-  skip: {
-    type: Object,
-    default: {
-      step: true
-    }
-  },
-  role: [{ type: String, required: true, uppercase: true, default: 'CUSTOMER' }],
   roles: [{ type: String, required: true, uppercase: true, default: 'CUSTOMER' }]
 })
 

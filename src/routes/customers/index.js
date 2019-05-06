@@ -8,8 +8,7 @@
 // --------------- Module Imports
 import express from 'express'
 import controller from './customers.controller'
-import auth from '../../../services/auth.service'
-
+import auth from '../../services/auth.service'
 
 const router = express.Router('customers')
 

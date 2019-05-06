@@ -11,7 +11,7 @@ import mongoose from 'mongoose'
 import timestamps from 'mongoose-timestamp'
 import mongooseDelete from 'mongoose-delete'
 import lifecycle from 'mongoose-lifecycle'
-import User from '../../users/user.model'
+import User from '../users/user.model'
 
 require('mongoose-schema-jsonschema')(mongoose)
 

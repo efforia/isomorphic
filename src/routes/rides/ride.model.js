@@ -19,8 +19,8 @@ const deepPopulate = deepPopulateFactory(mongoose)
 jsonSchema(mongoose)
 
 // --------------- Module Schema
-const JobSchema = mongoose.Schema({
-  merchant: { type: String, required: true },
+const RideSchema = mongoose.Schema({
+  driver: { type: String, required: true },
   customerId: { type: String, required: true },
   bookedTo: { type: Date, required: true },
   service: { type: String, required: true },
@@ -29,11 +29,11 @@ const JobSchema = mongoose.Schema({
 })
 
 // --------------- Module Plugins
-JobSchema.plugin(deepPopulate)
-JobSchema.plugin(lifecycle)
-JobSchema.plugin(timestamps)
-JobSchema.plugin(mongooseDelete, { overrideMethods: 'all', validateBeforeDelete: false })
+RideSchema.plugin(deepPopulate)
+RideSchema.plugin(lifecycle)
+RideSchema.plugin(timestamps)
+RideSchema.plugin(mongooseDelete, { overrideMethods: 'all', validateBeforeDelete: false })
 
 // --------------- Module Model
-const Job = mongoose.model('Job', JobSchema)
-export default Job
+const Ride = mongoose.model('Ride', RideSchema)
+export default Ride
