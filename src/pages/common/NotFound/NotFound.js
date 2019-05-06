@@ -11,15 +11,13 @@ import { connect } from 'react-redux'
 import { Page } from 'framework7-react'
 
 
-import shield from '../../../assets/vectors/signup-feedback-shield.svg'
+import icon from '../../../assets/vectors/icon.svg'
 import auth from '../../../services/auth'
 
 import PrimaryButton from '../../../components/PrimaryButton'
 import Navbar from '../../../components/Navbar'
 
 import './NotFound.scss'
-
-
 
 class NotFound extends React.Component {
   constructor(props) {
@@ -59,7 +57,7 @@ class NotFound extends React.Component {
           <div className="app-navbar__right" />
         </Navbar>
         <div className="not-found-page__content">
-          <img className="not-found-page__illustration" src={shield} alt="Logo: Frete Fácil" />
+          <img className="not-found-page__illustration" src={icon} alt="Logo: Frete Fácil" />
           <div className="not-found-page__intro">
             <div className="not-found-page__intro__title">Página não encontrada</div>
             <div className="not-found-page__intro__content">

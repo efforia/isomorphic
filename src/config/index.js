@@ -6,7 +6,7 @@
  */
 
 const dev = {
-  baseUrl: 'https://api-argo-instant-dev.azurewebsites.net'
+  baseUrl: 'https://fretefacil-dev.herokuapp.com'
 }
 
 const local = {
@@ -15,7 +15,7 @@ const local = {
 }
 
 const prod = {
-  baseUrl: 'https://api-argo-instant-dev.azurewebsites.net'
+  baseUrl: 'https://fretefacil-prod.herokuapp.com'
 }
 
 const envs = {

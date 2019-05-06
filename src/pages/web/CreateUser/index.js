@@ -1,3 +1,3 @@
-import AddUser from './CreateUser'
+import CreateUser from './CreateUser'
 
-export default AddUser
+export default CreateUser

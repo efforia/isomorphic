@@ -22,9 +22,9 @@ import PrimaryInput from '../../../components/PrimaryInput'
 import Navbar from '../../../components/Navbar'
 import Form from '../../../components/Form'
 
-import './AddDriver.scss'
+import './CreateDriver.scss'
 
-class AddDriver extends React.Component {
+class CreateDriver extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -111,21 +111,21 @@ class AddDriver extends React.Component {
       )
 
     return (
-      <Page className="add-driver-page">
+      <Page className="create-driver-page">
         <Helmet title={pageTitle} />
-        <Navbar className="add-driver-page__navbar">
+        <Navbar className="create-driver-page__navbar">
           <div className="app-navbar__left">{renderBackButton()}</div>
           <div className="app-navbar__center app-navbar__title">Dados pessoais</div>
           <div className="app-navbar__right" />
         </Navbar>
-        <div className="add-driver-page__content">
-          <div className="add-driver-page__intro">
-            <div className="add-driver-page__intro__title">Cadastro</div>
-            <div className="add-driver-page__intro__content">
+        <div className="create-driver-page__content">
+          <div className="create-driver-page__intro">
+            <div className="create-driver-page__intro__title">Cadastro</div>
+            <div className="create-driver-page__intro__content">
               Primeiramente precisamos algumas informações pessoais para o cadastro:
             </div>
           </div>
-          <List className="add-driver-page__form">
+          <List className="create-driver-page__form">
             <Form>
               <PrimaryInput
                 value={user.email}
@@ -153,19 +153,6 @@ class AddDriver extends React.Component {
                 }}
                 label="Nome Completo"
                 type="text"
-              />
-              <PrimaryInput
-                value={user.rg}
-                onChange={e => {
-                  this.setState({
-                    user: { ...user, rg: VMasker.toPattern(`${e.target.value}`, '9999999999') }
-                  })
-                }}
-                maxlength={10}
-                colorTheme="orange"
-                placeholder="9999999999"
-                label="RG"
-                type="tel"
               />
               <PrimaryInput
                 value={user.displayCpf}
@@ -226,4 +213,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddDriver)
+)(CreateDriver)

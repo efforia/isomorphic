@@ -66,13 +66,13 @@ class SelectRole extends React.Component {
             <Form>
               <PrimaryButton
                 onClick={() => {
-                  this.$f7router.navigate({ name: 'AddUser' })
+                  this.$f7router.navigate({ name: 'CreateUser' })
                 }}>
                 Quero solicitar fretes
               </PrimaryButton>
               <PrimaryButton
                 onClick={() => {
-                  this.$f7router.navigate({ name: 'AddFreelancer' })
+                  this.$f7router.navigate({ name: 'CreateDriver' })
                 }}>
                 Sou um freteiro
               </PrimaryButton>

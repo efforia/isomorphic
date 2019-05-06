@@ -1,3 +1,3 @@
-import AddDriver from './AddDriver'
+import CreateDriver from './CreateDriver'
 
-export default AddDriver
+export default CreateDriver

@@ -12,8 +12,8 @@ import { F7App, View } from 'framework7-react'
 // ---- Web pages
 import Landing from './pages/web/Landing'
 import SelectRole from './pages/web/SelectRole'
-import AddUser from './pages/web/AddUser'
-import AddFreelancer from './pages/web/AddFreelancer'
+import CreateUser from './pages/web/CreateUser'
+import CreateDriver from './pages/web/CreateDriver'
 import SignupFeedback from './pages/web/SignupFeedback'
 
 // ---- Mobile pages
@@ -68,14 +68,14 @@ const f7params = {
       component: SelectRole
     },
     {
-      path: '/worker-signup',
-      name: 'AddFreelancer',
-      component: AddFreelancer
+      path: '/driver-signup',
+      name: 'CreateDriver',
+      component: CreateDriver
     },
     {
       path: '/user-signup',
-      name: 'AddUser',
-      component: AddUser
+      name: 'CreateUser',
+      component: CreateUser
     },
     {
       path: '/welcome',

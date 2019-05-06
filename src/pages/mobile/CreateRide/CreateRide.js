@@ -12,6 +12,7 @@ import { Page, List, Link } from 'framework7-react'
 import moment from 'moment-mini'
 import VMasker from 'vanilla-masker'
 import isEmpty from 'validator/lib/isEmpty'
+import { isValid as isValidCpf } from '@fnando/cpf' // import just one function
 import { createProfile } from '../../../actions/user'
 
 import arrowIcon from '../../../assets/vectors/arrow.svg'
@@ -21,9 +22,9 @@ import PrimaryInput from '../../../components/PrimaryInput'
 import Navbar from '../../../components/Navbar'
 import Form from '../../../components/Form'
 
-import './CreateUser.scss'
+import './AddRide.scss'
 
-class CreateUser extends React.Component {
+class AddRide extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -31,7 +32,9 @@ class CreateUser extends React.Component {
         name: '',
         email: '',
         password: '',
-        phone: '',
+        rg: '',
+        cpf: '',
+        displayCpf: '',
         birthdate: '',
         displayBirthdate: ''
       }
@@ -39,6 +42,14 @@ class CreateUser extends React.Component {
   }
 
   componentDidMount() {}
+
+  isValidBirthdate(date) {
+    return (
+      date.length > 9 &&
+      moment(date, 'DD/MM/YYYY').isValid() &&
+      moment().diff(moment(date, 'DD/MM/YYYY'), 'years') > 18
+    )
+  }
 
   isValidName(name) {
     return name.split(' ')[1]
@@ -50,8 +61,11 @@ class CreateUser extends React.Component {
       !isEmpty(user.name) &&
       !isEmpty(user.email) &&
       !isEmpty(user.password) &&
-      !isEmpty(user.phone) &&
-      this.isValidName(user.name) 
+      !isEmpty(user.rg) &&
+      !isEmpty(user.displayCpf) &&
+      isValidCpf(user.displayCpf) &&
+      this.isValidName(user.name) &&
+      this.isValidBirthdate(user.displayBirthdate)
     )
   }
 
@@ -97,21 +111,21 @@ class CreateUser extends React.Component {
       )
 
     return (
-      <Page className="create-user-page">
+      <Page className="add-ride-page">
         <Helmet title={pageTitle} />
-        <Navbar className="create-user-page__navbar">
+        <Navbar className="add-ride-page__navbar">
           <div className="app-navbar__left">{renderBackButton()}</div>
           <div className="app-navbar__center app-navbar__title">Dados pessoais</div>
           <div className="app-navbar__right" />
         </Navbar>
-        <div className="create-user-page__content">
-          <div className="create-user-page__intro">
-            <div className="create-user-page__intro__title">Cadastro</div>
-            <div className="create-user-page__intro__content">
-              Primeiramente precisamos algumas informações pessoais para o cadastro
+        <div className="add-ride-page__content">
+          <div className="add-ride-page__intro">
+            <div className="add-ride-page__intro__title">Cadastro</div>
+            <div className="add-ride-page__intro__content">
+              Primeiramente precisamos algumas informações pessoais para o cadastro:
             </div>
           </div>
-          <List className="create-user-page__form">
+          <List className="add-ride-page__form">
             <Form>
               <PrimaryInput
                 value={user.email}
@@ -141,17 +155,49 @@ class CreateUser extends React.Component {
                 type="text"
               />
               <PrimaryInput
-                value={user.phone}
+                value={user.rg}
                 onChange={e => {
                   this.setState({
-                    user: { ...user, phone: VMasker.toPattern(`${e.target.value}`, '999999999999') }
+                    user: { ...user, rg: VMasker.toPattern(`${e.target.value}`, '9999999999') }
                   })
                 }}
                 maxlength={10}
                 colorTheme="orange"
-                placeholder="999999999999"
-                label="Telefone"
+                placeholder="9999999999"
+                label="RG"
                 type="tel"
+              />
+              <PrimaryInput
+                value={user.displayCpf}
+                onChange={e => {
+                  this.setState({
+                    user: {
+                      ...user,
+                      cpf: VMasker.toNumber(e.target.value),
+                      displayCpf: VMasker.toPattern(`${e.target.value}`, '999.999.999-99')
+                    }
+                  })
+                }}
+                maxlength={15}
+                placeholder="999.999.999-99"
+                label="CPF"
+                type="tel"
+              />
+              <PrimaryInput
+                value={user.displayBirthdate}
+                type="tel"
+                onChange={e => {
+                  this.setState({
+                    user: {
+                      ...user,
+                      birthdate: VMasker.toNumber(e.target.value),
+                      displayBirthdate: VMasker.toPattern(`${e.target.value}`, '99/99/9999')
+                    }
+                  })
+                }}
+                maxlength={10}
+                placeholder="99/99/9999"
+                label="Data de nascimento"
               />
               <PrimaryButton
                 disabled={!this.isFormValid()}
@@ -180,4 +226,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CreateUser)
+)(AddRide)
