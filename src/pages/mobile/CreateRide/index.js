@@ -1,3 +1,3 @@
-import AddRide from './AddRide'
+import CreateRide from './CreateRide'
 
-export default AddRide
+export default CreateRide

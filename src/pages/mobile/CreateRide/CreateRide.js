@@ -22,9 +22,9 @@ import PrimaryInput from '../../../components/PrimaryInput'
 import Navbar from '../../../components/Navbar'
 import Form from '../../../components/Form'
 
-import './AddRide.scss'
+import './CreateRide.scss'
 
-class AddRide extends React.Component {
+class CreateRide extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -111,21 +111,21 @@ class AddRide extends React.Component {
       )
 
     return (
-      <Page className="add-ride-page">
+      <Page className="create-ride-page">
         <Helmet title={pageTitle} />
-        <Navbar className="add-ride-page__navbar">
+        <Navbar className="create-ride-page__navbar">
           <div className="app-navbar__left">{renderBackButton()}</div>
           <div className="app-navbar__center app-navbar__title">Dados pessoais</div>
           <div className="app-navbar__right" />
         </Navbar>
-        <div className="add-ride-page__content">
-          <div className="add-ride-page__intro">
-            <div className="add-ride-page__intro__title">Cadastro</div>
-            <div className="add-ride-page__intro__content">
+        <div className="create-ride-page__content">
+          <div className="create-ride-page__intro">
+            <div className="create-ride-page__intro__title">Cadastro</div>
+            <div className="create-ride-page__intro__content">
               Primeiramente precisamos algumas informações pessoais para o cadastro:
             </div>
           </div>
-          <List className="add-ride-page__form">
+          <List className="create-ride-page__form">
             <Form>
               <PrimaryInput
                 value={user.email}
@@ -226,4 +226,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddRide)
+)(CreateRide)
