@@ -17,7 +17,7 @@ import CreateDriver from './pages/web/CreateDriver'
 import SignupFeedback from './pages/web/SignupFeedback'
 
 // ---- Mobile pages
-import Login from './pages/mobile/Login'
+import Login from './pages/mobile/user/Login'
 import TabsContainer from './components/TabsContainer'
 import NotFound from './pages/common/NotFound'
 

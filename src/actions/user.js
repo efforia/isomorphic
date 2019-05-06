@@ -1,5 +1,4 @@
 import userService from '../services/user'
-import authService from '../services/auth'
 
 /* --------- Create --------- */
 export const CREATE_PROFILE_START = 'CREATE_PROFILE_START'
@@ -98,87 +97,6 @@ export const updateProfile = data => dispatch => {
       })
       .catch(e => {
         dispatch(updateProfileError(e))
-        reject(e)
-      })
-  })
-}
-
-/* --------- Delete --------- */
-export const REMOVE_PROFILE = 'REMOVE_PROFILE'
-
-export const removeProfile = () => ({
-  type: REMOVE_PROFILE
-})
-
-export const logout = () => dispatch => {
-  dispatch(removeProfile())
-
-  return authService.logout()
-}
-
-/* --------- Authenticate --------- */
-export const AUTHENTICATE_START = 'AUTHENTICATE_START'
-export const AUTHENTICATE_ERROR = 'AUTHENTICATE_ERROR'
-export const AUTHENTICATE_SUCCESS = 'AUTHENTICATE_SUCCESS'
-
-export const authenticateStart = () => ({
-  type: AUTHENTICATE_START
-})
-
-export const authenticateError = () => ({
-  type: AUTHENTICATE_ERROR
-})
-
-export const authenticateSuccess = data => ({
-  type: AUTHENTICATE_SUCCESS,
-  data
-})
-
-export const authenticate = data => dispatch => {
-  dispatch(authenticateStart())
-  return new Promise((resolve, reject) => {
-    authService
-      .login(data)
-      .then(response => {
-        dispatch(authenticateSuccess(response.data.data))
-        resolve(response.data.data)
-      })
-      .catch(e => {
-        dispatch(authenticateError(e))
-        reject(e)
-      })
-  })
-}
-
-/* --------- Create --------- */
-export const CREATE_RISK_FORM_START = 'CREATE_RISK_FORM_START'
-export const CREATE_RISK_FORM_ERROR = 'CREATE_RISK_FORM_ERROR'
-export const CREATE_RISK_FORM_SUCCESS = 'CREATE_RISK_FORM_SUCCESS'
-
-export const createRiskFormStart = () => ({
-  type: CREATE_RISK_FORM_START
-})
-
-export const createRiskFormError = () => ({
-  type: CREATE_RISK_FORM_ERROR
-})
-
-export const createRiskFormSuccess = data => ({
-  type: CREATE_RISK_FORM_SUCCESS,
-  data
-})
-
-export const createRiskForm = data => dispatch => {
-  dispatch(createRiskFormStart())
-  return new Promise((resolve, reject) => {
-    userService
-      .createRiskForm(data)
-      .then(response => {
-        dispatch(createRiskFormSuccess(response.data.data))
-        resolve(response.data.data)
-      })
-      .catch(e => {
-        dispatch(createRiskFormError(e))
         reject(e)
       })
   })

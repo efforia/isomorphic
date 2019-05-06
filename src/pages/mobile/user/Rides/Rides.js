@@ -10,14 +10,14 @@ import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import { Page } from 'framework7-react'
 
-import Navbar from '../../../components/Navbar'
 
-import logo from '../../../assets/vectors/logo.svg'
-import bell from '../../../assets/vectors/bell-icon.svg'
+import Navbar from '../../../../components/Navbar'
+import logo from '../../../../assets/vectors/logo.svg'
+import bell from '../../../../assets/vectors/bell-icon.svg'
 
-import './Utilization.scss'
+import './Rides.scss'
 
-class Utilization extends React.Component {
+class Rides extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -32,22 +32,20 @@ class Utilization extends React.Component {
   }
 
   render() {
-    const pageTitle = 'Frete Fácil: Utilização'
+    const pageTitle = 'Frete Fácil: Apólice'
     return (
-      <Page className="utilization-page">
+      <Page className="rides-page">
         <Helmet title={pageTitle} />
         <Navbar className="home-page__navbar">
           <div className="app-navbar__left">
             <img src={logo} alt="Instant" />
           </div>
-          <div className="app-navbar__center app-navbar__title">
-            Utilizações
-          </div>
+          <div className="app-navbar__center  app-navbar__title">Apólice</div>
           <div className="app-navbar__right">
             <img src={bell} alt="Notificações" />
           </div>
         </Navbar>
-        <div className="utilization-page__content" />
+        <div className="rides-page__content" />
       </Page>
     )
   }
@@ -63,4 +61,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Utilization)
+)(Rides)

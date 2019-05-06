@@ -11,17 +11,15 @@ import { Page, PageContent, List, Link } from 'framework7-react'
 import { connect } from 'react-redux'
 import isEmpty from 'validator/lib/isEmpty'
 
-import PrimaryInput from '../../../components/PrimaryInput'
-import PrimaryButton from '../../../components/PrimaryButton'
+import PrimaryInput from '../../../../components/PrimaryInput'
+import PrimaryButton from '../../../../components/PrimaryButton'
 
-import logo from '../../../assets/icon.png'
+import logo from '../../../../assets/icon.png'
 
 import './Login.scss'
 
-import { authenticate } from '../../../actions/user'
-import authService from '../../../services/auth'
-
-
+import { authenticate } from '../../../../actions/auth'
+import authService from '../../../../services/auth'
 
 class Login extends React.Component {
   constructor(props) {
@@ -72,7 +70,7 @@ class Login extends React.Component {
         <PageContent>
           <article className="login-page__content">
             <List className="login-page__form">
-             {/*  <h2 className="login-page__app-title">Frete Fácil</h2> 
+              {/*  <h2 className="login-page__app-title">Frete Fácil</h2> 
               <img src={logo} alt="Frete Fácil" className="login-page__logo" /> */}
               <PrimaryInput
                 value={user.email}

@@ -11,13 +11,13 @@ import { connect } from 'react-redux'
 import { Page } from 'framework7-react'
 
 
-import Navbar from '../../../components/Navbar'
-import logo from '../../../assets/vectors/logo.svg'
-import bell from '../../../assets/vectors/bell-icon.svg'
+import Navbar from '../../../../components/Navbar'
+import logo from '../../../../assets/vectors/logo.svg'
+import bell from '../../../../assets/vectors/bell-icon.svg'
 
-import './Contact.scss'
+import './Settings.scss'
 
-class Contact extends React.Component {
+class Settings extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -34,7 +34,7 @@ class Contact extends React.Component {
   render() {
     const pageTitle = 'Frete Fácil: Contato'
     return (
-      <Page className="contact-page">
+      <Page className="settings-page">
         <Helmet title={pageTitle} />
         <Navbar className="home-page__navbar">
           <div className="app-navbar__left">
@@ -45,7 +45,7 @@ class Contact extends React.Component {
             <img src={bell} alt="Notificações" />
           </div>
         </Navbar>
-        <div className="contact-page__content" />
+        <div className="settings-page__content" />
       </Page>
     )
   }
@@ -61,4 +61,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Contact)
+)(Settings)

@@ -12,14 +12,14 @@ import { Page } from 'framework7-react'
 
 import bell from '../../../assets/vectors/bell-icon.svg'
 
-import Navbar from '../../../components/Navbar'
+import Navbar from '../../../../components/Navbar'
 
 import {
   checkBluetoothState,
   checkGpsState,
   watchBluetoothStateChanges,
   watchGpsStateChanges
-} from '../../../actions/hardware'
+} from '../../../../actions/hardware'
 
 import './Home.scss'
 

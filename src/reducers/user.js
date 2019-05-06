@@ -8,14 +8,14 @@ import {
   UPDATE_PROFILE_START,
   UPDATE_PROFILE_ERROR,
   UPDATE_PROFILE_SUCCESS,
+} from '../actions/user'
+
+import {
   AUTHENTICATE_START,
   AUTHENTICATE_ERROR,
   AUTHENTICATE_SUCCESS,
-  CREATE_RISK_FORM_START,
-  CREATE_RISK_FORM_ERROR,
-  CREATE_RISK_FORM_SUCCESS,
   REMOVE_PROFILE
-} from '../actions/user'
+} from '../actions/auth'
 
 const initialState = {
   profile: {}
@@ -46,9 +46,6 @@ export default (state = initialState, action) => {
     case UPDATE_PROFILE_ERROR:
     case AUTHENTICATE_START:
     case AUTHENTICATE_ERROR:
-    case CREATE_RISK_FORM_START:
-    case CREATE_RISK_FORM_ERROR:
-    case CREATE_RISK_FORM_SUCCESS:
     default:
       return state
   }

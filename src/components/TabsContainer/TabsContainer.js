@@ -11,15 +11,13 @@ import { Link, Toolbar, Tabs, Tab, Page } from 'framework7-react'
 import { connect } from 'react-redux'
 
 import iconHome from '../../assets/vectors/tab-icon-home.svg'
-import iconPolicy from '../../assets/vectors/tab-icon-policy.svg'
-import iconUtilization from '../../assets/vectors/tab-icon-utilization.svg'
+import iconRides from '../../assets/vectors/tab-icon-policy.svg'
 import iconContact from '../../assets/vectors/tab-icon-contact.svg'
 
 import './TabsContainer.scss'
-import Contact from '../../pages/mobile/Contact'
-import Home from '../../pages/mobile/Home'
-import Policy from '../../pages/mobile/Policy'
-import Utilization from '../../pages/mobile/Utilization'
+import Home from '../../pages/mobile/user/Home'
+import Rides from '../../pages/mobile/user/Rides'
+import Settings from '../../pages/mobile/user/Settings'
 
 const rootPages = [
   {
@@ -29,22 +27,16 @@ const rootPages = [
     component: Home
   },
   {
-    path: 'utilizations',
-    label: 'Novo Frete',
-    icon: iconUtilization,
-    component: Utilization
-  },
-  {
-    path: 'policy',
+    path: 'rides',
     label: 'Meus Fretes',
-    icon: iconPolicy,
-    component: Policy
+    icon: iconRides,
+    component: Rides
   },
   {
     path: 'contact',
     label: 'Opções',
     icon: iconContact,
-    component: Contact
+    component: Settings
   }
 ]
 
@@ -93,10 +85,7 @@ const mapStateToProps = state => ({
   ui: state.ui
 })
 
-const mapDispatchToProps = dispatch => ({
-  
-  
-})
+const mapDispatchToProps = dispatch => ({})
 
 export default connect(
   mapStateToProps,

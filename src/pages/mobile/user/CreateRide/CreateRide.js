@@ -13,14 +13,14 @@ import moment from 'moment-mini'
 import VMasker from 'vanilla-masker'
 import isEmpty from 'validator/lib/isEmpty'
 import { isValid as isValidCpf } from '@fnando/cpf' // import just one function
-import { createProfile } from '../../../actions/user'
+import { createProfile } from '../../../../actions/user'
 
 import arrowIcon from '../../../assets/vectors/arrow.svg'
 
-import PrimaryButton from '../../../components/PrimaryButton'
-import PrimaryInput from '../../../components/PrimaryInput'
-import Navbar from '../../../components/Navbar'
-import Form from '../../../components/Form'
+import PrimaryButton from '../../../../components/PrimaryButton'
+import PrimaryInput from '../../../../components/PrimaryInput'
+import Navbar from '../../../../components/Navbar'
+import Form from '../../../../components/Form'
 
 import './CreateRide.scss'
 
