@@ -26,6 +26,14 @@
     margin-bottom: 24px;
   }
 
+  &__app-title {
+    color: $tertiary;
+    text-align: center;
+    margin-top: -32px;
+    font-size: 20px;
+    opacity: 0.8;
+  }
+
   &__form {
     width: 100%;
     &.list {

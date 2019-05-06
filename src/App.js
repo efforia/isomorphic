@@ -11,22 +11,13 @@ import { F7App, View } from 'framework7-react'
 
 // ---- Web pages
 import Landing from './pages/web/Landing'
+import SelectRole from './pages/web/SelectRole'
 import AddUser from './pages/web/AddUser'
 import SignupFeedback from './pages/web/SignupFeedback'
 
 // ---- Mobile pages
 import Login from './pages/mobile/Login'
-import WaitingForDevice from './pages/mobile/WaitingForDevice'
-import SynchronizeDevice from './pages/mobile/SynchronizeDevice'
-import SelectDevice from './pages/mobile/SelectDevice'
-import AddDevice from './pages/mobile/AddDevice'
-import ConfirmUserInfo from './pages/mobile/ConfirmUserInfo'
-import DriverLicenseCheck from './pages/mobile/DriverLicenseCheck'
-import DriverLicenseIntro from './pages/mobile/DriverLicenseIntro'
-import ConfirmVehicleInfo from './pages/mobile/ConfirmVehicleInfo'
-import SynchronizationFeedback from './pages/mobile/SynchronizationFeedback'
 import TabsContainer from './components/TabsContainer'
-import RiskForm from './pages/mobile/RiskForm'
 import NotFound from './pages/common/NotFound'
 
 import authService from './services/auth'
@@ -59,56 +50,6 @@ const f7params = {
       component: Login
     },
     {
-      path: '/wait',
-      name: 'WaitingForDevice',
-      component: WaitingForDevice
-    },
-    {
-      path: '/device-sync',
-      name: 'SynchronizeDevice',
-      component: SynchronizeDevice
-    },
-    {
-      path: '/device-select',
-      name: 'SelectDevice',
-      component: SelectDevice
-    },
-    {
-      path: '/device-add',
-      name: 'AddDevice',
-      component: AddDevice
-    },
-    {
-      path: '/user-confirm',
-      name: 'ConfirmUserInfo',
-      component: ConfirmUserInfo
-    },
-    {
-      path: '/license-intro',
-      name: 'DriverLicenseIntro',
-      component: DriverLicenseIntro
-    },
-    {
-      path: '/license-check',
-      name: 'DriverLicenseCheck',
-      component: DriverLicenseCheck
-    },
-    {
-      path: '/feedback',
-      name: 'SynchronizationFeedback',
-      component: SynchronizationFeedback
-    },
-    {
-      path: '/vehicle-confirm',
-      name: 'ConfirmVehicleInfo',
-      component: ConfirmVehicleInfo
-    },
-    {
-      path: '/risk-form',
-      name: 'RiskForm',
-      component: RiskForm
-    },
-    {
       path: '/home',
       name: 'Home',
       beforeEnter: [checkAuth],
@@ -121,7 +62,12 @@ const f7params = {
       component: Landing
     },
     {
-      path: '/signup',
+      path: '/setup-user',
+      name: 'SelectRole',
+      component: SelectRole
+    },
+    {
+      path: '/user-signup',
       name: 'AddUser',
       component: AddUser
     },

@@ -14,7 +14,7 @@ import isEmpty from 'validator/lib/isEmpty'
 import PrimaryInput from '../../../components/PrimaryInput'
 import PrimaryButton from '../../../components/PrimaryButton'
 
-import logo from '../../../assets/img/logo.png'
+import logo from '../../../assets/vectors/icon.svg'
 
 import './Login.scss'
 
@@ -72,6 +72,7 @@ class Login extends React.Component {
         <PageContent>
           <article className="login-page__content">
             <List className="login-page__form">
+              <h2 className="login-page__app-title">Frete Fácil</h2>
               <img src={logo} alt="Frete Fácil" className="login-page__logo" />
               <PrimaryInput
                 value={user.email}
