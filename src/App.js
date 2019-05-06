@@ -22,7 +22,6 @@ import TabsContainer from './components/TabsContainer'
 import NotFound from './pages/common/NotFound'
 
 import authService from './services/auth'
-import insuranceService from './services/insurance'
 
 import {
   checkBluetoothState,
@@ -101,7 +100,6 @@ class App extends React.Component {
       document.addEventListener('deviceready', () => {
         this.onReadyState()
         this.initializeHardware()
-        insuranceService.initialize()
       })
     } else {
       this.onReadyState()

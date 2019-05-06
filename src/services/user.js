@@ -23,11 +23,4 @@ const update = params =>
     }
   })
 
-const createRiskForm = params =>
-  axios.post(`${config.baseUrl}/risk_analysis`, params, {
-    headers: {
-      Authorization: authService.getAuthorization()
-    }
-  })
-
-export default { create, read, update, createRiskForm }
+export default { create, read, update }

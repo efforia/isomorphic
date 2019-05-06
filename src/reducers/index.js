@@ -13,7 +13,6 @@ import { createLogger } from 'redux-logger'
 
 import uiReducers from './ui'
 import userReducers from './user'
-import deviceReducers from './device'
 import hardwareReducers from './hardware'
 import { INSTANT_LOCAL_STORAGE } from '../config/consts'
 
@@ -22,7 +21,6 @@ const logger = createLogger()
 const appReducer = combineReducers({
   ui: uiReducers,
   user: userReducers,
-  device: deviceReducers,
   hardware: hardwareReducers
 })
 

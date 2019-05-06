@@ -33,4 +33,17 @@ const getFromGPS = () =>
     }
   })
 
-export default { getFromGPS, save }
+const keepTracking = () => {
+  setInterval(async () => {
+    console.log('Here I am, running in background...')
+    const position = await getFromGPS()
+    console.log(position)
+    const response = await save({
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude
+    })
+    console.log(response)
+  }, 60000)
+}
+
+export default { getFromGPS, save, keepTracking }
