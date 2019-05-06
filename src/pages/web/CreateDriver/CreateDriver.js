@@ -22,9 +22,9 @@ import PrimaryInput from '../../../components/PrimaryInput'
 import Navbar from '../../../components/Navbar'
 import Form from '../../../components/Form'
 
-import './AddUser.scss'
+import './AddDriver.scss'
 
-class AddUser extends React.Component {
+class AddDriver extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -78,7 +78,7 @@ class AddUser extends React.Component {
         console.log(data)
         this.$f7router.navigate({ name: 'AddVehicle' })
       })
-      .catch((e) => {
+      .catch(e => {
         console.log(e)
         this.$f7.dialog.alert(
           'Por favor, verifique as informações preenchidas e tente novamente.',
@@ -111,22 +111,21 @@ class AddUser extends React.Component {
       )
 
     return (
-      <Page className="add-user-page">
+      <Page className="add-driver-page">
         <Helmet title={pageTitle} />
-        <Navbar className="add-user-page__navbar">
+        <Navbar className="add-driver-page__navbar">
           <div className="app-navbar__left">{renderBackButton()}</div>
-          <div className="app-navbar__center app-navbar__title" />
+          <div className="app-navbar__center app-navbar__title">Dados pessoais</div>
           <div className="app-navbar__right" />
         </Navbar>
-        <div className="add-user-page__content">
-          <div className="add-user-page__intro">
-            <div className="add-user-page__intro__title">Cadastro</div>
-            <div className="add-user-page__intro__content">
-              Primeiramente precisamos algumas informações pessoais para o cadastro
+        <div className="add-driver-page__content">
+          <div className="add-driver-page__intro">
+            <div className="add-driver-page__intro__title">Cadastro</div>
+            <div className="add-driver-page__intro__content">
+              Primeiramente precisamos algumas informações pessoais para o cadastro:
             </div>
           </div>
-          <List className="add-user-page__form">
-            <div className="add-user-page__form__title">Dados Pessoais</div>
+          <List className="add-driver-page__form">
             <Form>
               <PrimaryInput
                 value={user.email}
@@ -227,4 +226,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddUser)
+)(AddDriver)

@@ -112,7 +112,7 @@ class Login extends React.Component {
                 <Link
                   className="login-page__link"
                   onClick={() => {
-                    this.$f7router.navigate({ name: 'AddUser' })
+                    this.$f7router.navigate({ name: 'SelectRole' })
                   }}>
                   Cadastre-se
                 </Link>
