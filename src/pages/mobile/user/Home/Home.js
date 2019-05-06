@@ -10,7 +10,7 @@ import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import { Page } from 'framework7-react'
 
-import bell from '../../../assets/vectors/bell-icon.svg'
+import bell from '../../../../assets/vectors/bell-icon.svg'
 
 import Navbar from '../../../../components/Navbar'
 

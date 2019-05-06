@@ -11,7 +11,7 @@ const dev = {
 
 const local = {
   ...dev,
-  baseUrl: 'localhost:3001'
+  baseUrl: 'http://localhost:3001'
 }
 
 const prod = {

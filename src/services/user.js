@@ -3,21 +3,21 @@ import config from '../config'
 import authService from './auth'
 
 const create = params =>
-  axios.post(`${config.baseUrl}/user`, params, {
+  axios.post(`${config.baseUrl}/users`, params, {
     headers: {
       Authorization: authService.getAuthorization()
     }
   })
 
 const read = () =>
-  axios.get(`${config.baseUrl}/user`, {
+  axios.get(`${config.baseUrl}/users`, {
     headers: {
       Authorization: authService.getAuthorization()
     }
   })
 
 const update = params =>
-  axios.put(`${config.baseUrl}/user`, params, {
+  axios.put(`${config.baseUrl}/users`, params, {
     headers: {
       Authorization: authService.getAuthorization()
     }
