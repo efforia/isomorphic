@@ -11,13 +11,8 @@ import auth from '../../services/auth.service'
 import EmailsCtrl from '../../services/emails/emails.controller'
 import DataService from '../../services/data.service'
 import User from './user.model'
-import Admin from '../admin/admin.model'
-import Merchant from '../marketplace/merchants/merchant.model'
-import Customer from '../marketplace/customers/customer.model'
 
 // --------------- Module Variables
-const UserModels = { ADMIN: Admin, CUSTOMER: Customer, MERCHANT: Merchant }
-const UserModelKeys = Object.keys(UserModels)
 
 // --------------- Module Controller
 const UsersCtrl = {
@@ -27,18 +22,12 @@ const UsersCtrl = {
   create: async information => {
     const result = await User.findOne({ email: information.email }) // Tries to locate user
     if (result) throw new Error(UsersCtrl.ERRORS.DUPLICATED_USER) // In case it already exists, return error
-    if (information.role === 'ADMIN' || information.role === 'admin')
-      throw new Error(
-        'Not so fast fellow folk! This level of permissions must be earned, not taken.'
-      ) // In case it has admin role, THEY SHALL NOT PASS!
     if (information.phone)
       information.formattedPhone = DataService.formatPhoneNumber(information.phone, 'BR') // Formats phone number
-    const UserModel = UsersCtrl.getModel(information.roles) // Gets proper modal for best polimorphism techniques
-    const created = await UserModel.create(information) // Creates user on the database
+    const created = await User.create(information) // Creates user on the database
     const user = created.toObject() // Turns user object into editable object
     return Object.assign(user, { token: User.getTokenFor(user) }) // Returns the created user
   },
-  getModel: roles => UserModels[UserModelKeys.filter(model => roles.indexOf(model) > -1)] || User,
   sendWelcomeEmail: async user => {
     auth.generateEmailConfirmation(async confirmation => {
       const hash = `${confirmation}${user._id}` // Generates e-mail confirmation hash
@@ -70,14 +59,12 @@ const UsersCtrl = {
     return !exists // Returns confirmation
   },
   update: async (user, updates) => {
-    let UserModel = UsersCtrl.getModel(user.roles) // Gets proper user model (Hell, yeah, polimorphism!)
-    if (!user.__t) UserModel = User // In case there is no role, use the User-father-of-all
     delete updates.role // Deletes role (prevents Mr. Robots to get in)
     delete updates.password // Deletes password (for the same reason)
     delete updates.createdAt // Removes timestamps in order to prevent conflicts
     delete updates.updatedAd // Removes timestamps in order to prevent conflicts
     if (updates.phone) updates.formattedPhone = DataService.formatPhoneNumber(updates.phone, 'BR') // Formats the phone number
-    const updated = await UserModel.findOneAndUpdate(
+    const updated = await User.findOneAndUpdate(
       { _id: user._id },
       { $set: updates },
       { new: true }
@@ -112,13 +99,6 @@ const UsersCtrl = {
       const confirmation = await EmailsCtrl.send(message) // Sends the e-mail message
       return confirmation // Returns the confirmation
     })
-  },
-  addSkip: async (userId, skip) => {
-    const user = await User.findOne({ _id: userId }).lean() // Gets user information
-    const skips = user.skips || {} // Gets steps that user already visited and can be skipped
-    skips[skip] = true // Adds provided step
-    const updated = await User.findOneAndUpdate({ _id: userId }, { skips }, { new: true }).lean() // Updates user skips
-    return updated // Returns updated user
   }
 }
 export default UsersCtrl

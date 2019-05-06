@@ -10,7 +10,6 @@ import express from 'express'
 import controller from './users.controller'
 import auth from '../../services/auth.service'
 
-
 const router = express.Router('users')
 
 // --------------- Module Controller
@@ -24,32 +23,22 @@ router.post('/', async (req, res, error) => {
   }
 })
 
-router.get('/username/exists/:username', async (req, res, error) => {
-  try {
-    const {username} = req.params
-    const isUnique = await controller.isUniqueUsername(username)
-    return res.status(200).json(isUnique)
-  } catch (e) {
-    error(e)
-  }
-})
-
-router.get('/profile', auth.isAuthenticated(), async (req, res, error) => {
-  try {
-    const {user} = req
-    const profile = await controller.get(user)
-    return res.status(200).json(profile)
-  } catch (e) {
-    error(e)
-  }
-})
-
 router.put('/', auth.isAuthenticated(), async (req, res, error) => {
   try {
-    const {user} = req
+    const { user } = req
     const updates = req.body
     const updated = await controller.update(user, updates)
     return res.status(200).json(updated)
+  } catch (e) {
+    error(e)
+  }
+})
+
+router.get('/', auth.isAuthenticated(), async (req, res, error) => {
+  try {
+    const { user } = req
+    const profile = await controller.get(user)
+    return res.status(200).json(profile)
   } catch (e) {
     error(e)
   }
@@ -67,7 +56,7 @@ router.post('/authenticate', auth.passwordIsValid(), async (req, res, error) => 
 
 router.post('/password/recover/:email', async (req, res, error) => {
   try {
-    const {email} = req.params
+    const { email } = req.params
     const confirmation = await controller.recoverPassword(email)
     return res.status(200).json(confirmation)
   } catch (e) {
@@ -81,8 +70,8 @@ router.post(
   auth.passwordIsValid(),
   async (req, res, error) => {
     try {
-      const {user} = req
-      const {newPassword} = req.body
+      const { user } = req
+      const { newPassword } = req.body
       const updated = await controller.updatePassword(user, newPassword)
       return res.status(200).json(updated)
     } catch (e) {
@@ -91,12 +80,11 @@ router.post(
   }
 )
 
-router.post('/skips/:skip', auth.isAuthenticated(), async (req, res, error) => {
+router.get('/username/exists/:username', async (req, res, error) => {
   try {
-    const userId = req.user._id
-    const {skip} = req.params
-    const skipAdded = await controller.addSkip(userId, skip)
-    return res.status(200).json(skipAdded)
+    const { username } = req.params
+    const isUnique = await controller.isUniqueUsername(username)
+    return res.status(200).json(isUnique)
   } catch (e) {
     error(e)
   }
