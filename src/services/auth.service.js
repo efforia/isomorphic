@@ -55,7 +55,7 @@ const auth = {
 
   isAuthenticated: () => compose().use(auth.hasValidToken()),
 
-  isMerchant: () =>
+  isDriver: () =>
     auth.hasValidToken().use((req, res, next) => {
       if (req.user.roles.indexOf('MERCHANT') > -1) next()
       else

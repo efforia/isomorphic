@@ -8,7 +8,7 @@
 // --------------- Module Imports
 import Driver from './driver.model'
 import User from '../users/user.model'
-import Order from '../marketplace/orders/order.model'
+import Order from '../orders/order.model'
 import DataService from '../../services/data.service'
 
 // --------------- Module Variables

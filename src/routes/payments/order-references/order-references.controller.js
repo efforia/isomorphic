@@ -8,7 +8,7 @@
 // --------------- Module Imports
 import moment from 'moment'
 import axios from 'axios'
-import Order from '../../marketplace/orders/order.model'
+import Order from '../../orders/order.model'
 
 import PaymentCtrl from '../payments.controller'
 

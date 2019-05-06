@@ -8,7 +8,7 @@
 // --------------- Module Imports
 import Ride from './ride.model'
 
-import Order from '../marketplace/orders/order.model'
+import Order from '../orders/order.model'
 import DriverCtrl from '../drivers/drivers.controller'
 import NotificationsCtrl from '../notifications/notifications.controller'
 

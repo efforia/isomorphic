@@ -78,7 +78,7 @@ router.get('/:id', auth.isAuthenticated(), async (req, res, error) => {
  * @interface acceptOrder
  * Updates order status to accepted and executes the necessary operations.
  */
-router.post('/:id/accept', auth.isMerchant(), async (req, res, error) => {
+router.post('/:id/accept', auth.isDriver(), async (req, res, error) => {
   try {
     const { user } = req
     const { id } = req.params

@@ -1,4 +1,4 @@
-import ReceivingMode from '../routes/marketplace/orders/receiving-mode.model'
+import ReceivingMode from '../routes/orders/receiving-mode.model'
 
 console.log(`☮ DB: Planting seeds for the ReceivingMode model...`.yellow)
 ReceivingMode.remove({}, async () => {
