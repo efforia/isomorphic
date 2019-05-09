@@ -24,8 +24,8 @@ export const authenticate = data => dispatch => {
     authService
       .login(data)
       .then(response => {
-        dispatch(authenticateSuccess(response.data.data))
-        resolve(response.data.data)
+        dispatch(authenticateSuccess(response.data))
+        resolve(response.data)
       })
       .catch(e => {
         dispatch(authenticateError(e))

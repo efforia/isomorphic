@@ -14,7 +14,7 @@ import { createLogger } from 'redux-logger'
 import uiReducers from './ui'
 import userReducers from './user'
 import hardwareReducers from './hardware'
-import { INSTANT_LOCAL_STORAGE } from '../config/consts'
+import { FRETE_FACIL_LOCAL_STORAGE } from '../config/consts'
 
 const logger = createLogger()
 
@@ -25,7 +25,7 @@ const appReducer = combineReducers({
 })
 
 const persistConfig = {
-  key: INSTANT_LOCAL_STORAGE,
+  key: FRETE_FACIL_LOCAL_STORAGE,
   storage
 }
 

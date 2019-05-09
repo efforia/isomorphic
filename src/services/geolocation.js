@@ -1,7 +1,7 @@
 /**
  * @license MIT
  * @version 1.1.0
- * @author Leonardo Quevedo
+ * @author Trinca
  * @description User controller.
  */
 
@@ -9,13 +9,14 @@ import { Plugins } from '@capacitor/core'
 import axios from 'axios'
 import config from '../config'
 import authService from './auth'
+import localStorageService from './localstorage'
 
 const { Geolocation } = Plugins
 
-const save = params =>
+const upload = params =>
   axios.post(`${config.baseUrl}/geolocation`, params, {
     headers: {
-      Authorization: authService.getAuthorization()
+      Authorization: authService.getAuthorizationHeader()
     }
   })
 
@@ -33,17 +34,24 @@ const getFromGPS = () =>
     }
   })
 
-const keepTracking = () => {
-  setInterval(async () => {
-    console.log('Here I am, running in background...')
-    const position = await getFromGPS()
-    console.log(position)
-    const response = await save({
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude
-    })
-    console.log(response)
-  }, 60000)
+const getLocalStorageList = () => {
+  const state = localStorageService.getState()
+  if (state.geolocation) {
+    const geolocationState = JSON.parse(state.geolocation)
+    return geolocationState.list || []
+  }
+  return []
 }
 
-export default { getFromGPS, save, keepTracking }
+const setLocalStorageList = list => {
+  const state = localStorageService.getState()
+  localStorageService.setState({ ...state, list })
+}
+
+const add = location => {
+  const geolocationList = getLocalStorageList()
+  geolocationList.push(location)
+  setLocalStorageList(geolocationList)
+}
+
+export default { getFromGPS, add, upload }

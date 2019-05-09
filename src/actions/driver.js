@@ -25,8 +25,8 @@ export const createDriver = data => dispatch => {
     userService
       .create(data)
       .then(response => {
-        dispatch(createDriverSuccess(response.data.data))
-        resolve(response.data.data)
+        dispatch(createDriverSuccess(response.data))
+        resolve(response.data)
       })
       .catch(e => {
         dispatch(createDriverError(e))
@@ -59,8 +59,8 @@ export const readDriver = () => dispatch => {
     userService
       .read()
       .then(response => {
-        dispatch(readDriverSuccess(response.data.data))
-        resolve(response.data.data)
+        dispatch(readDriverSuccess(response.data))
+        resolve(response.data)
       })
       .catch(e => {
         dispatch(readDriverError(e))
@@ -93,8 +93,8 @@ export const updateDriver = data => dispatch => {
     userService
       .update(data)
       .then(response => {
-        dispatch(updateDriverSuccess(response.data.data))
-        resolve(response.data.data)
+        dispatch(updateDriverSuccess(response.data))
+        resolve(response.data)
       })
       .catch(e => {
         dispatch(updateDriverError(e))

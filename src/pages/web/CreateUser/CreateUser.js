@@ -62,7 +62,7 @@ class CreateUser extends React.Component {
       .createProfile({ ...user, birthdate: moment(user.displayBirthdate, 'DD/MM/YYYY').toDate() })
       .then(data => {
         console.log(data)
-        this.$f7router.navigate({ name: 'AddVehicle' })
+        this.$f7router.navigate({ name: 'Home' })
       })
       .catch(e => {
         console.log(e)
@@ -108,7 +108,7 @@ class CreateUser extends React.Component {
           <div className="create-user-page__intro">
             <div className="create-user-page__intro__title">Cadastro</div>
             <div className="create-user-page__intro__content">
-              Primeiramente precisamos algumas informações pessoais para o cadastro
+              {/* Primeiramente precisamos algumas informações pessoais para o cadastro */}
             </div>
           </div>
           <List className="create-user-page__form">

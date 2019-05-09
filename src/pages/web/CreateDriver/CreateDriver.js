@@ -122,7 +122,7 @@ class CreateDriver extends React.Component {
           <div className="create-driver-page__intro">
             <div className="create-driver-page__intro__title">Cadastro</div>
             <div className="create-driver-page__intro__content">
-              Primeiramente precisamos algumas informações pessoais para o cadastro:
+              {/* Primeiramente precisamos algumas informações pessoais para o cadastro: */}
             </div>
           </div>
           <List className="create-driver-page__form">

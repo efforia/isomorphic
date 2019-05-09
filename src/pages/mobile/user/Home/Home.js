@@ -15,9 +15,7 @@ import bell from '../../../../assets/vectors/bell-icon.svg'
 import Navbar from '../../../../components/Navbar'
 
 import {
-  checkBluetoothState,
   checkGpsState,
-  watchBluetoothStateChanges,
   watchGpsStateChanges
 } from '../../../../actions/hardware'
 
@@ -65,14 +63,10 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  device: state.device.connected,
-  bluetooth: state.hardware.bluetooth,
   gps: state.hardware.gps
 })
 
 const mapDispatchToProps = dispatch => ({
-  checkBluetoothState: dispatch(checkBluetoothState()),
-  watchBluetoothStateChanges: dispatch(watchBluetoothStateChanges()),
   checkGpsState: dispatch(checkGpsState()),
   watchGpsStateChanges: dispatch(watchGpsStateChanges())
 })
