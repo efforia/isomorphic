@@ -6,8 +6,8 @@
  */
 
 // --------------- Module Imports
-import User from '../users/user.model'
-import EmailsCtrl from '../../services/emails/emails.controller'
+import User from '../user/user.model'
+import EmailsCtrl from '../../services/mailing/mailing.controller'
 
 // --------------- Module Controller
 const AdminCtrl = {

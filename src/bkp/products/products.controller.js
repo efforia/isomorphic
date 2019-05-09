@@ -9,7 +9,7 @@
 import Product from './product.model'
 
 import SeoService from '../../../services/seo.service'
-import ProductCategories from '../product-categories/product-categories.controller'
+import ProductCategories from '../product-categories/product-categorie.controller'
 
 const ProductsCtrl = {
   save: async (user, item) => {

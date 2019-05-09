@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken'
 import compose from 'composable-middleware'
 import randomstring from 'just.randomstring'
-import User from '../routes/users/user.model'
-import SubscriptionCtrl from '../routes/payments/subscription-references/subscription-references.controller'
+import User from '../routes/user/user.model'
+import SubscriptionCtrl from '../routes/payment/subscription-ref/subscription-ref.controller'
 
 const auth = {
   hasValidToken: () =>

@@ -33,7 +33,7 @@ router.get('/users', auth.isAdmin(), async (req, res, error) => {
  * @interface deactivateUser
  * Performs logic exclusion on the user.
  */
-router.post('/users/:id', auth.isAdmin(), async (req, res, error) => {
+router.post('/user/:id', auth.isAdmin(), async (req, res, error) => {
   try {
     const { id } = req.params
     const deactivated = await controller.deactivateUser(id)
@@ -47,7 +47,7 @@ router.post('/users/:id', auth.isAdmin(), async (req, res, error) => {
  * @interface activateUser
  * Performs logic activation on the user.
  */
-router.post('/users/:id/activate', auth.isAdmin(), async (req, res, error) => {
+router.post('/user/:id/activate', auth.isAdmin(), async (req, res, error) => {
   try {
     const { id } = req.params
     const activated = controller.activateUser(id)
@@ -61,7 +61,7 @@ router.post('/users/:id/activate', auth.isAdmin(), async (req, res, error) => {
  * @interface changeUserRole
  * Changes user role.
  */
-router.post('/users/:id/role', auth.isAdmin(), async (req, res, error) => {
+router.post('/user/:id/role', auth.isAdmin(), async (req, res, error) => {
   try {
     const { role, id } = req.params
     const updated = await controller.changeUserRole(id, role)

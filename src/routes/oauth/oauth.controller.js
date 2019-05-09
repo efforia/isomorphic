@@ -1,5 +1,5 @@
 // define models =========================================================
-import User from '../users/user.model'
+import User from '../user/user.model'
 
 const OauthCtrl = {
   accessWithFacebook: async profile => {

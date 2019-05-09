@@ -7,7 +7,7 @@
 
 // --------------- Module Imports
 import express from 'express'
-import controller from './carts.controller'
+import controller from './cart.controller'
 
 const router = express.Router('carts')
 

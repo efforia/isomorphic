@@ -7,7 +7,7 @@
 
 // --------------- Module Imports
 import express from 'express'
-import controller from './product-attributes.controller'
+import controller from './product-attribute.controller'
 import auth from '../../../services/auth.service'
 
 
