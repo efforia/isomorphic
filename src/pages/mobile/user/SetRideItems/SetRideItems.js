@@ -9,12 +9,9 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import { Page, List, Link, Row, Col } from 'framework7-react'
-import moment from 'moment-mini'
-import { createProfile } from '../../../../actions/user'
+import { updateRideInCreation } from '../../../../actions/ride'
 
 import arrowIcon from '../../../../assets/vectors/arrow.svg'
-
-import authService from '../../../../services/auth'
 
 import PrimaryButton from '../../../../components/PrimaryButton'
 import PrimaryInput from '../../../../components/PrimaryInput'
@@ -40,22 +37,8 @@ class SetRideItems extends React.Component {
   }
 
   onSubmit() {
-    this.setState({ isLoading: true })
-    this.props
-      .updateRideInCreation({ items: this.state.items })
-      .then(data => {
-        this.$f7router.navigate({ name: 'SetRideDestination' })
-      })
-      .catch(e => {
-        console.log(e)
-        this.$f7.dialog.alert(
-          'Por favor, verifique as informações preenchidas e tente novamente.',
-          'Houve uma falha na operação'
-        )
-      })
-      .then(() => {
-        this.setState({ isLoading: false })
-      })
+    this.props.updateRideInCreation({ items: this.state.items })
+    this.$f7router.navigate({ name: 'SetRideDestination' })
   }
 
   canGoBack() {
@@ -67,7 +50,6 @@ class SetRideItems extends React.Component {
   render() {
     const pageTitle = 'Frete Fácil: Cadastro'
     const { items } = this.state
-    console.log(items)
     const renderBackButton = () =>
       this.canGoBack() && (
         <Link
@@ -144,7 +126,6 @@ class SetRideItems extends React.Component {
             <Form>
               {items.map((item, index) => renderItemInput(item, index))}
               <PrimaryButton
-                isLoading={this.state.isLoading}
                 onClick={() => {
                   this.setState({ items: items.concat([{ quantity: '', description: '' }]) })
                 }}>
@@ -171,7 +152,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  createProfile: data => dispatch(createProfile(data))
+  updateRideInCreation: data => dispatch(updateRideInCreation(data))
 })
 
 export default connect(

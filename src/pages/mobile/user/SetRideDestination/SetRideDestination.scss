@@ -5,6 +5,14 @@
   .page-content {
     background-color: white;
   }
+  &__illustration {
+    display: block;
+    height: 30vh;
+    min-height: 80px;
+    max-height: 150px;
+    margin: auto;
+    margin-bottom: 24px;
+  }
   .col-25 {
     .item-content.item-input {
       padding-left: 0px;

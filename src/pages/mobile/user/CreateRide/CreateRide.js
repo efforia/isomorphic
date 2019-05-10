@@ -10,7 +10,7 @@ import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import { Page, List } from 'framework7-react'
 import isEmpty from 'validator/lib/isEmpty'
-import { createProfile } from '../../../../actions/user'
+import { updateRideInCreation } from '../../../../actions/ride'
 
 import truck from '../../../../assets/vectors/truck.svg'
 
@@ -26,21 +26,12 @@ class CreateRide extends React.Component {
     super(props)
     this.state = {
       ride: {
-        name: '',
-        address: '',
-        password: '',
-        phone: '',
-        birthdate: '',
-        displayBirthdate: ''
+        address: ''
       }
     }
   }
 
   componentDidMount() {}
-
-  isValidName(name) {
-    return name.split(' ')[1]
-  }
 
   isFormValid() {
     const { ride } = this.state
@@ -48,6 +39,7 @@ class CreateRide extends React.Component {
   }
 
   onSubmit() {
+    this.props.updateRideInCreation(this.state.ride)
     this.$f7router.navigate({ name: 'SetRideItems' })
   }
 
@@ -72,7 +64,7 @@ class CreateRide extends React.Component {
         <div className="create-ride-page__content">
           <div className="create-ride-page__intro">
             <div className="create-ride-page__intro__title">Olá, {user.name.split(' ')[0]}</div>
-            <div className="create-ride-page__intro__content">Que tal começar um novo frete?</div>
+            <div className="create-ride-page__intro__content">Precisando de um frete? Deixa a gente te ajudar ;)</div>
           </div>
           <img className="create-ride-page__illustration" src={truck} alt="" />
           <List className="create-ride-page__form">
@@ -104,11 +96,12 @@ class CreateRide extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user.profile
+  user: state.user.profile,
+  ride: state.ride.inCreation
 })
 
 const mapDispatchToProps = dispatch => ({
-  createProfile: data => dispatch(createProfile(data))
+  updateRideInCreation: data => dispatch(updateRideInCreation(data))
 })
 
 export default connect(

@@ -8,13 +8,11 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
-import { Page, List, Link, Row, Col } from 'framework7-react'
-import moment from 'moment-mini'
-import { createProfile } from '../../../../actions/user'
+import { Page, List, Link } from 'framework7-react'
+import { updateRideInCreation } from '../../../../actions/ride'
 
-import arrowIcon from '../../../../assets/vectors/arrow.svg'
-
-import authService from '../../../../services/auth'
+import arrow from '../../../../assets/vectors/arrow.svg'
+import route from '../../../../assets/vectors/route.svg'
 
 import PrimaryButton from '../../../../components/PrimaryButton'
 import PrimaryInput from '../../../../components/PrimaryInput'
@@ -27,7 +25,9 @@ class SetRideDestination extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      destination: [{ quantity: '', description: '' }]
+      ride: {
+        destination: ''
+      }
     }
   }
 
@@ -40,22 +40,8 @@ class SetRideDestination extends React.Component {
   }
 
   onSubmit() {
-    this.setState({ isLoading: true })
-    this.props
-      .updateRideInCreation({ destination: this.state.destination })
-      .then(data => {
-        this.$f7router.navigate({ name: 'SetRideDestination' })
-      })
-      .catch(e => {
-        console.log(e)
-        this.$f7.dialog.alert(
-          'Por favor, verifique as informações preenchidas e tente novamente.',
-          'Houve uma falha na operação'
-        )
-      })
-      .then(() => {
-        this.setState({ isLoading: false })
-      })
+    this.props.updateRideInCreation({ destination: this.state.destination })
+    this.$f7router.navigate({ name: 'SetRideDestination' })
   }
 
   canGoBack() {
@@ -66,8 +52,7 @@ class SetRideDestination extends React.Component {
 
   render() {
     const pageTitle = 'Frete Fácil: Cadastro'
-    const { destination } = this.state
-    console.log(destination)
+    const { ride } = this.state
     const renderBackButton = () =>
       this.canGoBack() && (
         <Link
@@ -75,55 +60,9 @@ class SetRideDestination extends React.Component {
           onClick={() => {
             this.$f7router.back()
           }}>
-          <img src={arrowIcon} alt="Voltar" />
+          <img src={arrow} alt="Voltar" />
         </Link>
       )
-
-    const renderItemInput = (item, index) => {
-      const isFirstItem = index === 0
-      return (
-        <Row className="ride-destination-page__item" key={index}>
-          <Col width={!isFirstItem ? 30 : 40}>
-            <PrimaryInput
-              value={item.quantity}
-              onChange={e => {
-                item.quantity = e.target.value
-                this.setState({})
-              }}
-              required
-              colorTheme="orange"
-              label="Quant."
-              type="text"
-            />
-          </Col>
-          <Col width={!isFirstItem ? 55 : 60}>
-            <PrimaryInput
-              value={item.description}
-              onChange={e => {
-                item.description = e.target.value
-                this.setState({})
-              }}
-              required
-              colorTheme="orange"
-              label="Nome do item"
-              type="text"
-              alignn="center"
-            />
-          </Col>
-          {!isFirstItem && (
-            <Col width={15}>
-              <PrimaryButton
-                className="ride-destination-page__item__button-remove"
-                onClick={() => {
-                  this.removeItem(index)
-                }}>
-                x
-              </PrimaryButton>
-            </Col>
-          )}
-        </Row>
-      )
-    }
 
     return (
       <Page className="ride-destination-page">
@@ -135,28 +74,29 @@ class SetRideDestination extends React.Component {
         </Navbar>
         <div className="ride-destination-page__content">
           <div className="ride-destination-page__intro">
-            <div className="ride-destination-page__intro__title">Itens do frete</div>
-            <div className="ride-destination-page__intro__content">
-              O que você gostaria de transportar?
-            </div>
+            <div className="ride-destination-page__intro__title">Destino do frete</div>
+            <div className="ride-destination-page__intro__content">Para onde você deseja enviar seus itens?</div>
           </div>
           <List className="ride-destination-page__form">
             <Form>
-              {destination.map((item, index) => renderItemInput(item, index))}
+              <img className="ride-destination-page__illustration" src={route} alt='' />
+              <PrimaryInput
+                value={ride.destination}
+                onChange={e => {
+                  this.setState({ ride: { ...ride, destination: e.target.value } })
+                }}
+                required
+                colorTheme="orange"
+                label="CEP de destino"
+                type="text"
+              />
               <PrimaryButton
-                isLoading={this.state.isLoading}
-                onClick={() => {
-                  this.setState({ destination: destination.concat([{ quantity: '', description: '' }]) })
-                }}>
-                Adicionar item
-              </PrimaryButton>
-              <PrimaryButton
-                disabled={!(destination.length > 1)}
+                disabled={!(ride.destination.length > 1)}
                 isLoading={this.state.isLoading}
                 onClick={() => {
                   this.onSubmit()
                 }}>
-                Próximo
+                Finalizar
               </PrimaryButton>
             </Form>
           </List>
@@ -166,12 +106,10 @@ class SetRideDestination extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  user: state.user.profile
-})
+const mapStateToProps = state => ({})
 
 const mapDispatchToProps = dispatch => ({
-  createProfile: data => dispatch(createProfile(data))
+  updateRideInCreation: data => dispatch(updateRideInCreation(data))
 })
 
 export default connect(
