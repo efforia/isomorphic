@@ -15,8 +15,8 @@ import iconRides from '../../assets/vectors/tab-icon-policy.svg'
 import iconContact from '../../assets/vectors/tab-icon-contact.svg'
 
 import './TabsContainer.scss'
-import Home from '../../pages/mobile/user/Home'
-import Rides from '../../pages/mobile/user/Rides'
+import CreateRide from '../../pages/mobile/user/CreateRide'
+import RidesList from '../../pages/mobile/user/RidesList'
 import Settings from '../../pages/mobile/user/Settings'
 
 const rootPages = [
@@ -24,13 +24,13 @@ const rootPages = [
     path: 'start',
     label: 'Início',
     icon: iconHome,
-    component: Home
+    component: CreateRide
   },
   {
     path: 'rides',
     label: 'Meus Fretes',
     icon: iconRides,
-    component: Rides
+    component: RidesList
   },
   {
     path: 'contact',
@@ -62,7 +62,7 @@ class TabsContainer extends React.Component {
                 this.setState({ selectedTab: tab })
               }}>
               <img src={tab.icon} alt={tab.label} />
-              <span>{tab.label}</span>
+              {/* <span>{tab.label}</span> */}
             </Link>
           ))}
         </Toolbar>

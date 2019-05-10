@@ -1,9 +1,17 @@
 @import '../../../../theme/variables.scss';
 @import '../../../../theme/mixins.scss';
 
-.create-ride-page {
+.ride-destination-page {
   .page-content {
     background-color: white;
+  }
+  .col-25 {
+    .item-content.item-input {
+      padding-left: 0px;
+    }
+  }
+  .button-primary.button-fill {
+    margin-top: 16px;
   }
   &__logo {
     display: block;
@@ -32,14 +40,6 @@
       opacity: 0.7;
     }
   }
-  &__illustration {
-    display: block;
-    height: 22vh;
-    min-height: 80px;
-    max-height: 150px;
-    margin: auto;
-    margin-bottom: 24px;
-  }
   &__form {
     &.list {
       margin-top: 0px;
@@ -53,13 +53,12 @@
       padding-left: 18px;
     }
   }
-
-  .col-25 {
-    .item-content.item-input {
-      padding-left: 0px;
+  &__item {
+    a.button-primary.button-fill {
+      margin-top: 24px;
+      padding: 1px;
+      padding-bottom: 3px;
+      padding-left: 3px;
     }
-  }
-  .button-primary.button-fill {
-    margin-top: 16px;
   }
 }

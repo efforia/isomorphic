@@ -22,7 +22,7 @@ class PrimaryButton extends React.Component {
     return (
       <Button
         {...this.props}
-        className="button-primary"
+        className={`button-primary ${this.props.className || ''}`}
         fill
         color="primary"
         disabled={this.props.disabled || this.props.isLoading}>

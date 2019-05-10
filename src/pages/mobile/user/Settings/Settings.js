@@ -10,9 +10,7 @@ import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import { Page } from 'framework7-react'
 
-
 import Navbar from '../../../../components/Navbar'
-import logo from '../../../../assets/vectors/logo.svg'
 import bell from '../../../../assets/vectors/bell-icon.svg'
 
 import './Settings.scss'
@@ -37,10 +35,8 @@ class Settings extends React.Component {
       <Page className="settings-page">
         <Helmet title={pageTitle} />
         <Navbar className="home-page__navbar">
-          <div className="app-navbar__left">
-            <img src={logo} alt="Instant" />
-          </div>
-          <div className="app-navbar__center  app-navbar__title">Contato</div>
+          <div className="app-navbar__left" />
+          <div className="app-navbar__center  app-navbar__title">Configurações</div>
           <div className="app-navbar__right">
             <img src={bell} alt="Notificações" />
           </div>
@@ -53,10 +49,7 @@ class Settings extends React.Component {
 
 const mapStateToProps = state => ({})
 
-const mapDispatchToProps = dispatch => ({
-  
-  
-})
+const mapDispatchToProps = dispatch => ({})
 
 export default connect(
   mapStateToProps,

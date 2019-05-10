@@ -19,6 +19,9 @@ import SignupFeedback from './pages/web/SignupFeedback'
 // ---- Mobile pages
 import Login from './pages/mobile/user/Login'
 import TabsContainer from './components/TabsContainer'
+import CreateRide from './pages/mobile/user/CreateRide'
+import SetRideItems from './pages/mobile/user/SetRideItems'
+import SetRideDestination from './pages/mobile/user/SetRideDestination'
 import NotFound from './pages/common/NotFound'
 
 import authService from './services/auth'
@@ -80,6 +83,21 @@ const f7params = {
       path: '/welcome',
       name: 'SignupFeedback',
       component: SignupFeedback
+    },
+    {
+      path: '/create-ride',
+      name: 'CreateRide',
+      component: CreateRide
+    },
+    {
+      path: '/ride-items',
+      name: 'SetRideItems',
+      component: SetRideItems
+    },
+    {
+      path: '/ride-destination',
+      name: 'SetRideDestination',
+      component: SetRideDestination
     },
     {
       path: '(.*)',

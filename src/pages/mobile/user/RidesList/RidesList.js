@@ -10,14 +10,12 @@ import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import { Page } from 'framework7-react'
 
-
 import Navbar from '../../../../components/Navbar'
-import logo from '../../../../assets/vectors/logo.svg'
 import bell from '../../../../assets/vectors/bell-icon.svg'
 
-import './Rides.scss'
+import './RidesList.scss'
 
-class Rides extends React.Component {
+class RidesList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -34,18 +32,16 @@ class Rides extends React.Component {
   render() {
     const pageTitle = 'Frete Fácil: Apólice'
     return (
-      <Page className="rides-page">
+      <Page className="rides-list-page">
         <Helmet title={pageTitle} />
         <Navbar className="home-page__navbar">
-          <div className="app-navbar__left">
-            <img src={logo} alt="Instant" />
-          </div>
+          <div className="app-navbar__left" />
           <div className="app-navbar__center  app-navbar__title">Apólice</div>
           <div className="app-navbar__right">
             <img src={bell} alt="Notificações" />
           </div>
         </Navbar>
-        <div className="rides-page__content" />
+        <div className="rides-list-page__content" />
       </Page>
     )
   }
@@ -53,12 +49,9 @@ class Rides extends React.Component {
 
 const mapStateToProps = state => ({})
 
-const mapDispatchToProps = dispatch => ({
-  
-  
-})
+const mapDispatchToProps = dispatch => ({})
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Rides)
+)(RidesList)

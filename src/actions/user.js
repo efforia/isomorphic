@@ -26,8 +26,8 @@ export const createProfile = data => dispatch => {
     userService
       .create(data)
       .then(response => {
-        dispatch(createProfileSuccess(response.data.data))
-        resolve(response.data.data)
+        dispatch(createProfileSuccess(response.data))
+        resolve(response.data)
       })
       .catch(e => {
         dispatch(createProfileError(e))
@@ -60,8 +60,8 @@ export const readProfile = () => dispatch => {
     userService
       .read()
       .then(response => {
-        dispatch(readProfileSuccess(response.data.data))
-        resolve(response.data.data)
+        dispatch(readProfileSuccess(response.data))
+        resolve(response.data)
       })
       .catch(e => {
         dispatch(readProfileError(e))
@@ -94,8 +94,8 @@ export const updateProfile = data => dispatch => {
     userService
       .update(data)
       .then(response => {
-        dispatch(updateProfileSuccess(response.data.data))
-        resolve(response.data.data)
+        dispatch(updateProfileSuccess(response.data))
+        resolve(response.data)
       })
       .catch(e => {
         dispatch(updateProfileError(e))
@@ -141,8 +141,8 @@ export const authenticate = data => dispatch => {
     authService
       .login(data)
       .then(response => {
-        dispatch(authenticateSuccess(response.data.data))
-        resolve(response.data.data)
+        dispatch(authenticateSuccess(response.data))
+        resolve(response.data)
       })
       .catch(e => {
         dispatch(authenticateError(e))
@@ -175,8 +175,8 @@ export const createRiskForm = data => dispatch => {
     userService
       .createRiskForm(data)
       .then(response => {
-        dispatch(createRiskFormSuccess(response.data.data))
-        resolve(response.data.data)
+        dispatch(createRiskFormSuccess(response.data))
+        resolve(response.data)
       })
       .catch(e => {
         dispatch(createRiskFormError(e))
@@ -250,8 +250,8 @@ export const saveCnhPicture = data => dispatch => {
     userService.saveCnhPicture(
       data,
       response => {
-        dispatch(saveCnhPictureSuccess(response.data.data))
-        resolve(response.data.data)
+        dispatch(saveCnhPictureSuccess(response.data))
+        resolve(response.data)
       },
       e => {
         dispatch(saveCnhPictureError(e))

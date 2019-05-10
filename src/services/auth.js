@@ -9,8 +9,7 @@ const isLoggedIn = () => {
   return !!token
 }
 
-
-const login = params => axios.post(`${config.baseUrl}/login`, params)
+const login = params => axios.post(`${config.baseUrl}/user/login`, params)
 
 const getUserToken = () => localStorage.getItem(USER_TOKEN)
 

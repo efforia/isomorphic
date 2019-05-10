@@ -16,6 +16,8 @@ import { createProfile } from '../../../actions/user'
 
 import arrowIcon from '../../../assets/vectors/arrow.svg'
 
+import authService from '../../../services/auth'
+
 import PrimaryButton from '../../../components/PrimaryButton'
 import PrimaryInput from '../../../components/PrimaryInput'
 import Navbar from '../../../components/Navbar'
@@ -51,7 +53,7 @@ class CreateUser extends React.Component {
       !isEmpty(user.email) &&
       !isEmpty(user.password) &&
       !isEmpty(user.phone) &&
-      this.isValidName(user.name) 
+      this.isValidName(user.name)
     )
   }
 
@@ -62,6 +64,7 @@ class CreateUser extends React.Component {
       .createProfile({ ...user, birthdate: moment(user.displayBirthdate, 'DD/MM/YYYY').toDate() })
       .then(data => {
         console.log(data)
+        authService.setUserToken(data.token)
         this.$f7router.navigate({ name: 'Home' })
       })
       .catch(e => {

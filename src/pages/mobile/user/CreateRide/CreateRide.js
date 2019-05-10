@@ -8,14 +8,11 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
-import { Page, List, Link } from 'framework7-react'
-import moment from 'moment-mini'
-import VMasker from 'vanilla-masker'
+import { Page, List } from 'framework7-react'
 import isEmpty from 'validator/lib/isEmpty'
-import { isValid as isValidCpf } from '@fnando/cpf' // import just one function
 import { createProfile } from '../../../../actions/user'
 
-import arrowIcon from '../../../assets/vectors/arrow.svg'
+import truck from '../../../../assets/vectors/truck.svg'
 
 import PrimaryButton from '../../../../components/PrimaryButton'
 import PrimaryInput from '../../../../components/PrimaryInput'
@@ -28,13 +25,11 @@ class CreateRide extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      user: {
+      ride: {
         name: '',
-        email: '',
+        address: '',
         password: '',
-        rg: '',
-        cpf: '',
-        displayCpf: '',
+        phone: '',
         birthdate: '',
         displayBirthdate: ''
       }
@@ -43,51 +38,17 @@ class CreateRide extends React.Component {
 
   componentDidMount() {}
 
-  isValidBirthdate(date) {
-    return (
-      date.length > 9 &&
-      moment(date, 'DD/MM/YYYY').isValid() &&
-      moment().diff(moment(date, 'DD/MM/YYYY'), 'years') > 18
-    )
-  }
-
   isValidName(name) {
     return name.split(' ')[1]
   }
 
   isFormValid() {
-    const { user } = this.state
-    return (
-      !isEmpty(user.name) &&
-      !isEmpty(user.email) &&
-      !isEmpty(user.password) &&
-      !isEmpty(user.rg) &&
-      !isEmpty(user.displayCpf) &&
-      isValidCpf(user.displayCpf) &&
-      this.isValidName(user.name) &&
-      this.isValidBirthdate(user.displayBirthdate)
-    )
+    const { ride } = this.state
+    return !isEmpty(ride.address)
   }
 
   onSubmit() {
-    const { user } = this.state
-    this.setState({ isLoading: true })
-    this.props
-      .createProfile({ ...user, birthdate: moment(user.displayBirthdate, 'DD/MM/YYYY').toDate() })
-      .then(data => {
-        console.log(data)
-        this.$f7router.navigate({ name: 'AddVehicle' })
-      })
-      .catch(e => {
-        console.log(e)
-        this.$f7.dialog.alert(
-          'Por favor, verifique as informações preenchidas e tente novamente.',
-          'Houve uma falha na operação'
-        )
-      })
-      .then(() => {
-        this.setState({ isLoading: false })
-      })
+    this.$f7router.navigate({ name: 'SetRideItems' })
   }
 
   canGoBack() {
@@ -98,106 +59,33 @@ class CreateRide extends React.Component {
 
   render() {
     const pageTitle = 'Frete Fácil: Cadastro'
-    const { user } = this.state
-    const renderBackButton = () =>
-      this.canGoBack() && (
-        <Link
-          style={{ verticalAlign: 'middle' }}
-          onClick={() => {
-            this.$f7router.back()
-          }}>
-          <img src={arrowIcon} alt="Voltar" />
-        </Link>
-      )
-
+    const { user } = this.props
+    const { ride } = this.state
     return (
       <Page className="create-ride-page">
         <Helmet title={pageTitle} />
         <Navbar className="create-ride-page__navbar">
-          <div className="app-navbar__left">{renderBackButton()}</div>
-          <div className="app-navbar__center app-navbar__title">Dados pessoais</div>
+          <div className="app-navbar__left" />
+          <div className="app-navbar__center app-navbar__title">Novo Frete</div>
           <div className="app-navbar__right" />
         </Navbar>
         <div className="create-ride-page__content">
           <div className="create-ride-page__intro">
-            <div className="create-ride-page__intro__title">Cadastro</div>
-            <div className="create-ride-page__intro__content">
-              Primeiramente precisamos algumas informações pessoais para o cadastro:
-            </div>
+            <div className="create-ride-page__intro__title">Olá, {user.name.split(' ')[0]}</div>
+            <div className="create-ride-page__intro__content">Que tal começar um novo frete?</div>
           </div>
+          <img className="create-ride-page__illustration" src={truck} alt="" />
           <List className="create-ride-page__form">
             <Form>
               <PrimaryInput
-                value={user.email}
+                value={ride.address}
                 onChange={e => {
-                  this.setState({ user: { ...user, email: e.target.value } })
+                  this.setState({ ride: { ...ride, address: e.target.value } })
                 }}
                 required
                 colorTheme="orange"
-                label="E-mail"
-                type="email"
-              />
-              <PrimaryInput
-                value={user.password}
-                onChange={e => {
-                  this.setState({ user: { ...user, password: e.target.value } })
-                }}
-                colorTheme="orange"
-                label="Senha"
-                type="password"
-              />
-              <PrimaryInput
-                value={user.name}
-                onChange={e => {
-                  this.setState({ user: { ...user, name: e.target.value } })
-                }}
-                label="Nome Completo"
+                label="CEP de partida"
                 type="text"
-              />
-              <PrimaryInput
-                value={user.rg}
-                onChange={e => {
-                  this.setState({
-                    user: { ...user, rg: VMasker.toPattern(`${e.target.value}`, '9999999999') }
-                  })
-                }}
-                maxlength={10}
-                colorTheme="orange"
-                placeholder="9999999999"
-                label="RG"
-                type="tel"
-              />
-              <PrimaryInput
-                value={user.displayCpf}
-                onChange={e => {
-                  this.setState({
-                    user: {
-                      ...user,
-                      cpf: VMasker.toNumber(e.target.value),
-                      displayCpf: VMasker.toPattern(`${e.target.value}`, '999.999.999-99')
-                    }
-                  })
-                }}
-                maxlength={15}
-                placeholder="999.999.999-99"
-                label="CPF"
-                type="tel"
-              />
-              <PrimaryInput
-                value={user.displayBirthdate}
-                type="tel"
-                onChange={e => {
-                  this.setState({
-                    user: {
-                      ...user,
-                      birthdate: VMasker.toNumber(e.target.value),
-                      displayBirthdate: VMasker.toPattern(`${e.target.value}`, '99/99/9999')
-                    }
-                  })
-                }}
-                maxlength={10}
-                placeholder="99/99/9999"
-                label="Data de nascimento"
               />
               <PrimaryButton
                 disabled={!this.isFormValid()}

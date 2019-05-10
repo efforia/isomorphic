@@ -46,8 +46,8 @@ class Login extends React.Component {
       .authenticate({ email: user.email, password: user.password })
       .then(data => {
         console.log(data)
-        authService.setLoginItems(data)
-        this.$f7router.navigate({ name: 'WaitingForDevice' })
+        authService.setUserToken(data)
+        this.$f7router.navigate({ name: 'Home' })
       })
       .catch(e => {
         console.log(e)
