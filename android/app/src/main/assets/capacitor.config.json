@@ -1,7 +1,31 @@
 {
-  "appId": "com.argo.instant",
+  "appId": "com.efforia.fretefacil",
   "appName": "Frete Fácil",
-  "bundledWebRuntime": false,
+  "jsFramework": "react",
   "npmClient": "yarn",
-  "webDir": "build"
+  "webDir": "build",
+  "bundledWebRuntime": false,
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 6000,
+      "launchAutoHide": true,
+      "androidSplashResourceName": "splash",
+      "androidScaleType": "CENTER_CROP"
+    }
+  },
+  "distribute": {
+    "appcenter": {
+      "organization": "Efforia",
+      "ios": {
+        "development": "Efforia/Frete-Facil-Development",
+        "homolog": "Efforia/Frete-Facil-Homolog",
+        "production": "Efforia/Frete-Facil"
+      },
+      "android": {
+        "development": "Efforia/Frete-Facil-Android-Development",
+        "homolog": "Efforia/Frete-Facil-Android-Homolog",
+        "production": "Efforia/Frete-Facil-Android"
+      }
+    }
+  }
 }
