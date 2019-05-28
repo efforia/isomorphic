@@ -10,19 +10,19 @@ import { connect } from 'react-redux'
 import { F7App, View } from 'framework7-react'
 
 // ---- Web pages
-import Landing from './pages/web/Landing'
-import SelectRole from './pages/web/SelectRole'
-import CreateUser from './pages/web/CreateUser'
-import CreateDriver from './pages/web/CreateDriver'
-import SignupFeedback from './pages/web/SignupFeedback'
+import Landing from './pages/Landing'
+import SelectRole from './pages/SelectRole'
+import CreateUser from './pages/CreateUser'
+import CreateDriver from './pages/CreateDriver'
+import SignupFeedback from './pages/SignupFeedback'
 
 // ---- Mobile pages
-import Login from './pages/mobile/user/Login'
+import Login from './pages/Login'
 import TabsContainer from './components/TabsContainer'
-import CreateRide from './pages/mobile/user/CreateRide'
-import SetRideItems from './pages/mobile/user/SetRideItems'
-import SetRideDestination from './pages/mobile/user/SetRideDestination'
-import NotFound from './pages/common/NotFound'
+import CreateRide from './pages/CreateRide'
+import SetRideItems from './pages/SetRideItems'
+import SetRideDestination from './pages/SetRideDestination'
+import NotFound from './pages/NotFound'
 
 import authService from './services/auth'
 

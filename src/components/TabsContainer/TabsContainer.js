@@ -15,9 +15,9 @@ import iconRides from '../../assets/vectors/tab-icon-policy.svg'
 import iconContact from '../../assets/vectors/tab-icon-contact.svg'
 
 import './TabsContainer.scss'
-import CreateRide from '../../pages/mobile/user/CreateRide'
-import RidesList from '../../pages/mobile/user/RidesList'
-import Settings from '../../pages/mobile/user/Settings'
+import CreateRide from '../../pages/CreateRide'
+import RidesList from '../../pages/RidesList'
+import Settings from '../../pages/Settings'
 
 const rootPages = [
   {

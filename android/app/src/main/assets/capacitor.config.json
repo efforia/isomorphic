@@ -1,0 +1,7 @@
+{
+  "appId": "com.argo.instant",
+  "appName": "Frete Fácil",
+  "bundledWebRuntime": false,
+  "npmClient": "yarn",
+  "webDir": "build"
+}
