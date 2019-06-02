@@ -11,9 +11,17 @@ import { connect } from 'react-redux'
 import moment from 'moment-mini'
 import VMasker from 'vanilla-masker'
 import isEmpty from 'validator/lib/isEmpty'
-import { Page, List, Link } from 'framework7-react'
+import { Page, Link } from 'framework7-react'
 
-import { AppPrimaryButton, AppPrimaryInput, AppNavbar, AppForm, AppContent } from '../../components'
+import {
+  AppPrimaryButton,
+  AppPrimaryInput,
+  AppNavbar,
+  AppForm,
+  AppContent,
+  AppHeader,
+  AppCard
+} from '../../components'
 
 import { createProfile } from '../../actions/user'
 
@@ -63,7 +71,7 @@ class CreateUser extends React.Component {
       .then(data => {
         console.log(data)
         authService.setUserToken(data.token)
-        this.$f7router.navigate({ name: 'Home' })
+        this.$f7router.navigate({ name: 'UserHome' })
       })
       .catch(e => {
         console.log(e)
@@ -106,13 +114,8 @@ class CreateUser extends React.Component {
           <div className="app-navbar__right" />
         </AppNavbar>
         <AppContent className="create-user-page__content">
-          <div className="create-user-page__intro">
-            <div className="create-user-page__intro__title">Cadastro</div>
-            <div className="create-user-page__intro__content">
-              {/* Primeiramente precisamos algumas informações pessoais para o cadastro */}
-            </div>
-          </div>
-          <List className="create-user-page__form">
+          <AppHeader content={<div>Vamos precisar de algumas informações para o cadastro:</div>} />
+          <AppCard className="create-user-page__form">
             <AppForm>
               <AppPrimaryInput
                 value={user.email}
@@ -163,7 +166,7 @@ class CreateUser extends React.Component {
                 Próximo
               </AppPrimaryButton>
             </AppForm>
-          </List>
+          </AppCard>
         </AppContent>
       </Page>
     )

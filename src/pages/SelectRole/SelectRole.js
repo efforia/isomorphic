@@ -8,17 +8,13 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
-import { Page, List, Link } from 'framework7-react'
+import { Page, Link } from 'framework7-react'
+import { AppContent, AppPrimaryButton, AppNavbar, AppForm, AppHeader } from '../../components'
 import { createProfile } from '../../actions/user'
 
 import arrowIcon from '../../assets/vectors/arrow.svg'
 
-import PrimaryButton from '../../components/PrimaryButton'
-import Navbar from '../../components/Navbar'
-import Form from '../../components/Form'
-
 import './SelectRole.scss'
-import { AppContent } from '../../components'
 
 class SelectRole extends React.Component {
   constructor(props) {
@@ -50,35 +46,30 @@ class SelectRole extends React.Component {
     return (
       <Page className="select-role-page">
         <Helmet title={pageTitle} />
-        <Navbar className="select-role-page__navbar">
+        <AppNavbar className="select-role-page__navbar">
           <div className="app-navbar__left">{renderBackButton()}</div>
-          <div className="app-navbar__center app-navbar__title">Frete Fácil</div>
+          <div className="app-navbar__center app-navbar__title">Cadastro</div>
           <div className="app-navbar__right" />
-        </Navbar>
+        </AppNavbar>
         <AppContent className="select-role-page__content">
-          <div className="select-role-page__intro">
-            <div className="select-role-page__intro__title">Olá!</div>
-            <div className="select-role-page__intro__content">
-              Pronto(a) para começar? Selecione seu tipo de usuário abaixo ;)
-            </div>
-          </div>
-          <List className="select-role-page__form">
-            {/* <div className="select-role-page__form__title">Tipos de usuário</div> */}
-            <Form>
-              <PrimaryButton
-                onClick={() => {
-                  this.$f7router.navigate({ name: 'CreateUser' })
-                }}>
-                Quero solicitar fretes
-              </PrimaryButton>
-              <PrimaryButton
-                onClick={() => {
-                  this.$f7router.navigate({ name: 'CreateDriver' })
-                }}>
-                Sou um freteiro
-              </PrimaryButton>
-            </Form>
-          </List>
+          <AppHeader
+            title={<div>Pronto(a) para começar? </div>}
+            content={<div>Selecione seu tipo de usuário abaixo ;)</div>}
+          />
+          <AppForm>
+            <AppPrimaryButton
+              onClick={() => {
+                this.$f7router.navigate({ name: 'CreateUser' })
+              }}>
+              Quero solicitar fretes
+            </AppPrimaryButton>
+            <AppPrimaryButton
+              onClick={() => {
+                this.$f7router.navigate({ name: 'CreateDriver' })
+              }}>
+              Sou um freteiro
+            </AppPrimaryButton>
+          </AppForm>
         </AppContent>
       </Page>
     )

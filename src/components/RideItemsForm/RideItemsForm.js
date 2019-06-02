@@ -89,7 +89,7 @@ class AppRideItemsForm extends React.Component {
             disabled={!(items.length > 1)}
             isLoading={this.state.isLoading}
             onClick={() => {
-              this.props.onSave()
+              this.props.onSave(items)
             }}>
             Próximo
           </AppPrimaryButton>

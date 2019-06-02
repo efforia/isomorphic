@@ -57,7 +57,6 @@ class CreateRide extends React.Component {
 
   render() {
     const pageTitle = 'Frete Fácil: Cadastro'
-    const { user } = this.props
     const { ride } = this.state
     const renderSteps = () => (
       <div>
@@ -72,7 +71,7 @@ class CreateRide extends React.Component {
         <Helmet title={pageTitle} />
         <AppNavbar className="create-ride-page__navbar">
           <div className="app-navbar__left" />
-          <div className="app-navbar__center app-navbar__title">Olá, {user.name.split(' ')[0]}</div>
+          <div className="app-navbar__center app-navbar__title">Novo Frete</div>
           <div className="app-navbar__right">{renderSteps()}</div>
         </AppNavbar>
         <AppContent className="create-ride-page__content">

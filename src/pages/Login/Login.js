@@ -46,7 +46,7 @@ class Login extends React.Component {
       .then(data => {
         console.log(data)
         authService.setUserToken(data)
-        this.$f7router.navigate({ name: 'Home' })
+        this.$f7router.navigate({ name: 'UserHome' })
       })
       .catch(e => {
         console.log(e)

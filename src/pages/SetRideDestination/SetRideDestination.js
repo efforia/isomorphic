@@ -47,7 +47,7 @@ class SetRideDestination extends React.Component {
 
   onSubmit() {
     this.props.updateRideInCreation({ destination: this.state.destination })
-    this.$f7router.navigate({ name: 'SetRideDestination' })
+    this.$f7router.navigate({ name: 'UserHome' })
   }
 
   canGoBack() {

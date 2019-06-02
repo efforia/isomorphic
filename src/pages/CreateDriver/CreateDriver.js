@@ -13,7 +13,15 @@ import isEmpty from 'validator/lib/isEmpty'
 import { connect } from 'react-redux'
 import { isValid as isValidCpf } from '@fnando/cpf' // import just one function
 import { Page, Link } from 'framework7-react'
-import { AppPrimaryButton, AppPrimaryInput, AppNavbar, AppForm, AppContent } from '../../components'
+import {
+  AppPrimaryButton,
+  AppPrimaryInput,
+  AppNavbar,
+  AppForm,
+  AppContent,
+  AppHeader,
+  AppCard
+} from '../../components'
 import { createProfile } from '../../actions/user'
 
 import arrowIcon from '../../assets/vectors/arrow.svg'
@@ -115,81 +123,78 @@ class CreateDriver extends React.Component {
           <div className="app-navbar__right" />
         </AppNavbar>
         <AppContent className="create-driver-page__content">
-          <div className="create-driver-page__intro">
-            <div className="create-driver-page__intro__title">Cadastro</div>
-            <div className="create-driver-page__intro__content">
-              {/* Primeiramente precisamos algumas informações pessoais para o cadastro: */}
-            </div>
-          </div>
-          <AppForm>
-            <AppPrimaryInput
-              value={user.email}
-              onChange={e => {
-                this.setState({ user: { ...user, email: e.target.value } })
-              }}
-              required
-              colorTheme="orange"
-              label="E-mail"
-              type="email"
-            />
-            <AppPrimaryInput
-              value={user.password}
-              onChange={e => {
-                this.setState({ user: { ...user, password: e.target.value } })
-              }}
-              colorTheme="orange"
-              label="Senha"
-              type="password"
-            />
-            <AppPrimaryInput
-              value={user.name}
-              onChange={e => {
-                this.setState({ user: { ...user, name: e.target.value } })
-              }}
-              label="Nome Completo"
-              type="text"
-            />
-            <AppPrimaryInput
-              value={user.displayCpf}
-              onChange={e => {
-                this.setState({
-                  user: {
-                    ...user,
-                    cpf: VMasker.toNumber(e.target.value),
-                    displayCpf: VMasker.toPattern(`${e.target.value}`, '999.999.999-99')
-                  }
-                })
-              }}
-              maxlength={15}
-              placeholder="999.999.999-99"
-              label="CPF"
-              type="tel"
-            />
-            <AppPrimaryInput
-              value={user.displayBirthdate}
-              type="tel"
-              onChange={e => {
-                this.setState({
-                  user: {
-                    ...user,
-                    birthdate: VMasker.toNumber(e.target.value),
-                    displayBirthdate: VMasker.toPattern(`${e.target.value}`, '99/99/9999')
-                  }
-                })
-              }}
-              maxlength={10}
-              placeholder="99/99/9999"
-              label="Data de nascimento"
-            />
-            <AppPrimaryButton
-              disabled={!this.isFormValid()}
-              isLoading={this.state.isLoading}
-              onClick={() => {
-                this.onSubmit()
-              }}>
-              Próximo
-            </AppPrimaryButton>
-          </AppForm>
+          <AppHeader content={<div>Vamos precisar de algumas informações para o cadastro:</div>} />
+          <AppCard>
+            <AppForm>
+              <AppPrimaryInput
+                value={user.email}
+                onChange={e => {
+                  this.setState({ user: { ...user, email: e.target.value } })
+                }}
+                required
+                colorTheme="orange"
+                label="E-mail"
+                type="email"
+              />
+              <AppPrimaryInput
+                value={user.password}
+                onChange={e => {
+                  this.setState({ user: { ...user, password: e.target.value } })
+                }}
+                colorTheme="orange"
+                label="Senha"
+                type="password"
+              />
+              <AppPrimaryInput
+                value={user.name}
+                onChange={e => {
+                  this.setState({ user: { ...user, name: e.target.value } })
+                }}
+                label="Nome Completo"
+                type="text"
+              />
+              <AppPrimaryInput
+                value={user.displayCpf}
+                onChange={e => {
+                  this.setState({
+                    user: {
+                      ...user,
+                      cpf: VMasker.toNumber(e.target.value),
+                      displayCpf: VMasker.toPattern(`${e.target.value}`, '999.999.999-99')
+                    }
+                  })
+                }}
+                maxlength={15}
+                placeholder="999.999.999-99"
+                label="CPF"
+                type="tel"
+              />
+              <AppPrimaryInput
+                value={user.displayBirthdate}
+                type="tel"
+                onChange={e => {
+                  this.setState({
+                    user: {
+                      ...user,
+                      birthdate: VMasker.toNumber(e.target.value),
+                      displayBirthdate: VMasker.toPattern(`${e.target.value}`, '99/99/9999')
+                    }
+                  })
+                }}
+                maxlength={10}
+                placeholder="99/99/9999"
+                label="Data de nascimento"
+              />
+              <AppPrimaryButton
+                disabled={!this.isFormValid()}
+                isLoading={this.state.isLoading}
+                onClick={() => {
+                  this.onSubmit()
+                }}>
+                Próximo
+              </AppPrimaryButton>
+            </AppForm>
+          </AppCard>
         </AppContent>
       </Page>
     )

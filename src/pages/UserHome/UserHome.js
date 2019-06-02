@@ -100,12 +100,13 @@ class UserHome extends React.Component {
   render() {
     const pageTitle = 'Frete Fácil'
     const { dates } = this.state
+    const { user } = this.props
     return (
       <Page className="user-home-page">
         <Helmet title={pageTitle} />
         <AppContent className="user-home-page__content">
           <img src={icon} alt="" className="user-home-page__avatar" />
-          <h1 className="user-home-page__title">Olá, Leonardo!</h1>
+          <h1 className="user-home-page__title">Olá, {user.name.split(' ')[0]}</h1>
           <AppPrimaryButton
             onClick={() => {
               this.$f7router.navigate({ name: 'CreateRide' })
@@ -133,7 +134,9 @@ class UserHome extends React.Component {
 }
 
 /* eslint-disable-next-line */
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+  user: state.user.profile
+})
 
 /* eslint-disable-next-line */
 const mapDispatchToProps = dispatch => ({})
