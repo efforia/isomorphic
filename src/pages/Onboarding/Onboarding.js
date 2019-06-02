@@ -32,7 +32,6 @@ class Onboarding extends React.Component {
     return (
       <Page className="onboarding-page">
         <Helmet title={pageTitle} />
-
         <PageContent>
           <AppNavbar className="onboarding-page__navbar__title">Frete Fácil</AppNavbar>
           <AppContent className="onboarding-page__content">
