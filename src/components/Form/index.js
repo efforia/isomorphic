@@ -1,3 +1,3 @@
-import Form from './Form'
+import AppForm from './Form'
 
-export default Form
+export default AppForm

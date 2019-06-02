@@ -1,7 +1,7 @@
 /**
  * @license MIT
  * @version 1.1.0
- * @author Leonardo Quevedo
+ * @author Trinca
  * @description Adaptive navbar.
  */
 
@@ -12,23 +12,28 @@ import { connect } from 'react-redux'
 
 import './CheckboxInput.scss'
 
-class CheckboxInput extends React.Component {
+class AppCheckboxInput extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
   }
 
   render() {
+    const { checked, disabled, transparent, children, onChange } = this.props
     return (
+      /* eslint-disable-next-line */
       <div
         {...this.props}
-        className={`checkbox-input ${this.props.checked ? 'checked' : ''}  ${this.props.transparent ? 'transparent' : ''}`}
-        disabled={this.props.disabled}>
+        onClick={() => (onChange ? onChange(!checked) : null)}
+        className={`checkbox-input ${checked ? 'checked' : ''}  ${
+          transparent ? 'transparent' : ''
+        }`}
+        disabled={disabled}>
         <Row>
           <Col width={10}>
-            <Checkbox color="orange" checked={this.props.checked} />
+            <Checkbox color="deeppurple" checked={checked} />
           </Col>
-          <Col width={90}>{this.props.children}</Col>
+          <Col width={90}>{children}</Col>
         </Row>
       </div>
     )
@@ -44,4 +49,4 @@ const mapDispatchToProps = dispatch => ({})
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CheckboxInput)
+)(AppCheckboxInput)

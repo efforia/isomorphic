@@ -1,3 +1,3 @@
-import Step from './Step'
+import AppStep from './Step'
 
-export default Step
+export default AppStep

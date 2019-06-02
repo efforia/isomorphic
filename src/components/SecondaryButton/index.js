@@ -1,3 +1,3 @@
-import SecondaryButton from './SecondaryButton'
+import AppSecondaryButton from './SecondaryButton'
 
-export default SecondaryButton
+export default AppSecondaryButton

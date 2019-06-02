@@ -1,0 +1,104 @@
+@import '../../theme/variables.scss';
+@import '../../theme/mixins.scss';
+
+.onboarding-page {
+  .page-content {
+    &:before {
+      content: ' ';
+      display: block;
+      position: absolute;
+      background-color: $primary;
+      height: 50vh;
+      width: 100vw;
+    }
+  }
+
+  &__navbar {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding: 16px;
+    width: 100vw;
+    text-align: center;
+    &__title {
+      font-size: 32px;
+      font-weight: bold;
+      opacity: 0.3;
+    }
+  }
+
+  &__content {
+    max-width: $default-max-width;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    padding: 16px;
+  }
+
+  .page-content {
+    background-color: $white-background;
+    padding-bottom: 0px;
+    margin: auto;
+  }
+
+  &__slide {
+    &__pic {
+      display: block;
+      margin: auto;
+      margin-bottom: 40px;
+      max-width: 150px;
+    }
+    &__description {
+      font-size: 1.4rem;
+      text-align: center;
+      color: $grey-one;
+      margin-top: 48px;
+      margin-bottom: 32px;
+    }
+  }
+
+  &__form {
+    width: 100%;
+    &.list {
+      margin-top: 0px;
+    }
+  }
+
+  &__link {
+    font-weight: bold;
+    color: $primary;
+  }
+
+  .button-primary.button-fill {
+    margin-top: 16px;
+    img {
+      vertical-align: middle;
+      padding-right: 16px;
+    }
+  }
+  .swiper-pagination-bullet {
+    width: 16px;
+    height: 4px;
+    border-radius: 4px;
+    &.swiper-pagination-bullet-active {
+      background: $primary;
+    }
+  }
+  .swiper-button-next:after,
+  .swiper-button-prev:after {
+    font-size: 22px;
+    color: white;
+    font-weight: bold;
+  }
+}
+
+.device-cordova {
+  .onboarding-page {
+    .page-content {
+      &:before {
+        height: 50vh;
+      }
+    }
+  }
+}

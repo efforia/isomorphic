@@ -1,3 +1,3 @@
-import PrimaryInput from './PrimaryInput'
+import AppPrimaryInput from './PrimaryInput'
 
-export default PrimaryInput
+export default AppPrimaryInput

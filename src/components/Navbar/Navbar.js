@@ -11,7 +11,7 @@ import { connect } from 'react-redux'
 
 import './Navbar.scss'
 
-class Navbar extends React.Component {
+class AppNavbar extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -34,4 +34,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Navbar)
+)(AppNavbar)

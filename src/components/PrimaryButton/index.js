@@ -1,3 +1,3 @@
-import PrimaryButton from './PrimaryButton'
+import AppPrimaryButton from './PrimaryButton'
 
-export default PrimaryButton
+export default AppPrimaryButton

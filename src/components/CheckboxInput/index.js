@@ -1,3 +1,3 @@
-import CheckboxInput from './CheckboxInput'
+import AppCheckboxInput from './CheckboxInput'
 
-export default CheckboxInput
+export default AppCheckboxInput

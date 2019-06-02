@@ -14,7 +14,7 @@ import stepFilled from '../../assets/vectors/step-filled.svg'
 
 import './Step.scss'
 
-class Step extends React.Component {
+class AppStep extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -39,4 +39,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Step)
+)(AppStep)

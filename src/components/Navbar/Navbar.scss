@@ -1,11 +1,11 @@
 @import '../../theme/variables.scss';
 .app-navbar {
-  width: calc(100% - 32px);
+  width: 100%;
   display: block;
   padding-left: 16px;
   padding-right: 16px;
   padding-top: 16px;
-  padding-bottom: 16px;
+  padding-bottom: 8px;
   > div {
     display: inline-block;
     align-self: flex-start;
@@ -31,7 +31,17 @@
     align-self: center;
     font-size: 16px;
     text-align: center;
-    color: $primary;
+    color: white;
     font-weight: 600;
+  }
+  &__header {
+    text-align: center;
+    color: white;
+  }
+}
+
+.device-cordova {
+  .app-navbar {
+    padding-top: 40px;
   }
 }

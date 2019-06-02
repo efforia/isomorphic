@@ -12,7 +12,7 @@ import { connect } from 'react-redux'
 
 import './PrimaryButton.scss'
 
-class PrimaryButton extends React.Component {
+class AppPrimaryButton extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -24,7 +24,7 @@ class PrimaryButton extends React.Component {
         {...this.props}
         className={`button-primary ${this.props.className || ''}`}
         fill
-        color="primary"
+        color={this.props.color || 'primary'}
         disabled={this.props.disabled || this.props.isLoading}>
         {!this.props.isLoading ? this.props.children : <Preloader color="white" />}
       </Button>
@@ -41,4 +41,4 @@ const mapDispatchToProps = dispatch => ({})
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PrimaryButton)
+)(AppPrimaryButton)

@@ -1,3 +1,3 @@
-import Navbar from './Navbar'
+import AppNavbar from './Navbar'
 
-export default Navbar
+export default AppNavbar

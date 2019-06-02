@@ -12,7 +12,7 @@ import { connect } from 'react-redux'
 
 import './SecondaryButton.scss'
 
-class SecondaryButton extends React.Component {
+class AppSecondaryButton extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -36,4 +36,4 @@ const mapDispatchToProps = dispatch => ({})
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SecondaryButton)
+)(AppSecondaryButton)

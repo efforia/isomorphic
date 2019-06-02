@@ -12,7 +12,7 @@ import { connect } from 'react-redux'
 
 import './PrimaryInput.scss'
 
-class PrimaryInput extends React.Component {
+class AppPrimaryInput extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -23,7 +23,7 @@ class PrimaryInput extends React.Component {
       <ListInput
         {...this.props}
         className="input-primary"
-        colorTheme="orange"
+        colorTheme="deeppurple"
         floatingLabel
         outline
       />
@@ -40,4 +40,4 @@ const mapDispatchToProps = dispatch => ({})
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PrimaryInput)
+)(AppPrimaryInput)
