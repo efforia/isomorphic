@@ -1,6 +1,6 @@
 @import '../../theme/variables.scss';
 .app-content {
-  padding: 16px;
+  padding: $default-padding;
   max-width: $default-max-width;
   padding-bottom: 80px;
   margin: auto;

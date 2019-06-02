@@ -2,7 +2,7 @@
 .app-footer {
   position: fixed;
   bottom: 0px;
-  padding: 16px;
+  padding: $default-padding;
   width: 100%;
   z-index: 555;
   .button {

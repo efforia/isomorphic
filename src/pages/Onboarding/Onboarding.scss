@@ -17,7 +17,7 @@
     position: absolute;
     top: 0px;
     left: 0px;
-    padding: 16px;
+    padding: $default-padding;
     width: 100vw;
     text-align: center;
     &__title {
@@ -33,7 +33,7 @@
     display: flex;
     align-items: center;
     margin: auto;
-    padding: 16px;
+    padding: $default-padding;
   }
 
   .page-content {
@@ -74,7 +74,7 @@
     margin-top: 16px;
     img {
       vertical-align: middle;
-      padding-right: 16px;
+      padding-right: $default-padding;
     }
   }
   .swiper-pagination-bullet {

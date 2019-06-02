@@ -9,8 +9,8 @@ $header-height: 64px;
     bottom: 0px;
     &.tabbar {
       .toolbar-inner {
-        padding-left: 16px;
-        padding-right: 16px;
+        padding-left: $default-padding;
+        padding-right: $default-padding;
       }
       a.link {
         text-transform: none;

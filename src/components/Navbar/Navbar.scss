@@ -2,9 +2,9 @@
 .app-navbar {
   width: 100%;
   display: block;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 16px;
+  padding-left: $default-padding;
+  padding-right: $default-padding;
+  padding-top: $default-padding;
   padding-bottom: 8px;
   > div {
     display: inline-block;
@@ -29,7 +29,7 @@
   &__title {
     display: inline-flex;
     align-self: center;
-    font-size: 16px;
+    font-size: $font-size-medium;
     text-align: center;
     color: white;
     font-weight: 600;

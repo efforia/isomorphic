@@ -1,7 +1,7 @@
 @import '../../theme/variables.scss';
 .app-card {
   &.card {
-    padding: 16px;
+    padding: $default-padding;
     border-radius: 30px;
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
   }

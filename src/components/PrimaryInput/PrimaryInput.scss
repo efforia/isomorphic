@@ -16,7 +16,7 @@
     }
     .item-input-wrap {
       input {
-        font-size: 18px;
+        font-size: $font-size-big;
       }
       &:after {
         border-width: 2px;

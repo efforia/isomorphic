@@ -19,11 +19,16 @@ $white: #ffffff;
 $gradient-hue: 30;
 $device-icon-height: 25vh;
 $default-max-width: 550px;
+$default-padding: 16px;
+$default-margin: 32px;
+
+$font-size-big: 18px;
+$font-size-medium: 16px;
 
 /* Framework7 */
 :root {
   --f7-input-bg-color: white;
-  --f7-input-padding: 16px;
+  --f7-input-padding: #{$default-padding};
   --f7-input-font-size: 1.2rem;
   --f7-input-outline-border-radius: 8px;
   --f7-input-height: 56px;

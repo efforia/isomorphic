@@ -3,11 +3,11 @@
   color: white;
   margin-top: -16px;
   &__title {
-    font-size: 18px;
+    font-size: $font-size-big;
     font-weight: bold;
   }
   &__content {
-    font-size: 16px;
+    font-size: $font-size-medium;
     margin: auto;
     margin-top: 8px;
     max-width: 200px;
