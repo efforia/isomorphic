@@ -105,16 +105,6 @@ class Login extends React.Component {
                     Clique aqui
                   </Link>
                 </p>
-                <p className="login-page__paragraph bottom">
-                  Não tem uma conta?&nbsp;
-                  <Link
-                    className="login-page__link"
-                    onClick={() => {
-                      this.$f7router.navigate({ name: 'SelectRole' })
-                    }}>
-                    Cadastre-se
-                  </Link>
-                </p>
               </AppForm>
             </AppCard>
           </AppContent>

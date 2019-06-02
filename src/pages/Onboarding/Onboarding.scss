@@ -14,33 +14,16 @@
   }
 
   &__navbar {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    padding: $default-padding;
-    width: 100vw;
-    text-align: center;
     &__title {
+      padding: $default-padding;
+      width: 100vw;
+      text-align: center;
       font-size: 32px;
       font-weight: bold;
       opacity: 0.3;
     }
   }
 
-  &__content {
-    max-width: $default-max-width;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    margin: auto;
-    padding: $default-padding;
-  }
-
-  .page-content {
-    background-color: $white-background;
-    padding-bottom: 0px;
-    margin: auto;
-  }
 
   &__slide {
     &__pic {
@@ -58,25 +41,6 @@
     }
   }
 
-  &__form {
-    width: 100%;
-    &.list {
-      margin-top: 16vh;
-    }
-  }
-
-  &__link {
-    font-weight: bold;
-    color: $primary;
-  }
-
-  .button-primary.button-fill {
-    margin-top: 16px;
-    img {
-      vertical-align: middle;
-      padding-right: $default-padding;
-    }
-  }
   .swiper-pagination-bullet {
     width: 16px;
     height: 4px;

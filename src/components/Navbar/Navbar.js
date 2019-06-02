@@ -8,7 +8,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-
 import './Navbar.scss'
 
 class AppNavbar extends React.Component {
@@ -18,7 +17,11 @@ class AppNavbar extends React.Component {
   }
 
   render() {
-    return <article className="app-navbar">{this.props.children}</article>
+    return (
+      <article className={`app-navbar ${this.props.className || ''}`}>
+        {this.props.children}
+      </article>
+    )
   }
 }
 
@@ -26,10 +29,7 @@ const mapStateToProps = state => ({
   ui: state.ui
 })
 
-const mapDispatchToProps = dispatch => ({
-  
-  
-})
+const mapDispatchToProps = dispatch => ({})
 
 export default connect(
   mapStateToProps,
