@@ -12,6 +12,7 @@ import SetRideItems from '../pages/SetRideItems'
 import SetRideDestination from '../pages/SetRideDestination'
 import HomeContainer from '../components/HomeContainer'
 import config from '.'
+import UserHome from '../pages/UserHome'
 
 const checkAuth = (to, from, resolve) => {
   if (authService.isLoggedIn()) {
@@ -57,6 +58,11 @@ const routes = [
     path: '/user-signup',
     name: 'CreateUser',
     component: CreateUser
+  },
+  {
+    path: '/user-home',
+    name: 'UserHome',
+    component: UserHome
   },
   {
     path: '/create-ride',

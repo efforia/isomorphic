@@ -72,15 +72,11 @@ class CreateRide extends React.Component {
         <Helmet title={pageTitle} />
         <AppNavbar className="create-ride-page__navbar">
           <div className="app-navbar__left" />
-          <div className="app-navbar__center app-navbar__title">Novo Frete</div>
+          <div className="app-navbar__center app-navbar__title">Olá, {user.name.split(' ')[0]}</div>
           <div className="app-navbar__right">{renderSteps()}</div>
         </AppNavbar>
         <AppContent className="create-ride-page__content">
-          <AppHeader
-            className="create-ride-page__intro"
-            title={<div>Olá, {user.name.split(' ')[0]}</div>}
-            content={<div>Precisando de um frete? Deixa a gente te ajudar ;)</div>}
-          />
+          <AppHeader content={<div>Precisando de um frete? Deixa a gente te ajudar ;)</div>} />
           <AppCard>
             <img className="create-ride-page__illustration" src={truck} alt="" />
             <AppForm>
