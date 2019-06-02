@@ -9,8 +9,17 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import isEmpty from 'validator/lib/isEmpty'
-import { Page, List } from 'framework7-react'
-import { AppContent, AppPrimaryButton, AppPrimaryInput, AppNavbar, AppForm } from '../../components'
+import { Page } from 'framework7-react'
+import {
+  AppContent,
+  AppPrimaryButton,
+  AppPrimaryInput,
+  AppNavbar,
+  AppForm,
+  AppHeader,
+  AppCard,
+  AppStep
+} from '../../components'
 
 import { updateRideInCreation } from '../../actions/ride'
 
@@ -50,23 +59,30 @@ class CreateRide extends React.Component {
     const pageTitle = 'Frete Fácil: Cadastro'
     const { user } = this.props
     const { ride } = this.state
+    const renderSteps = () => (
+      <div>
+        <AppStep done />
+        <AppStep />
+        <AppStep />
+        <AppStep />
+      </div>
+    )
     return (
       <Page className="create-ride-page">
         <Helmet title={pageTitle} />
         <AppNavbar className="create-ride-page__navbar">
           <div className="app-navbar__left" />
           <div className="app-navbar__center app-navbar__title">Novo Frete</div>
-          <div className="app-navbar__right" />
+          <div className="app-navbar__right">{renderSteps()}</div>
         </AppNavbar>
         <AppContent className="create-ride-page__content">
-          <div className="create-ride-page__intro">
-            <div className="create-ride-page__intro__title">Olá, {user.name.split(' ')[0]}</div>
-            <div className="create-ride-page__intro__content">
-              Precisando de um frete? Deixa a gente te ajudar ;)
-            </div>
-          </div>
-          <img className="create-ride-page__illustration" src={truck} alt="" />
-          <List className="create-ride-page__form">
+          <AppHeader
+            className="create-ride-page__intro"
+            title={<div>Olá, {user.name.split(' ')[0]}</div>}
+            content={<div>Precisando de um frete? Deixa a gente te ajudar ;)</div>}
+          />
+          <AppCard>
+            <img className="create-ride-page__illustration" src={truck} alt="" />
             <AppForm>
               <AppPrimaryInput
                 value={ride.address}
@@ -87,7 +103,7 @@ class CreateRide extends React.Component {
                 Próximo
               </AppPrimaryButton>
             </AppForm>
-          </List>
+          </AppCard>
         </AppContent>
       </Page>
     )

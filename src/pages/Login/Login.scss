@@ -2,10 +2,6 @@
 @import '../../theme/mixins.scss';
 
 .login-page {
-  .card {
-    padding: 16px;
-    border-radius: 30px;
-  }
   &__logo {
     height: 150px;
   }

@@ -1,0 +1,15 @@
+@import '../../theme/variables.scss';
+.app-header {
+  color: white;
+  margin-top: -16px;
+  &__title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  &__content {
+    font-size: 16px;
+    margin: auto;
+    margin-top: 8px;
+    max-width: 200px;
+  }
+}

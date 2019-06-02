@@ -8,16 +8,22 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
-import { Page, List, Link } from 'framework7-react'
-import { updateRideInCreation } from '../../actions/ride'
+import { Page, Link } from 'framework7-react'
+import {
+  AppContent,
+  AppNavbar,
+  AppHeader,
+  AppCard,
+  AppForm,
+  AppPrimaryInput,
+  AppPrimaryButton,
+  AppStep
+} from '../../components'
 
 import arrow from '../../assets/vectors/arrow.svg'
 import route from '../../assets/vectors/route.svg'
 
-import PrimaryButton from '../../components/PrimaryButton'
-import PrimaryInput from '../../components/PrimaryInput'
-import Navbar from '../../components/Navbar'
-import Form from '../../components/Form'
+import { updateRideInCreation } from '../../actions/ride'
 
 import './SetRideDestination.scss'
 
@@ -64,23 +70,29 @@ class SetRideDestination extends React.Component {
         </Link>
       )
 
+    const renderSteps = () => (
+      <div>
+        <AppStep done />
+        <AppStep done />
+        <AppStep done />
+        <AppStep />
+      </div>
+    )
+
     return (
       <Page className="ride-destination-page">
         <Helmet title={pageTitle} />
-        <Navbar className="ride-destination-page__navbar">
+        <AppNavbar className="ride-destination-page__navbar">
           <div className="app-navbar__left">{renderBackButton()}</div>
-          <div className="app-navbar__center app-navbar__title">Novo frete</div>
-          <div className="app-navbar__right" />
-        </Navbar>
-        <div className="ride-destination-page__content">
-          <div className="ride-destination-page__intro">
-            <div className="ride-destination-page__intro__title">Destino do frete</div>
-            <div className="ride-destination-page__intro__content">Para onde você deseja enviar seus itens?</div>
-          </div>
-          <List className="ride-destination-page__form">
-            <Form>
-              <img className="ride-destination-page__illustration" src={route} alt='' />
-              <PrimaryInput
+          <div className="app-navbar__center app-navbar__title">Destino do frete</div>
+          <div className="app-navbar__right">{renderSteps()}</div>
+        </AppNavbar>
+        <AppContent className="ride-destination-page__content">
+          <AppHeader content={<div>Para onde você deseja enviar seus itens?</div>} />
+          <AppCard>
+            <AppForm>
+              <img className="ride-destination-page__illustration" src={route} alt="" />
+              <AppPrimaryInput
                 value={ride.destination}
                 onChange={e => {
                   this.setState({ ride: { ...ride, destination: e.target.value } })
@@ -90,17 +102,17 @@ class SetRideDestination extends React.Component {
                 label="CEP de destino"
                 type="text"
               />
-              <PrimaryButton
+              <AppPrimaryButton
                 disabled={!(ride.destination.length > 1)}
                 isLoading={this.state.isLoading}
                 onClick={() => {
                   this.onSubmit()
                 }}>
                 Finalizar
-              </PrimaryButton>
-            </Form>
-          </List>
-        </div>
+              </AppPrimaryButton>
+            </AppForm>
+          </AppCard>
+        </AppContent>
       </Page>
     )
   }

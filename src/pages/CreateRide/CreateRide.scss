@@ -2,4 +2,8 @@
 @import '../../theme/mixins.scss';
 
 .create-ride-page {
+  &__illustration {
+    max-width: 150px;
+    margin: 32px;
+  }
 }

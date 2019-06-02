@@ -9,9 +9,9 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import isEmpty from 'validator/lib/isEmpty'
-import { Card, Page, PageContent, Link } from 'framework7-react'
+import { Page, PageContent, Link } from 'framework7-react'
 
-import { AppContent, AppForm, AppPrimaryInput, AppPrimaryButton } from '../../components'
+import { AppContent, AppForm, AppPrimaryInput, AppPrimaryButton, AppCard } from '../../components'
 
 import authService from '../../services/auth'
 import { authenticate } from '../../actions/auth'
@@ -19,7 +19,6 @@ import { authenticate } from '../../actions/auth'
 import logo from '../../assets/vectors/icon.svg'
 
 import './Login.scss'
-
 
 class Login extends React.Component {
   constructor(props) {
@@ -69,56 +68,55 @@ class Login extends React.Component {
         <Helmet title={pageTitle} />
         <PageContent>
           <AppContent className="login-page__content">
-          <Card>
-          <AppForm className="login-page__form">
-              {/*  <h2 className="login-page__app-title">Frete Fácil</h2>   */}
-              <img src={logo} alt="Frete Fácil" className="login-page__logo" />
-              <AppPrimaryInput
-                value={user.email}
-                onChange={e => {
-                  this.setState({ user: { ...user, email: e.target.value } })
-                }}
-                required
-                label="E-mail"
-                type="email"
-              />
-              <AppPrimaryInput
-                value={user.password}
-                onChange={e => {
-                  this.setState({ user: { ...user, password: e.target.value } })
-                }}
-                label="Senha"
-                type="password"
-              />
-              <AppPrimaryButton
-                fill
-                color="primary"
-                disabled={!this.isValidForm()}
-                isLoading={this.state.isLoading}
-                onClick={() => {
-                  this.onSubmit()
-                }}>
-                Entrar
-              </AppPrimaryButton>
-              <p className="login-page__paragraph">
-                Esqueceu a senha?&nbsp;
-                <Link className="login-page__link" onClick={() => {}}>
-                  Clique aqui
-                </Link>
-              </p>
-              <p className="login-page__paragraph bottom">
-                Não tem uma conta?&nbsp;
-                <Link
-                  className="login-page__link"
+            <AppCard>
+              <AppForm className="login-page__form">
+                {/*  <h2 className="login-page__app-title">Frete Fácil</h2>   */}
+                <img src={logo} alt="Frete Fácil" className="login-page__logo" />
+                <AppPrimaryInput
+                  value={user.email}
+                  onChange={e => {
+                    this.setState({ user: { ...user, email: e.target.value } })
+                  }}
+                  required
+                  label="E-mail"
+                  type="email"
+                />
+                <AppPrimaryInput
+                  value={user.password}
+                  onChange={e => {
+                    this.setState({ user: { ...user, password: e.target.value } })
+                  }}
+                  label="Senha"
+                  type="password"
+                />
+                <AppPrimaryButton
+                  fill
+                  color="primary"
+                  disabled={!this.isValidForm()}
+                  isLoading={this.state.isLoading}
                   onClick={() => {
-                    this.$f7router.navigate({ name: 'SelectRole' })
+                    this.onSubmit()
                   }}>
-                  Cadastre-se
-                </Link>
-              </p>
-            </AppForm>
-          </Card>
-          
+                  Entrar
+                </AppPrimaryButton>
+                <p className="login-page__paragraph">
+                  Esqueceu a senha?&nbsp;
+                  <Link className="login-page__link" onClick={() => {}}>
+                    Clique aqui
+                  </Link>
+                </p>
+                <p className="login-page__paragraph bottom">
+                  Não tem uma conta?&nbsp;
+                  <Link
+                    className="login-page__link"
+                    onClick={() => {
+                      this.$f7router.navigate({ name: 'SelectRole' })
+                    }}>
+                    Cadastre-se
+                  </Link>
+                </p>
+              </AppForm>
+            </AppCard>
           </AppContent>
         </PageContent>
       </Page>

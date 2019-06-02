@@ -1,0 +1,11 @@
+@import '../../theme/variables.scss';
+.app-ride-items-form {
+  &__item {
+    a.button-primary.button-fill {
+      margin-top: 24px;
+      padding: 1px;
+      padding-bottom: 3px;
+      padding-left: 3px;
+    }
+  }
+}
