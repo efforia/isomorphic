@@ -55,7 +55,7 @@ class AppRideItemsForm extends React.Component {
               required
               colorTheme="orange"
               label={isFirstItem ? 'Quant.' : 'Qtd.'}
-              type="text"
+              type="tel"
             />
           </Col>
           <Col width={!isFirstItem ? 55 : 60}>

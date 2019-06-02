@@ -30,9 +30,6 @@ class MobileMain extends React.Component {
 
   componentDidMount() {
     this.props.watchVirtualKeyboard()
-    hello.init({
-      google: config.googleClientId
-    })
   }
 
   render() {

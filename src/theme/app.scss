@@ -46,6 +46,14 @@ div.router-transition {
   }
 }
 
+.device-keyboard-visible {
+  .page-content {
+    margin-top: -10vh;
+    padding-bottom: 100px;
+    height: 200vh;
+  }
+}
+
 .preloader-backdrop {
   opacity: 1;
   background: rgba(0, 0, 0, 0.6);
