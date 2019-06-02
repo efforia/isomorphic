@@ -12,7 +12,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "resources": "capacitor-resources",
-    "deploy": "node scripts/deploy/cloud",
+    "deploy": "npm run build && firebase deploy --only hosting:fretefacil",
     "run:android": "npm run build && capbox run android",
     "build:android": "npm run build && capbox build android --release",
     "distribute:android:dev": "npm run build && capbox distribute android --stage=development",
@@ -70,6 +70,7 @@
     "pretty-quick": "^1.8.0",
     "prop-types": "15.x",
     "react-scripts": "2.1.8",
+    "serve": "^11.0.1",
     "shelljs": "^0.8.3",
     "webpack-bundle-analyzer": "^3.3.2"
   },

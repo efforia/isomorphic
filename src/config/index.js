@@ -15,7 +15,7 @@ const local = {
 }
 
 const prod = {
-  baseUrl: 'https://fretefacil-prod.herokuapp.com'
+  baseUrl: 'https://fretefacil-dev.herokuapp.com'
 }
 
 const envs = {
