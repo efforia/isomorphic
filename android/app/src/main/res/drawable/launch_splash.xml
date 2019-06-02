@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
-    android:src="@drawable/splash"
-    android:scaleType="centerCrop"
-    />
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <color android:color="@color/splashBackground" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    </item>
+    <item>
+        <bitmap android:src="@drawable/splash" android:layout_width="fill_parent" android:layout_height="fill_parent" android:tileMode="disabled" android:gravity="center" android:layout_gravity="center" />
+    </item>
+</layer-list>

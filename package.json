@@ -12,7 +12,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "resources": "capacitor-resources",
-    "deploy": "npm run build && firebase deploy --only hosting:fretefacil",
+    "deploy": "npm run build && firebase deploy --only hosting:fretefacildev",
     "run:android": "npm run build && capbox run android",
     "build:android": "npm run build && capbox build android --release",
     "distribute:android:dev": "npm run build && capbox distribute android --stage=development",

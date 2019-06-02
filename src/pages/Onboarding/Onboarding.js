@@ -41,7 +41,7 @@ class Onboarding extends React.Component {
                 <SwiperSlide>
                   <img src={slide01Pic} alt="Frete Fácil" className="onboarding-page__slide__pic" />
                   <div className="onboarding-page__slide__description">
-                    Adicione os itens do frente
+                    Adicione os itens do frete
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>

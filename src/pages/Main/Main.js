@@ -16,8 +16,8 @@ import config from '../../config'
 import { watchKeyboardVisibility } from '../../actions/virtualKeyboard'
 
 const f7params = {
-  name: 'Owen',
-  id: 'com.efforia.owen',
+  name: 'fretefacil',
+  id: 'com.efforia.fretefacil',
   touch: { fastClicks: true },
   routes
 }
