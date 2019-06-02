@@ -9,13 +9,10 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import { Page } from 'framework7-react'
-
+import { AppPrimaryButton, AppNavbar, AppContent } from '../../components'
 
 import icon from '../../assets/vectors/icon.svg'
 import auth from '../../services/auth'
-
-import PrimaryButton from '../../components/PrimaryButton'
-import Navbar from '../../components/Navbar'
 
 import './NotFound.scss'
 
@@ -49,49 +46,40 @@ class NotFound extends React.Component {
     return (
       <Page className="not-found-page">
         <Helmet title={pageTitle} />
-        <Navbar className="user-info-page__navbar">
+        <AppNavbar className="user-info-page__navbar">
           <div className="app-navbar__left" />
           <div className="app-navbar__center--fullwidth">
             <span className="app-navbar__title" />
           </div>
           <div className="app-navbar__right" />
-        </Navbar>
-        <div className="not-found-page__content">
-          <img className="not-found-page__illustration" src={icon} alt="Logo: Frete Fácil" />
+        </AppNavbar>
+        <AppContent className="not-found-page__content">
+          <img className="not-found-page__illustration" src={icon} alt="Logo" />
           <div className="not-found-page__intro">
             <div className="not-found-page__intro__title">Página não encontrada</div>
             <div className="not-found-page__intro__content">
               Este endereço parece não existir mais no nosso sistema.
             </div>
           </div>
-          <PrimaryButton
+          <AppPrimaryButton
             onClick={() => {
               this.onSubmit()
             }}>
             Voltar
-          </PrimaryButton>
-        </div>
+          </AppPrimaryButton>
+        </AppContent>
       </Page>
     )
   }
 }
 
+/* eslint-disable-next-line */
 const mapStateToProps = state => ({})
 
-const mapDispatchToProps = dispatch => ({
-  
-  
-})
+/* eslint-disable-next-line */
+const mapDispatchToProps = dispatch => ({})
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(NotFound)
-
-/* Leaving those here in case they come back in Figma
-<img className="not-found-page__navbar__ripple bottom-center-left" src={ripples} alt="" />
-<img className="not-found-page__navbar__ripple bottom-center" src={ripples} alt="" />
-<img className="not-found-page__navbar__ripple right" src={ripples} alt="" />
-<img className="not-found-page__navbar__ripple left" src={ripples} alt="" />
-<img className="not-found-page__navbar__ripple top-center" src={ripples} alt="" />
-<img className="not-found-page__navbar__ripple top-center-right" src={ripples} alt="" /> */

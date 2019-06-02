@@ -9,15 +9,7 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import { Page } from 'framework7-react'
-
-import bell from '../../assets/vectors/bell-icon.svg'
-
-import Navbar from '../../components/Navbar'
-
-import {
-  checkGpsState,
-  watchGpsStateChanges
-} from '../../actions/hardware'
+import { AppNavbar, AppContent } from '../../components/index'
 
 import './Home.scss'
 
@@ -31,13 +23,6 @@ class Home extends React.Component {
 
   componentDidMount() {}
 
-  initHardwareIndicators() {
-    this.props.checkBluetoothState()
-    this.props.watchBluetoothStateChanges()
-    this.props.checkGpsState()
-    this.props.watchGpsStateChanges()
-  }
-
   canGoBack() {
     const { f7router } = this.props
     const { history } = f7router
@@ -49,27 +34,22 @@ class Home extends React.Component {
     return (
       <Page className="home-page">
         <Helmet title={pageTitle} />
-        <Navbar className="home-page__navbar">
+        <AppNavbar className="home-page__navbar">
           <div className="app-navbar__left" />
           <div className="app-navbar__center" />
-          <div className="app-navbar__right">
-            <img src={bell} alt="Notificações" />
-          </div>
-        </Navbar>
-        <div className="home-page__content" />
+          <div className="app-navbar__right" />
+        </AppNavbar>
+        <AppContent className="home-page__content" />
       </Page>
     )
   }
 }
 
-const mapStateToProps = state => ({
-  gps: state.hardware.gps
-})
+/* eslint-disable-next-line */
+const mapStateToProps = state => ({})
 
-const mapDispatchToProps = dispatch => ({
-  checkGpsState: dispatch(checkGpsState()),
-  watchGpsStateChanges: dispatch(watchGpsStateChanges())
-})
+/* eslint-disable-next-line */
+const mapDispatchToProps = dispatch => ({})
 
 export default connect(
   mapStateToProps,

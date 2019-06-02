@@ -8,16 +8,13 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
-import { Page, List } from 'framework7-react'
 import isEmpty from 'validator/lib/isEmpty'
+import { Page, List } from 'framework7-react'
+import { AppContent, AppPrimaryButton, AppPrimaryInput, AppNavbar, AppForm } from '../../components'
+
 import { updateRideInCreation } from '../../actions/ride'
 
 import truck from '../../assets/vectors/truck.svg'
-
-import PrimaryButton from '../../components/PrimaryButton'
-import PrimaryInput from '../../components/PrimaryInput'
-import Navbar from '../../components/Navbar'
-import Form from '../../components/Form'
 
 import './CreateRide.scss'
 
@@ -56,20 +53,22 @@ class CreateRide extends React.Component {
     return (
       <Page className="create-ride-page">
         <Helmet title={pageTitle} />
-        <Navbar className="create-ride-page__navbar">
+        <AppNavbar className="create-ride-page__navbar">
           <div className="app-navbar__left" />
           <div className="app-navbar__center app-navbar__title">Novo Frete</div>
           <div className="app-navbar__right" />
-        </Navbar>
-        <div className="create-ride-page__content">
+        </AppNavbar>
+        <AppContent className="create-ride-page__content">
           <div className="create-ride-page__intro">
             <div className="create-ride-page__intro__title">Olá, {user.name.split(' ')[0]}</div>
-            <div className="create-ride-page__intro__content">Precisando de um frete? Deixa a gente te ajudar ;)</div>
+            <div className="create-ride-page__intro__content">
+              Precisando de um frete? Deixa a gente te ajudar ;)
+            </div>
           </div>
           <img className="create-ride-page__illustration" src={truck} alt="" />
           <List className="create-ride-page__form">
-            <Form>
-              <PrimaryInput
+            <AppForm>
+              <AppPrimaryInput
                 value={ride.address}
                 onChange={e => {
                   this.setState({ ride: { ...ride, address: e.target.value } })
@@ -79,17 +78,17 @@ class CreateRide extends React.Component {
                 label="CEP de partida"
                 type="text"
               />
-              <PrimaryButton
+              <AppPrimaryButton
                 disabled={!this.isFormValid()}
                 isLoading={this.state.isLoading}
                 onClick={() => {
                   this.onSubmit()
                 }}>
                 Próximo
-              </PrimaryButton>
-            </Form>
+              </AppPrimaryButton>
+            </AppForm>
           </List>
-        </div>
+        </AppContent>
       </Page>
     )
   }

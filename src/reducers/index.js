@@ -1,36 +1,34 @@
 /**
  * @license MIT
  * @version 1.1.0
- * @author Trinca
+ * @author Leonardo Quevedo
  * @description User controller.
  */
 
 import { combineReducers, createStore, applyMiddleware } from 'redux'
-import { createBlacklistFilter } from 'redux-persist-transform-filter'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 
-import { OWEN_LOCAL_STORAGE } from '../config/consts'
-
+import uiReducers from './ui'
 import userReducers from './user'
-import virtualKeyboard from './virtualKeyboard'
+import rideReducers from './ride'
+import hardwareReducers from './hardware'
+import { FRETE_FACIL_LOCAL_STORAGE } from '../config/consts'
 
 const logger = createLogger()
 
 const appReducer = combineReducers({
+  ui: uiReducers,
   user: userReducers,
-  keyboard: virtualKeyboard
+  ride: rideReducers,
+  hardware: hardwareReducers
 })
 
 const persistConfig = {
-  key: OWEN_LOCAL_STORAGE,
-  storage,
-  transforms: [
-    createBlacklistFilter('vehicle', ['video']),
-    createBlacklistFilter('user', ['currentPicture'])
-  ]
+  key: FRETE_FACIL_LOCAL_STORAGE,
+  storage
 }
 
 const persistedReducer = persistReducer(persistConfig, appReducer)

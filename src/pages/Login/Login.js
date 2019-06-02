@@ -7,19 +7,19 @@
 
 import React from 'react'
 import Helmet from 'react-helmet'
-import { Page, PageContent, List, Link } from 'framework7-react'
 import { connect } from 'react-redux'
 import isEmpty from 'validator/lib/isEmpty'
+import { Page, PageContent, Link } from 'framework7-react'
 
-import PrimaryInput from '../../components/PrimaryInput'
-import PrimaryButton from '../../components/PrimaryButton'
+import { AppContent, AppForm, AppPrimaryInput, AppPrimaryButton } from '../../components'
+
+import authService from '../../services/auth'
+import { authenticate } from '../../actions/auth'
 
 import logo from '../../assets/vectors/icon.svg'
 
 import './Login.scss'
 
-import { authenticate } from '../../actions/auth'
-import authService from '../../services/auth'
 
 class Login extends React.Component {
   constructor(props) {
@@ -68,11 +68,11 @@ class Login extends React.Component {
       <Page className="login-page">
         <Helmet title={pageTitle} />
         <PageContent>
-          <article className="login-page__content">
-            <List className="login-page__form">
+          <AppContent className="login-page__content">
+            <AppForm className="login-page__form">
               {/*  <h2 className="login-page__app-title">Frete Fácil</h2>   */}
               <img src={logo} alt="Frete Fácil" className="login-page__logo" />
-              <PrimaryInput
+              <AppPrimaryInput
                 value={user.email}
                 onChange={e => {
                   this.setState({ user: { ...user, email: e.target.value } })
@@ -81,7 +81,7 @@ class Login extends React.Component {
                 label="E-mail"
                 type="email"
               />
-              <PrimaryInput
+              <AppPrimaryInput
                 value={user.password}
                 onChange={e => {
                   this.setState({ user: { ...user, password: e.target.value } })
@@ -89,7 +89,7 @@ class Login extends React.Component {
                 label="Senha"
                 type="password"
               />
-              <PrimaryButton
+              <AppPrimaryButton
                 fill
                 color="primary"
                 disabled={!this.isValidForm()}
@@ -98,7 +98,7 @@ class Login extends React.Component {
                   this.onSubmit()
                 }}>
                 Entrar
-              </PrimaryButton>
+              </AppPrimaryButton>
               <p className="login-page__paragraph">
                 Esqueceu a senha?&nbsp;
                 <Link className="login-page__link" onClick={() => {}}>
@@ -115,8 +115,8 @@ class Login extends React.Component {
                   Cadastre-se
                 </Link>
               </p>
-            </List>
-          </article>
+            </AppForm>
+          </AppContent>
         </PageContent>
       </Page>
     )

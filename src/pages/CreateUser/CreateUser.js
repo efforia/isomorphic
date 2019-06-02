@@ -8,20 +8,18 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
-import { Page, List, Link } from 'framework7-react'
 import moment from 'moment-mini'
 import VMasker from 'vanilla-masker'
 import isEmpty from 'validator/lib/isEmpty'
+import { Page, List, Link } from 'framework7-react'
+
+import { AppPrimaryButton, AppPrimaryInput, AppNavbar, AppForm, AppContent } from '../../components'
+
 import { createProfile } from '../../actions/user'
 
 import arrowIcon from '../../assets/vectors/arrow.svg'
 
 import authService from '../../services/auth'
-
-import PrimaryButton from '../../components/PrimaryButton'
-import PrimaryInput from '../../components/PrimaryInput'
-import Navbar from '../../components/Navbar'
-import Form from '../../components/Form'
 
 import './CreateUser.scss'
 
@@ -102,12 +100,12 @@ class CreateUser extends React.Component {
     return (
       <Page className="create-user-page">
         <Helmet title={pageTitle} />
-        <Navbar className="create-user-page__navbar">
+        <AppNavbar className="create-user-page__navbar">
           <div className="app-navbar__left">{renderBackButton()}</div>
           <div className="app-navbar__center app-navbar__title">Dados pessoais</div>
           <div className="app-navbar__right" />
-        </Navbar>
-        <div className="create-user-page__content">
+        </AppNavbar>
+        <AppContent className="create-user-page__content">
           <div className="create-user-page__intro">
             <div className="create-user-page__intro__title">Cadastro</div>
             <div className="create-user-page__intro__content">
@@ -115,8 +113,8 @@ class CreateUser extends React.Component {
             </div>
           </div>
           <List className="create-user-page__form">
-            <Form>
-              <PrimaryInput
+            <AppForm>
+              <AppPrimaryInput
                 value={user.email}
                 onChange={e => {
                   this.setState({ user: { ...user, email: e.target.value } })
@@ -126,7 +124,7 @@ class CreateUser extends React.Component {
                 label="E-mail"
                 type="email"
               />
-              <PrimaryInput
+              <AppPrimaryInput
                 value={user.password}
                 onChange={e => {
                   this.setState({ user: { ...user, password: e.target.value } })
@@ -135,7 +133,7 @@ class CreateUser extends React.Component {
                 label="Senha"
                 type="password"
               />
-              <PrimaryInput
+              <AppPrimaryInput
                 value={user.name}
                 onChange={e => {
                   this.setState({ user: { ...user, name: e.target.value } })
@@ -143,7 +141,7 @@ class CreateUser extends React.Component {
                 label="Nome Completo"
                 type="text"
               />
-              <PrimaryInput
+              <AppPrimaryInput
                 value={user.phone}
                 onChange={e => {
                   this.setState({
@@ -156,17 +154,17 @@ class CreateUser extends React.Component {
                 label="Telefone"
                 type="tel"
               />
-              <PrimaryButton
+              <AppPrimaryButton
                 disabled={!this.isFormValid()}
                 isLoading={this.state.isLoading}
                 onClick={() => {
                   this.onSubmit()
                 }}>
                 Próximo
-              </PrimaryButton>
-            </Form>
+              </AppPrimaryButton>
+            </AppForm>
           </List>
-        </div>
+        </AppContent>
       </Page>
     )
   }

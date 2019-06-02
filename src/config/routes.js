@@ -1,16 +1,19 @@
 import authService from '../services/auth'
+import redirect from '../services/redirect'
 import config from './index'
 
-import Onboarding from '../pages/Onboarding'
+import Landing from '../pages/Landing'
+import SelectRole from '../pages/SelectRole'
+import CreateUser from '../pages/CreateUser'
+import CreateDriver from '../pages/CreateDriver'
+import SignupFeedback from '../pages/SignupFeedback'
+import Login from '../pages/Login'
+import CreateRide from '../pages/CreateRide'
+import SetRideItems from '../pages/SetRideItems'
+import SetRideDestination from '../pages/SetRideDestination'
 import HomeContainer from '../components/HomeContainer'
-import redirect from '../services/redirect'
-import AddEntry from '../pages/AddEntry'
-import AddHighEntry from '../pages/AddHighEntry'
-import AddLowEntry from '../pages/AddLowEntry'
-import AddMidEntry from '../pages/AddMidEntry'
-import DefineEntryMood from '../pages/DefineEntryMood/DefineEntryMood';
 
-const checkAuth = (to, from, resolve, reject) => {
+const checkAuth = (to, from, resolve) => {
   if (authService.isLoggedIn()) {
     resolve()
   } else {
@@ -19,46 +22,58 @@ const checkAuth = (to, from, resolve, reject) => {
 }
 
 const routes = [
+  // --- Mobile pages
   {
-    path: '/onboarding',
-    name: 'Onboarding',
-    component: Onboarding
+    path: '/login',
+    name: 'Login',
+    component: Login
   },
   {
     path: '/home',
     name: 'Home',
     component: HomeContainer,
-    beforeEnter: config.enableRouteGuards ? checkAuth : null
+    beforeEnter: [checkAuth]
+  },
+  // --- Web pages
+  {
+    path: '/landing',
+    name: 'Landing',
+    component: Landing
   },
   {
-    path: '/add-mood',
-    name: 'AddEntry',
-    component: AddEntry,
-    beforeEnter: config.enableRouteGuards ? checkAuth : null
+    path: '/setup-user',
+    name: 'SelectRole',
+    component: SelectRole
   },
   {
-    path: '/add-mid-mood',
-    name: 'AddMidEntry',
-    component: AddMidEntry,
-    beforeEnter: config.enableRouteGuards ? checkAuth : null
+    path: '/driver-signup',
+    name: 'CreateDriver',
+    component: CreateDriver
   },
   {
-    path: '/add-high-mood',
-    name: 'AddHighEntry',
-    component: AddHighEntry,
-    beforeEnter: config.enableRouteGuards ? checkAuth : null
+    path: '/user-signup',
+    name: 'CreateUser',
+    component: CreateUser
   },
   {
-    path: '/add-low-mood',
-    name: 'AddLowEntry',
-    component: AddLowEntry,
-    beforeEnter: config.enableRouteGuards ? checkAuth : null
+    path: '/welcome',
+    name: 'SignupFeedback',
+    component: SignupFeedback
   },
   {
-    path: '/save-mood',
-    name: 'DefineEntryMood',
-    component: DefineEntryMood,
-    beforeEnter: config.enableRouteGuards ? checkAuth : null
+    path: '/create-ride',
+    name: 'CreateRide',
+    component: CreateRide
+  },
+  {
+    path: '/ride-items',
+    name: 'SetRideItems',
+    component: SetRideItems
+  },
+  {
+    path: '/ride-destination',
+    name: 'SetRideDestination',
+    component: SetRideDestination
   }
 ]
 

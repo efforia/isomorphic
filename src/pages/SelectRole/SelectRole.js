@@ -18,6 +18,7 @@ import Navbar from '../../components/Navbar'
 import Form from '../../components/Form'
 
 import './SelectRole.scss'
+import { AppContent } from '../../components'
 
 class SelectRole extends React.Component {
   constructor(props) {
@@ -54,7 +55,7 @@ class SelectRole extends React.Component {
           <div className="app-navbar__center app-navbar__title">Frete Fácil</div>
           <div className="app-navbar__right" />
         </Navbar>
-        <div className="select-role-page__content">
+        <AppContent className="select-role-page__content">
           <div className="select-role-page__intro">
             <div className="select-role-page__intro__title">Olá!</div>
             <div className="select-role-page__intro__content">
@@ -78,7 +79,7 @@ class SelectRole extends React.Component {
               </PrimaryButton>
             </Form>
           </List>
-        </div>
+        </AppContent>
       </Page>
     )
   }

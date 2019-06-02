@@ -9,12 +9,9 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import { Page } from 'framework7-react'
-
+import { AppPrimaryButton, AppNavbar, AppContent } from '../../components'
 
 import shield from '../../assets/vectors/signup-feedback-shield.svg'
-
-import PrimaryButton from '../../components/PrimaryButton'
-import Navbar from '../../components/Navbar'
 
 import './SignupFeedback.scss'
 
@@ -41,14 +38,14 @@ class SignupFeedback extends React.Component {
     return (
       <Page className="signup-feedback-page">
         <Helmet title={pageTitle} />
-        <Navbar className="user-info-page__navbar">
+        <AppNavbar className="user-info-page__navbar">
           <div className="app-navbar__left" />
           <div className="app-navbar__center--fullwidth">
             <span className="app-navbar__title" />
           </div>
           <div className="app-navbar__right" />
-        </Navbar>
-        <div className="signup-feedback-page__content">
+        </AppNavbar>
+        <AppContent className="signup-feedback-page__content">
           <img
             className="signup-feedback-page__illustration"
             src={shield}
@@ -60,34 +57,25 @@ class SignupFeedback extends React.Component {
               Seu cadastro foi realizado com sucesso
             </div>
           </div>
-          <PrimaryButton
+          <AppPrimaryButton
             onClick={() => {
               this.onSubmit()
             }}>
             Ok, continuar
-          </PrimaryButton>
-        </div>
+          </AppPrimaryButton>
+        </AppContent>
       </Page>
     )
   }
 }
 
+/* eslint-disable-next-line */
 const mapStateToProps = state => ({})
 
-const mapDispatchToProps = dispatch => ({
-  
-  
-})
+/* eslint-disable-next-line */
+const mapDispatchToProps = dispatch => ({})
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(SignupFeedback)
-
-/* Leaving those here in case they come back in Figma
-<img className="signup-feedback-page__navbar__ripple bottom-center-left" src={ripples} alt="" />
-<img className="signup-feedback-page__navbar__ripple bottom-center" src={ripples} alt="" />
-<img className="signup-feedback-page__navbar__ripple right" src={ripples} alt="" />
-<img className="signup-feedback-page__navbar__ripple left" src={ripples} alt="" />
-<img className="signup-feedback-page__navbar__ripple top-center" src={ripples} alt="" />
-<img className="signup-feedback-page__navbar__ripple top-center-right" src={ripples} alt="" /> */
