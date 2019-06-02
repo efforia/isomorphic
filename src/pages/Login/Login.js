@@ -9,7 +9,7 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import isEmpty from 'validator/lib/isEmpty'
-import { Page, PageContent, Link } from 'framework7-react'
+import { Card, Page, PageContent, Link } from 'framework7-react'
 
 import { AppContent, AppForm, AppPrimaryInput, AppPrimaryButton } from '../../components'
 
@@ -69,7 +69,8 @@ class Login extends React.Component {
         <Helmet title={pageTitle} />
         <PageContent>
           <AppContent className="login-page__content">
-            <AppForm className="login-page__form">
+          <Card>
+          <AppForm className="login-page__form">
               {/*  <h2 className="login-page__app-title">Frete Fácil</h2>   */}
               <img src={logo} alt="Frete Fácil" className="login-page__logo" />
               <AppPrimaryInput
@@ -116,6 +117,8 @@ class Login extends React.Component {
                 </Link>
               </p>
             </AppForm>
+          </Card>
+          
           </AppContent>
         </PageContent>
       </Page>

@@ -1,14 +1,12 @@
 /**
  * @license MIT
  * @version 1.1.0
- * @author Trinca
+ * @author Leonardo Quevedo
  * @description Environment configuration.
  */
 
 const dev = {
-  baseUrl: 'https://argo-instant-api-dev.azurewebsites.net',
-  clientUrl: 'https://argo-instant-dev.azurewebsites.net',
-  googleClientId: '1062223728968-387mre46ahm3j30h6mujloottgdsgevt.apps.googleusercontent.com'
+  baseUrl: 'https://fretefacil-dev.herokuapp.com'
 }
 
 const local = {
@@ -17,9 +15,7 @@ const local = {
 }
 
 const prod = {
-  baseUrl: 'https://azup-br-instant-web.azurewebsites.net',
-  clientUrl: 'https://azup-br-instant-app.azurewebsites.net',
-  googleClientId: '1062223728968-387mre46ahm3j30h6mujloottgdsgevt.apps.googleusercontent.com'
+  baseUrl: 'https://fretefacil-prod.herokuapp.com'
 }
 
 const envs = {

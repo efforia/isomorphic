@@ -15,6 +15,7 @@ import uiReducers from './ui'
 import userReducers from './user'
 import rideReducers from './ride'
 import hardwareReducers from './hardware'
+import virtualKeyboardReducers from './virtualKeyboard'
 import { FRETE_FACIL_LOCAL_STORAGE } from '../config/consts'
 
 const logger = createLogger()
@@ -23,7 +24,8 @@ const appReducer = combineReducers({
   ui: uiReducers,
   user: userReducers,
   ride: rideReducers,
-  hardware: hardwareReducers
+  hardware: hardwareReducers,
+  keyboard: virtualKeyboardReducers
 })
 
 const persistConfig = {

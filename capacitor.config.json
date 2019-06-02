@@ -1,6 +1,6 @@
 {
   "appId": "com.efforia.fretefacil",
-  "appName": "Owen",
+  "appName": "Frete Fácil",
   "jsFramework": "react",
   "npmClient": "yarn",
   "webDir": "build",
@@ -17,14 +17,14 @@
     "appcenter": {
       "organization": "Efforia",
       "ios": {
-        "development": "Efforia/Owen-Development",
-        "homolog": "Efforia/Owen-Homolog",
-        "production": "Efforia/Owen"
+        "development": "Efforia/Frete Fácil-Development",
+        "homolog": "Efforia/Frete Fácil-Homolog",
+        "production": "Efforia/Frete Fácil"
       },
       "android": {
-        "development": "Efforia/Owen-Android-Development",
-        "homolog": "Efforia/Owen-Android-Homolog",
-        "production": "Efforia/Owen-Android"
+        "development": "Efforia/Frete Fácil-Android-Development",
+        "homolog": "Efforia/Frete Fácil-Android-Homolog",
+        "production": "Efforia/Frete Fácil-Android"
       }
     }
   }

@@ -31,37 +31,37 @@ class Onboarding extends React.Component {
   componentDidMount() {}
 
   render() {
-    const pageTitle = 'Owen'
+    const pageTitle = 'Frete Fácil'
     return (
       <Page className="onboarding-page">
         <Helmet title={pageTitle} />
         <PageContent>
           <AppContent className="onboarding-page__content">
             <div className="onboarding-page__navbar">
-              <div className="onboarding-page__navbar__title">Owen</div>
+              <div className="onboarding-page__navbar__title">Frete Fácil</div>
             </div>
             <List className="onboarding-page__form">
               <Swiper pagination navigation>
                 <SwiperSlide>
-                  <img src={slide01Pic} alt="Owen" className="onboarding-page__slide__pic" />
+                  <img src={slide01Pic} alt="Frete Fácil" className="onboarding-page__slide__pic" />
                   <div className="onboarding-page__slide__description">
                     Diga como você está se sentindo.
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
-                  <img src={slide02Pic} alt="Owen" className="onboarding-page__slide__pic" />
+                  <img src={slide02Pic} alt="Frete Fácil" className="onboarding-page__slide__pic" />
                   <div className="onboarding-page__slide__description">
                     Mantenha um histórico do seu humor.
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
-                  <img src={slide04Pic} alt="Owen" className="onboarding-page__slide__pic" />
+                  <img src={slide04Pic} alt="Frete Fácil" className="onboarding-page__slide__pic" />
                   <div className="onboarding-page__slide__description">
                     Se desejar, compartilhe com alguém de confiança.
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
-                  <img src={slide03Pic} alt="Owen" className="onboarding-page__slide__pic" />
+                  <img src={slide03Pic} alt="Frete Fácil" className="onboarding-page__slide__pic" />
                   <div className="onboarding-page__slide__description">
                     Fique {/* eslint-disable-next-line */}
                     <a
@@ -82,7 +82,7 @@ class Onboarding extends React.Component {
                 color="primary"
                 onClick={() => {
                   // auth.accessWithGoogle().then(() => {
-                  this.$f7router.navigate({ name: 'Home' })
+                  this.$f7router.navigate({ name: 'Login' })
                   // })
                 }}>
                 <img src={google} alt="" /> Acessar com o Google

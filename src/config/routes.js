@@ -1,17 +1,17 @@
 import authService from '../services/auth'
 import redirect from '../services/redirect'
-import config from './index'
 
 import Landing from '../pages/Landing'
+import Login from '../pages/Login'
+import Onboarding from '../pages/Onboarding'
 import SelectRole from '../pages/SelectRole'
 import CreateUser from '../pages/CreateUser'
 import CreateDriver from '../pages/CreateDriver'
-import SignupFeedback from '../pages/SignupFeedback'
-import Login from '../pages/Login'
 import CreateRide from '../pages/CreateRide'
 import SetRideItems from '../pages/SetRideItems'
 import SetRideDestination from '../pages/SetRideDestination'
 import HomeContainer from '../components/HomeContainer'
+import config from '.'
 
 const checkAuth = (to, from, resolve) => {
   if (authService.isLoggedIn()) {
@@ -22,7 +22,11 @@ const checkAuth = (to, from, resolve) => {
 }
 
 const routes = [
-  // --- Mobile pages
+  {
+    path: '/onboarding',
+    name: 'Onboarding',
+    component: Onboarding
+  },
   {
     path: '/login',
     name: 'Login',
@@ -32,9 +36,8 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: HomeContainer,
-    beforeEnter: [checkAuth]
+    beforeEnter: config.enableRouteGuards ? [checkAuth] : []
   },
-  // --- Web pages
   {
     path: '/landing',
     name: 'Landing',
@@ -54,11 +57,6 @@ const routes = [
     path: '/user-signup',
     name: 'CreateUser',
     component: CreateUser
-  },
-  {
-    path: '/welcome',
-    name: 'SignupFeedback',
-    component: SignupFeedback
   },
   {
     path: '/create-ride',

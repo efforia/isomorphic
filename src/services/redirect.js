@@ -1,8 +1,7 @@
 import authService from './auth'
 
 const getRootPage = () => {
-  const user = authService.getLoggedInUser()
-  if (!user || !user.id) return 'Onboarding'
+  if (!authService.isLoggedIn()) return 'Onboarding'
   return 'Home'
 }
 

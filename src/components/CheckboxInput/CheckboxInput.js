@@ -31,7 +31,7 @@ class AppCheckboxInput extends React.Component {
         disabled={disabled}>
         <Row>
           <Col width={10}>
-            <Checkbox color="deeppurple" checked={checked} />
+            <Checkbox color="orange" checked={checked} />
           </Col>
           <Col width={90}>{children}</Col>
         </Row>

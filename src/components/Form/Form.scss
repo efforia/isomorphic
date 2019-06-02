@@ -1,22 +1,6 @@
 @import '../../theme/variables.scss';
-.app-footer {
-  position: fixed;
-  bottom: 0px;
-  padding: 16px;
-  width: 100%;
-  z-index: 555;
-  .button {
-    max-width: $default-max-width;
-    text-align: center;
-  }
-  &:before {
-    content: ' ';
-    position: absolute;
-    bottom: 0px;
-    display: block;
-    width: 100vw;
-    margin-left: -16px;
-    height: 100%;
-    background: linear-gradient(0deg, white 80%, transparent 100%);
+.app-form {
+  &.list{
+    margin: 0px;
   }
 }
