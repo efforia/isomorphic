@@ -1,7 +1,9 @@
 @font-face { font-family: "Roboto Bold"; src: url("roboto-bold.ttf"); }
 @font-face { font-family: "Roboto"; src: url("roboto.ttf"); }
 
-html, body { overflow-x:hidden; overflow-y:hidden; height:100% }
+html, body { font-family: "Roboto"; overflow-x:hidden; overflow-y:hidden; height:100% }
+h1, h2, h3, h4, h5, h6 { font-family: "Roboto Bold"; }
+
 
 /* Old style from blue frete facil */
 
