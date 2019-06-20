@@ -1,0 +1,3 @@
+[submodule "public/clipper"]
+	path = public/clipper
+	url = ssh://git@gitlab.com/efforia/clipper
